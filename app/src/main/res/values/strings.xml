@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">MediSense</string>
+    
+    <!-- Auth Strings -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register_now">Don\'t have an account? Register now</string>
+    <string name="full_name">Full Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="login_now">Already have an account? Login now</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_instructions">Enter your email and we\'ll send you a link to reset your password.</string>
+    
+    <!-- Dashboard -->
+    <string name="welcome_dashboard">Welcome to MediSense</string>
+    <string name="error_fill_all_fields">Please fill all fields</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
 </resources>
