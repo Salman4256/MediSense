@@ -29,6 +29,10 @@ class DashboardFragment : Fragment() {
         binding.btnHealthRecords.setOnClickListener {
             findNavController().navigate(com.medisense.app.R.id.action_dashboardFragment_to_healthRecordFragment)
         }
+        
+        binding.btnDiseasePrediction.setOnClickListener {
+            findNavController().navigate(com.medisense.app.R.id.action_dashboardFragment_to_predictionFragment)
+        }
     }
 
     override fun onDestroyView() {

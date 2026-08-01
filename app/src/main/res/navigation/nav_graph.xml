@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_healthRecordFragment"
             app:destination="@id/healthRecordFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_predictionFragment"
+            app:destination="@id/predictionFragment" />
     </fragment>
 
     <fragment
@@ -50,5 +53,11 @@
         android:name="com.medisense.app.ui.healthrecord.ui.HealthRecordFragment"
         android:label="Health Record"
         tools:layout="@layout/fragment_health_record" />
+
+    <fragment
+        android:id="@+id/predictionFragment"
+        android:name="com.medisense.app.ui.prediction.ui.PredictionFragment"
+        android:label="Disease Prediction"
+        tools:layout="@layout/fragment_prediction" />
 
 </navigation>

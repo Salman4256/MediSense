@@ -25,9 +25,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Personal Health Records"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_disease_prediction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Disease Prediction"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_health_records" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

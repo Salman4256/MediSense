@@ -37,6 +37,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    
+    androidResources {
+        noCompress.add("tflite")
+    }
 }
 
 dependencies {
@@ -79,6 +83,10 @@ dependencies {
     implementation(libs.io.coil.kt.coil)
     implementation(libs.com.github.philjay.mpandroidchart)
     implementation(libs.com.jakewharton.timber.timber)
+    
+    // ML
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.support)
 
     // Testing
     testImplementation(libs.junit)
