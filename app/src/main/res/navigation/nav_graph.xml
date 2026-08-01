@@ -39,6 +39,16 @@
         android:id="@+id/dashboardFragment"
         android:name="com.medisense.app.ui.dashboard.DashboardFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthRecordFragment"
+            app:destination="@id/healthRecordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/healthRecordFragment"
+        android:name="com.medisense.app.ui.healthrecord.ui.HealthRecordFragment"
+        android:label="Health Record"
+        tools:layout="@layout/fragment_health_record" />
 
 </navigation>
