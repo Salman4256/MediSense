@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Personal Health Records"
+        app:layout_constraintBottom_toTopOf="@+id/btn_disease_prediction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />

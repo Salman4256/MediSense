@@ -1,0 +1,106 @@
+{
+  "Influenza": {
+    "fever": "Fever strongly indicates Influenza.",
+    "cough": "Persistent cough increases probability.",
+    "fatigue": "Fatigue is commonly associated with Influenza.",
+    "body_pain": "Body pain matches historical patterns for this disease.",
+    "chills": "Chills are a common early symptom."
+  },
+  "Common Cold": {
+    "runny_nose": "A runny nose is a primary symptom of a common cold.",
+    "sneezing": "Sneezing frequently occurs with upper respiratory infections.",
+    "cough": "Mild cough often accompanies a cold.",
+    "sore_throat": "Sore throat is a typical early sign of a cold.",
+    "mild_fever": "Mild fever can sometimes present with a cold."
+  },
+  "COVID-19": {
+    "loss_of_smell": "Loss of smell is a highly specific indicator for COVID-19.",
+    "fever": "Fever is a very common symptom.",
+    "breathlessness": "Breathlessness points towards respiratory involvement.",
+    "cough": "Dry cough is a frequent symptom.",
+    "fatigue": "Extreme fatigue is widely reported."
+  },
+  "Viral Fever": {
+    "fever": "High body temperature is the primary indicator.",
+    "fatigue": "Fatigue typically accompanies viral infections.",
+    "headache": "Headaches are common during viral episodes.",
+    "body_pain": "Generalized body aches are a standard symptom.",
+    "chills": "Chills often precede the onset of fever."
+  },
+  "Gastroenteritis": {
+    "vomiting": "Vomiting is a strong indicator of stomach infection.",
+    "diarrhoea": "Diarrhoea points directly to gastrointestinal distress.",
+    "stomach_pain": "Stomach pain is central to this condition.",
+    "nausea": "Nausea frequently precedes vomiting.",
+    "loss_of_appetite": "Loss of appetite is typical with stomach illness."
+  },
+  "Migraine": {
+    "headache": "Severe, throbbing headache is the defining symptom.",
+    "blurred_and_distorted_vision": "Visual aura often accompanies migraines.",
+    "nausea": "Nausea is a common secondary symptom.",
+    "vomiting": "Vomiting can occur during severe episodes.",
+    "dizziness": "Dizziness or vertigo can sometimes be present."
+  },
+  "Malaria": {
+    "chills": "Severe chills (rigors) are a hallmark of Malaria.",
+    "fever": "Cyclical fever is typical for this infection.",
+    "sweating": "Profuse sweating often follows the fever stage.",
+    "headache": "Headaches are common during the fever phase.",
+    "fatigue": "General weakness follows the cyclical attacks."
+  },
+  "Dengue Fever": {
+    "joint_pain": "Severe joint and muscle pain ('breakbone fever') is highly characteristic.",
+    "fever": "Sudden onset of high fever is typical.",
+    "skin_rash": "A characteristic skin rash often appears.",
+    "redness_of_eyes": "Eye pain and redness are frequently reported.",
+    "headache": "Severe headaches are a primary symptom."
+  },
+  "Typhoid": {
+    "high_fever": "Sustained high fever is the primary feature.",
+    "stomach_pain": "Abdominal pain indicates intestinal involvement.",
+    "constipation": "Constipation is common in early stages.",
+    "loss_of_appetite": "Loss of appetite is a general systemic response.",
+    "headache": "Headache frequently accompanies the fever."
+  },
+  "Pneumonia": {
+    "breathlessness": "Difficulty breathing indicates lower respiratory infection.",
+    "chest_pain": "Chest pain, especially when breathing deeply, is characteristic.",
+    "cough": "Coughing, often producing phlegm, is central.",
+    "fever": "Fever indicates an active infection.",
+    "phlegm": "Production of phlegm supports a lung infection diagnosis."
+  },
+  "Allergy": {
+    "sneezing": "Sneezing is a primary allergic response.",
+    "itching": "Itching points strongly to an allergic reaction.",
+    "runny_nose": "Runny nose (allergic rhinitis) is very common.",
+    "skin_rash": "Skin rashes or hives indicate systemic allergy.",
+    "redness_of_eyes": "Red, itchy eyes are a typical symptom."
+  },
+  "Diabetes": {
+    "polyuria": "Frequent urination (polyuria) is a classic sign of high blood sugar.",
+    "excessive_hunger": "Excessive hunger (polyphagia) is a hallmark symptom.",
+    "weight_loss": "Unexplained weight loss can occur despite increased hunger.",
+    "fatigue": "Fatigue results from poor cellular glucose uptake.",
+    "blurred_and_distorted_vision": "Blurred vision can occur due to fluid shifts in the eye."
+  },
+  "Hypertension": {
+    "headache": "Severe headaches can occur with high blood pressure.",
+    "dizziness": "Dizziness is sometimes reported.",
+    "chest_pain": "Chest pain may indicate strain on the heart.",
+    "fast_heart_rate": "Palpitations can accompany high blood pressure.",
+    "breathlessness": "Shortness of breath may occur in severe cases."
+  },
+  "Anemia": {
+    "fatigue": "Fatigue is the most common symptom due to low oxygen transport.",
+    "weakness_in_limbs": "General weakness points to reduced oxygenation.",
+    "dizziness": "Dizziness can result from reduced oxygen to the brain.",
+    "breathlessness": "Shortness of breath, especially on exertion, is typical.",
+    "headache": "Headaches can occasionally occur."
+  },
+  "Urinary Tract Infection": {
+    "burning_micturition": "Burning during urination is a strong indicator of a UTI.",
+    "bladder_discomfort": "Discomfort or pain in the lower abdomen is common.",
+    "continuous_feel_of_urine": "A persistent urge to urinate is a hallmark symptom.",
+    "fever": "Fever indicates the infection may be spreading."
+  }
+}

@@ -58,6 +58,29 @@
         android:id="@+id/predictionFragment"
         android:name="com.medisense.app.ui.prediction.ui.PredictionFragment"
         android:label="Disease Prediction"
-        tools:layout="@layout/fragment_prediction" />
+        tools:layout="@layout/fragment_prediction">
+        <action
+            android:id="@+id/action_predictionFragment_to_predictionDetailsFragment"
+            app:destination="@id/predictionDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/predictionDetailsFragment"
+        android:name="com.medisense.app.ui.explanation.ui.PredictionDetailsFragment"
+        android:label="Prediction Details"
+        tools:layout="@layout/fragment_prediction_details">
+        <argument
+            android:name="diseaseName"
+            app:argType="string" />
+        <argument
+            android:name="confidence"
+            app:argType="float" />
+        <argument
+            android:name="predictionId"
+            app:argType="integer" />
+        <argument
+            android:name="selectedSymptoms"
+            app:argType="string[]" />
+    </fragment>
 
 </navigation>

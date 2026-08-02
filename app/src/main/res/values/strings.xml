@@ -25,4 +25,23 @@
     <string name="blood_group">Blood Group</string>
     <string name="height">Height (cm)</string>
     <string name="weight">Weight (kg)</string>
+
+    <!-- Disease Prediction Module -->
+    <string name="prediction_title">Disease Prediction</string>
+    <string name="prediction_search_hint">Search symptoms…</string>
+    <string name="prediction_symptoms_label">Select Symptoms</string>
+    <string name="prediction_no_symptoms_selected">No symptoms selected</string>
+    <string name="prediction_predict_button">Predict Disease</string>
+    <string name="prediction_results_title">Top Predictions</string>
+    <string name="prediction_analyzing">Analyzing symptoms…</string>
+    <string name="prediction_error_no_symptoms">Please select at least one symptom before predicting.</string>
+    <string name="prediction_error_generic">An error occurred. Please try again.</string>
+    <string name="prediction_saved">Prediction saved locally.</string>
+
+    <plurals name="prediction_symptoms_selected">
+        <item quantity="one">%d symptom selected</item>
+        <item quantity="other">%d symptoms selected</item>
+    </plurals>
+
 </resources>
+
