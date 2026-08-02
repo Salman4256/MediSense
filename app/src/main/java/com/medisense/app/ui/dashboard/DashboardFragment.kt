@@ -30,6 +30,13 @@ class DashboardFragment : Fragment() {
         setupHealthRecordsButton()
         setupDiseasePredictionButton()
         setupHealthAssistantButton()
+        setupProfileNavigation()
+    }
+
+    private fun setupProfileNavigation() {
+        binding.tvWelcome.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_profileFragment)
+        }
     }
 
     private fun setupHealthRecordsButton() {

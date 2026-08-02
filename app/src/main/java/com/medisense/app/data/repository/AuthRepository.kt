@@ -29,7 +29,7 @@ class AuthRepository @Inject constructor(
             "createdAt" to System.currentTimeMillis()
         )
         
-        firestore.collection("users")
+        firestore.collection("profiles")
             .document(uid)
             .set(userMap)
             .await()

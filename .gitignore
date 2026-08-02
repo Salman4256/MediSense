@@ -24,3 +24,9 @@ Thumbs.db
 
 # Firebase
 google-services.json
+
+# Secrets & Keys
+secrets.properties
+*.keystore
+*.jks
+.env
