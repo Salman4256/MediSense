@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.medisense.app.R
 import com.medisense.app.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,12 +27,26 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
+        setupHealthRecordsButton()
+        setupDiseasePredictionButton()
+        setupHealthAssistantButton()
+    }
+
+    private fun setupHealthRecordsButton() {
         binding.btnHealthRecords.setOnClickListener {
-            findNavController().navigate(com.medisense.app.R.id.action_dashboardFragment_to_healthRecordFragment)
+            findNavController().navigate(R.id.action_dashboardFragment_to_healthRecordFragment)
         }
-        
+    }
+
+    private fun setupDiseasePredictionButton() {
         binding.btnDiseasePrediction.setOnClickListener {
-            findNavController().navigate(com.medisense.app.R.id.action_dashboardFragment_to_predictionFragment)
+            findNavController().navigate(R.id.action_dashboardFragment_to_predictionFragment)
+        }
+    }
+
+    private fun setupHealthAssistantButton() {
+        binding.btnHealthAssistant.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_healthAssistantFragment)
         }
     }
 
