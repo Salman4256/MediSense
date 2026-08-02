@@ -47,11 +47,13 @@
             android:id="@+id/action_dashboardFragment_to_predictionFragment"
             app:destination="@id/predictionFragment" />
         <action
-            android:id="@+id/action_dashboardFragment_to_healthAssistantFragment"
-            app:destination="@id/healthAssistantFragment" />
-        <action
             android:id="@+id/action_dashboardFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -65,55 +67,6 @@
         android:name="com.medisense.app.ui.prediction.ui.PredictionFragment"
         android:label="Disease Prediction"
         tools:layout="@layout/fragment_prediction">
-        <action
-            android:id="@+id/action_predictionFragment_to_predictionDetailsFragment"
-            app:destination="@id/predictionDetailsFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/predictionDetailsFragment"
-        android:name="com.medisense.app.ui.explanation.ui.PredictionDetailsFragment"
-        android:label="Prediction Details"
-        tools:layout="@layout/fragment_prediction_details">
-        <argument
-            android:name="diseaseName"
-            app:argType="string" />
-        <argument
-            android:name="confidence"
-            app:argType="float" />
-        <argument
-            android:name="predictionId"
-            app:argType="integer" />
-        <argument
-            android:name="selectedSymptoms"
-            app:argType="string[]" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/healthAssistantFragment"
-        android:name="com.medisense.app.ui.assistant.ui.HealthAssistantFragment"
-        android:label="AI Health Assistant"
-        tools:layout="@layout/fragment_health_assistant">
-        <argument
-            android:name="sessionId"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_healthAssistantFragment_to_chatHistoryFragment"
-            app:destination="@id/chatHistoryFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/chatHistoryFragment"
-        android:name="com.medisense.app.ui.assistant.ui.ChatHistoryFragment"
-        android:label="Chat History"
-        tools:layout="@layout/fragment_chat_history">
-        <action
-            android:id="@+id/action_chatHistoryFragment_to_healthAssistantFragment"
-            app:destination="@id/healthAssistantFragment"
-            app:popUpTo="@id/chatHistoryFragment"
-            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

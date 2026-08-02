@@ -94,6 +94,8 @@
             app:trackColor="?attr/colorSurfaceVariant"
             tools:progress="91" />
 
+        <include layout="@layout/item_explanation" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

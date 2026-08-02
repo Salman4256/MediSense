@@ -20,7 +20,8 @@ import javax.inject.Singleton
 class PredictionRepository @Inject constructor(
     private val predictionDao: PredictionDao,
     private val diseasePredictor: DiseasePredictor,
-    private val firebaseAuthService: com.medisense.app.data.remote.firebase.FirebaseAuthService
+    private val firebaseAuthService: com.medisense.app.data.remote.firebase.FirebaseAuthService,
+    private val explanationEngine: com.medisense.app.ml.xai.ExplanationEngine
 ) {
 
     // -------------------------------------------------------------------------
@@ -43,23 +44,32 @@ class PredictionRepository @Inject constructor(
      *
      * All work is done locally — no network call is made.
      */
-    suspend fun predictDisease(selectedSymptoms: List<String>): Pair<Long, List<PredictionResult>> {
+    suspend fun predictDisease(selectedSymptoms: List<String>): Triple<Long, List<PredictionResult>, com.medisense.app.ml.xai.ExplanationResult?> {
         val results = diseasePredictor.predict(selectedSymptoms)
         var predictionId = -1L
+        var explanationResult: com.medisense.app.ml.xai.ExplanationResult? = null
 
         if (results.isNotEmpty()) {
             val topDisease = results.first()
+            explanationResult = explanationEngine.generateExplanation(
+                diseaseName = topDisease.diseaseName,
+                selectedSymptoms = selectedSymptoms,
+                confidence = topDisease.confidence
+            )
+
             val entity = PredictionEntity(
                 userId = getCurrentUserId(),
                 selectedSymptoms = selectedSymptoms.joinToString(","),
                 topDisease = topDisease.diseaseName,
                 confidence = topDisease.confidence,
-                pendingSync = true   // Ready for future Supabase sync
+                pendingSync = true,
+                explanation = explanationResult.explanationText,
+                contributingSymptoms = explanationResult.contributingSymptoms.joinToString(",")
             )
             predictionId = predictionDao.insertPrediction(entity)
         }
 
-        return Pair(predictionId, results)
+        return Triple(predictionId, results, explanationResult)
     }
 
     // -------------------------------------------------------------------------
@@ -89,7 +99,7 @@ class PredictionRepository @Inject constructor(
     /**
      * Returns the actual user ID from the Firebase auth session.
      */
-    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUserId() ?: "local-user"
+    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUser()?.uid ?: "local-user"
 
 
     companion object {

@@ -32,6 +32,8 @@
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="88dp"
+        android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -110,20 +112,7 @@
                 app:chipSpacingHorizontal="8dp"
                 app:chipSpacingVertical="8dp" />
 
-            <!-- Predict Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_predict"
-                style="@style/Widget.Material3.Button"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="24dp"
-                android:enabled="false"
-                android:text="@string/prediction_predict_button"
-                android:textAppearance="?attr/textAppearanceLabelLarge"
-                app:cornerRadius="16dp"
-                app:icon="@android:drawable/ic_menu_search"
-                app:iconGravity="textStart"
-                app:iconPadding="8dp" />
+            <!-- Predict Button moved outside to be fixed at bottom -->
 
             <!-- Results Group (hidden until prediction runs) -->
             <LinearLayout
@@ -180,5 +169,22 @@
             android:textColor="?attr/colorOnSurfaceVariant" />
 
     </LinearLayout>
+
+    <!-- Fixed Predict Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_predict"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="16dp"
+        android:enabled="false"
+        android:text="@string/prediction_predict_button"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        app:cornerRadius="16dp"
+        app:icon="@android:drawable/ic_menu_search"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

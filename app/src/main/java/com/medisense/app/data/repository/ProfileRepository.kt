@@ -13,8 +13,10 @@ class ProfileRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
 
+    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUser()?.uid ?: "local-user"
+
     suspend fun getUserProfile(): Map<String, Any>? {
-        val uid = firebaseAuthService.getCurrentUserId() ?: return null
+        val uid = getCurrentUserId()
         
         return try {
             // Try to fetch from server or cache

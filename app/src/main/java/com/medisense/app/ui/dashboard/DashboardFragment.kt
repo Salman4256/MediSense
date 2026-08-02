@@ -27,10 +27,27 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
+        setupToolbar()
         setupHealthRecordsButton()
         setupDiseasePredictionButton()
-        setupHealthAssistantButton()
         setupProfileNavigation()
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_profile -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_profileFragment)
+                    true
+                }
+                R.id.action_logout -> {
+                    com.google.firebase.auth.FirebaseAuth.getInstance().signOut()
+                    findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun setupProfileNavigation() {
@@ -48,12 +65,6 @@ class DashboardFragment : Fragment() {
     private fun setupDiseasePredictionButton() {
         binding.btnDiseasePrediction.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_predictionFragment)
-        }
-    }
-
-    private fun setupHealthAssistantButton() {
-        binding.btnHealthAssistant.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboardFragment_to_healthAssistantFragment)
         }
     }
 

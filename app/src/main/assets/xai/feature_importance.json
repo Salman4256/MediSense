@@ -1,106 +1,227 @@
 {
-  "Influenza": {
-    "fever": 0.4,
-    "cough": 0.3,
-    "fatigue": 0.15,
-    "body_pain": 0.1,
-    "chills": 0.05
+  "fungal infection": {
+    "itching": 0.40,
+    "skin_rash": 0.35,
+    "nodal_skin_eruptions": 0.25
   },
-  "Common Cold": {
-    "runny_nose": 0.4,
-    "sneezing": 0.3,
-    "cough": 0.15,
-    "sore_throat": 0.1,
-    "mild_fever": 0.05
+  "allergy": {
+    "continuous_sneezing": 0.40,
+    "shivering": 0.20,
+    "watering_from_eyes": 0.20,
+    "chills": 0.20
   },
-  "COVID-19": {
-    "loss_of_smell": 0.35,
-    "fever": 0.25,
-    "breathlessness": 0.2,
-    "cough": 0.15,
-    "fatigue": 0.05
+  "gerd": {
+    "indigestion": 0.40,
+    "chest_pain": 0.30,
+    "vomiting": 0.20,
+    "acidity": 0.10
   },
-  "Viral Fever": {
-    "fever": 0.5,
-    "fatigue": 0.2,
-    "headache": 0.15,
-    "body_pain": 0.1,
-    "chills": 0.05
+  "chronic cholestasis": {
+    "itching": 0.35,
+    "yellowish_skin": 0.30,
+    "dark_urine": 0.20,
+    "nausea": 0.15
   },
-  "Gastroenteritis": {
-    "vomiting": 0.3,
-    "diarrhoea": 0.3,
-    "stomach_pain": 0.2,
-    "nausea": 0.15,
-    "loss_of_appetite": 0.05
+  "drug reaction": {
+    "skin_rash": 0.40,
+    "itching": 0.35,
+    "stomach_pain": 0.25
   },
-  "Migraine": {
-    "headache": 0.5,
-    "blurred_and_distorted_vision": 0.2,
-    "nausea": 0.15,
-    "vomiting": 0.1,
-    "dizziness": 0.05
+  "peptic ulcer diseae": {
+    "vomiting": 0.35,
+    "indigestion": 0.35,
+    "abdominal_pain": 0.30
   },
-  "Malaria": {
-    "chills": 0.4,
-    "fever": 0.3,
-    "sweating": 0.15,
-    "headache": 0.1,
-    "fatigue": 0.05
+  "aids": {
+    "fatigue": 0.35,
+    "weight_loss": 0.30,
+    "diarrhoea": 0.20,
+    "muscle_wasting": 0.15
   },
-  "Dengue Fever": {
-    "joint_pain": 0.35,
-    "fever": 0.3,
-    "skin_rash": 0.15,
-    "redness_of_eyes": 0.1,
-    "headache": 0.1
-  },
-  "Typhoid": {
-    "high_fever": 0.4,
-    "stomach_pain": 0.2,
-    "constipation": 0.2,
-    "loss_of_appetite": 0.1,
-    "headache": 0.1
-  },
-  "Pneumonia": {
-    "breathlessness": 0.35,
-    "chest_pain": 0.3,
-    "cough": 0.2,
-    "fever": 0.1,
-    "phlegm": 0.05
-  },
-  "Allergy": {
-    "sneezing": 0.3,
-    "itching": 0.3,
-    "runny_nose": 0.2,
-    "skin_rash": 0.1,
-    "redness_of_eyes": 0.1
-  },
-  "Diabetes": {
+  "diabetes": {
     "polyuria": 0.35,
-    "excessive_hunger": 0.25,
-    "weight_loss": 0.2,
-    "fatigue": 0.1,
-    "blurred_and_distorted_vision": 0.1
+    "excessive_hunger": 0.30,
+    "increased_appetite": 0.20,
+    "fatigue": 0.15
   },
-  "Hypertension": {
+  "gastroenteritis": {
+    "vomiting": 0.40,
+    "diarrhoea": 0.35,
+    "abdominal_pain": 0.25
+  },
+  "bronchial asthma": {
+    "breathlessness": 0.45,
+    "cough": 0.30,
+    "fatigue": 0.25
+  },
+  "hypertension": {
     "headache": 0.35,
-    "dizziness": 0.25,
-    "chest_pain": 0.2,
-    "fast_heart_rate": 0.1,
-    "breathlessness": 0.1
+    "dizziness": 0.30,
+    "chest_pain": 0.25,
+    "fatigue": 0.10
   },
-  "Anemia": {
-    "fatigue": 0.4,
-    "weakness_in_limbs": 0.3,
-    "dizziness": 0.15,
-    "breathlessness": 0.1,
-    "headache": 0.05
+  "migraine": {
+    "headache": 0.50,
+    "nausea": 0.25,
+    "blurred_and_distorted_vision": 0.25
   },
-  "Urinary Tract Infection": {
-    "burning_micturition": 0.4,
-    "bladder_discomfort": 0.3,
-    "continuous_feel_of_urine": 0.2,
-    "fever": 0.1
+  "cervical spondylosis": {
+    "neck_pain": 0.40,
+    "dizziness": 0.30,
+    "loss_of_balance": 0.30
+  },
+  "paralysis (brain hemorrhage)": {
+    "weakness_of_one_body_side": 0.45,
+    "altered_sensorium": 0.30,
+    "vomiting": 0.25
+  },
+  "jaundice": {
+    "yellowish_skin": 0.40,
+    "dark_urine": 0.30,
+    "fatigue": 0.20,
+    "yellowing_of_eyes": 0.10
+  },
+  "malaria": {
+    "high_fever": 0.40,
+    "chills": 0.30,
+    "sweating": 0.20,
+    "headache": 0.10
+  },
+  "chicken pox": {
+    "itching": 0.30,
+    "blister": 0.30,
+    "skin_rash": 0.25,
+    "mild_fever": 0.15
+  },
+  "dengue": {
+    "high_fever": 0.35,
+    "pain_behind_the_eyes": 0.25,
+    "joint_pain": 0.25,
+    "skin_rash": 0.15
+  },
+  "typhoid": {
+    "high_fever": 0.40,
+    "abdominal_pain": 0.25,
+    "headache": 0.20,
+    "vomiting": 0.15
+  },
+  "hepatitis a": {
+    "yellowing_of_eyes": 0.35,
+    "fatigue": 0.30,
+    "abdominal_pain": 0.25,
+    "dark_urine": 0.10
+  },
+  "hepatitis b": {
+    "fatigue": 0.35,
+    "yellowish_skin": 0.30,
+    "abdominal_pain": 0.25,
+    "dark_urine": 0.10
+  },
+  "hepatitis c": {
+    "fatigue": 0.40,
+    "yellowing_of_eyes": 0.30,
+    "nausea": 0.30
+  },
+  "hepatitis d": {
+    "fatigue": 0.45,
+    "yellowish_skin": 0.30,
+    "abdominal_pain": 0.25
+  },
+  "hepatitis e": {
+    "yellowing_of_eyes": 0.40,
+    "fatigue": 0.30,
+    "abdominal_pain": 0.30
+  },
+  "alcoholic hepatitis": {
+    "vomiting": 0.35,
+    "yellowish_skin": 0.35,
+    "abdominal_pain": 0.30
+  },
+  "tuberculosis": {
+    "cough": 0.35,
+    "blood_in_sputum": 0.30,
+    "fatigue": 0.20,
+    "sweating": 0.15
+  },
+  "common cold": {
+    "continuous_sneezing": 0.35,
+    "runny_nose": 0.30,
+    "throat_irritation": 0.25,
+    "cough": 0.10
+  },
+  "pneumonia": {
+    "chest_pain": 0.35,
+    "high_fever": 0.30,
+    "phlegm": 0.25,
+    "breathlessness": 0.10
+  },
+  "dimorphic hemmorhoids(piles)": {
+    "pain_in_anal_region": 0.40,
+    "bloody_stool": 0.35,
+    "constipation": 0.25
+  },
+  "heart attack": {
+    "chest_pain": 0.45,
+    "sweating": 0.30,
+    "breathlessness": 0.25
+  },
+  "varicose veins": {
+    "swollen_legs": 0.40,
+    "prominent_veins_on_calf": 0.40,
+    "fatigue": 0.20
+  },
+  "hypothyroidism": {
+    "fatigue": 0.35,
+    "weight_gain": 0.30,
+    "brittle_nails": 0.20,
+    "cold_hands_and_feets": 0.15
+  },
+  "hyperthyroidism": {
+    "fast_heart_rate": 0.35,
+    "weight_loss": 0.30,
+    "sweating": 0.20,
+    "anxiety": 0.15
+  },
+  "hypoglycemia": {
+    "anxiety": 0.35,
+    "sweating": 0.30,
+    "vomiting": 0.25,
+    "fatigue": 0.10
+  },
+  "osteoarthristis": {
+    "knee_pain": 0.40,
+    "hip_joint_pain": 0.35,
+    "swelling_joints": 0.25
+  },
+  "arthritis": {
+    "swelling_joints": 0.40,
+    "painful_walking": 0.30,
+    "movement_stiffness": 0.30
+  },
+  "(vertigo) paroymsal  positional vertigo": {
+    "dizziness": 0.45,
+    "loss_of_balance": 0.30,
+    "spinning_movements": 0.25
+  },
+  "acne": {
+    "pus_filled_pimples": 0.40,
+    "blackheads": 0.35,
+    "skin_rash": 0.25
+  },
+  "urinary tract infection": {
+    "burning_micturition": 0.40,
+    "bladder_discomfort": 0.30,
+    "continuous_feel_of_urine": 0.30
+  },
+  "psoriasis": {
+    "skin_rash": 0.35,
+    "silver_like_dusting": 0.30,
+    "small_dents_in_nails": 0.25,
+    "inflammatory_nails": 0.10
+  },
+  "impetigo": {
+    "blister": 0.40,
+    "red_sore_around_nose": 0.35,
+    "yellow_crust_ooze": 0.25
   }
 }
