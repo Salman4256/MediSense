@@ -29,6 +29,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         
         buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY") ?: ""}\"")
+        buildConfigField("String", "GROQ_API_KEY", "\"${localProperties.getProperty("GROQ_API_KEY") ?: ""}\"")
     }
 
     buildTypes {
@@ -54,6 +55,12 @@ android {
     
     androidResources {
         noCompress.add("tflite")
+    }
+    
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
@@ -108,6 +115,9 @@ dependencies {
 
     // Markdown
     implementation(libs.markwon.core)
+
+    // Gemini
+    implementation(libs.generativeai)
 
     // Testing
     testImplementation(libs.junit)

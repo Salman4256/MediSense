@@ -43,5 +43,16 @@
         <item quantity="other">%d symptoms selected</item>
     </plurals>
 
+    <!-- AI Health Assistant Module -->
+    <string name="ai_assistant_title">AI Health Assistant</string>
+    <string name="ai_disclaimer">Disclaimer: This AI assistant is for educational purposes only and does not provide medical diagnosis or treatment. Always consult a qualified healthcare professional.</string>
+    <string name="ai_offline_warning">Internet connection required for AI Assistant.</string>
+    <string name="ai_offline_toast">Offline Mode: Chat history is available.</string>
+    <string name="ai_typing">AI is typing...</string>
+    <string name="ai_hint">Ask a health question...</string>
+    <string name="ai_clear_chat">Clear Chat</string>
+    <string name="ai_about">About</string>
+    <string name="ai_about_title">About AI Health Assistant</string>
+
 </resources>
 

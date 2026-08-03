@@ -30,6 +30,7 @@ class DashboardFragment : Fragment() {
         setupToolbar()
         setupHealthRecordsButton()
         setupDiseasePredictionButton()
+        setupAiAssistantButton()
         setupProfileNavigation()
     }
 
@@ -65,6 +66,12 @@ class DashboardFragment : Fragment() {
     private fun setupDiseasePredictionButton() {
         binding.btnDiseasePrediction.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_predictionFragment)
+        }
+    }
+
+    private fun setupAiAssistantButton() {
+        binding.btnAiAssistant.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_aiAssistantFragment)
         }
     }
 

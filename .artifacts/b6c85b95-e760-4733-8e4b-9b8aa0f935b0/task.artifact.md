@@ -1,4 +1,0 @@
-- [x] Update Hilt version to 2.60.1 in `libs.versions.toml`
-- [/] Run `./gradlew clean` to clear stale build artifacts
-- [ ] Run `./gradlew :app:kspDebugKotlin` to verify the fix
-- [ ] Verify full build with `./gradlew assembleDebug`

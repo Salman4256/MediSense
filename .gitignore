@@ -30,3 +30,6 @@ secrets.properties
 *.keystore
 *.jks
 .env
+
+# AI Artifacts
+.artifacts/

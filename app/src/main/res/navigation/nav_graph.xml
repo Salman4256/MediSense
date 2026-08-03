@@ -54,6 +54,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_aiAssistantFragment"
+            app:destination="@id/aiAssistantFragment" />
     </fragment>
 
     <fragment
@@ -80,5 +83,12 @@
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/aiAssistantFragment"
+        android:name="com.medisense.app.ui.assistant.ui.AiAssistantFragment"
+        android:label="AI Health Assistant"
+        tools:layout="@layout/fragment_ai_assistant" />
 
 </navigation>

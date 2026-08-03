@@ -1,5 +1,0 @@
-- [x] Fix symptom selection persistence in `PredictionFragment.kt`
-- [x] Align `feature_importance.json` keys with model labels and symptoms
-- [x] Align `disease_rules.json` keys with model labels
-- [x] Ensure `ExplanationEngine.kt` and `PredictionViewModel.kt` handle states correctly
-- [x] Verify prediction flow and XAI display
