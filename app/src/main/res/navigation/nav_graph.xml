@@ -61,8 +61,8 @@
             android:id="@+id/action_dashboardFragment_to_healthRecordFragment"
             app:destination="@id/healthRecordFragment" />
         <action
-            android:id="@+id/action_dashboardFragment_to_predictionFragment"
-            app:destination="@id/predictionFragment" />
+            android:id="@+id/action_dashboardFragment_to_diseasePredictionFragment"
+            app:destination="@id/diseasePredictionFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -86,20 +86,20 @@
         tools:layout="@layout/fragment_health_record" />
 
     <fragment
-        android:id="@+id/predictionFragment"
-        android:name="com.medisense.app.ui.prediction.ui.PredictionFragment"
+        android:id="@+id/diseasePredictionFragment"
+        android:name="com.medisense.app.ui.prediction.ui.DiseasePredictionFragment"
         android:label="Disease Prediction"
-        tools:layout="@layout/fragment_prediction">
+        tools:layout="@layout/fragment_disease_prediction">
         <action
-            android:id="@+id/action_predictionFragment_to_predictionDetailsFragment"
-            app:destination="@id/predictionDetailsFragment" />
+            android:id="@+id/action_diseasePredictionFragment_to_predictionResultFragment"
+            app:destination="@id/predictionResultFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/predictionDetailsFragment"
-        android:name="com.medisense.app.ui.prediction.ui.PredictionDetailsFragment"
-        android:label="Prediction Details"
-        tools:layout="@layout/fragment_prediction_details" />
+        android:id="@+id/predictionResultFragment"
+        android:name="com.medisense.app.ui.prediction.ui.PredictionResultFragment"
+        android:label="Prediction Results"
+        tools:layout="@layout/fragment_prediction_result" />
 
     <fragment
         android:id="@+id/profileFragment"

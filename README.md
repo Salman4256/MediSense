@@ -22,6 +22,12 @@ MediSense is an AI-powered personal healthcare assistant designed for explainabl
   - **Additional Info:** Custom notes.
 - **Input Validation:** Restricts future dates for birth, enforces positive height/weight bounds, and matches emergency numbers to phone pattern formatting.
 
+### Module 3: Symptom-Based Disease Prediction (Completed)
+- **Local TFLite Inference:** Integrates `DiseasePredictionModel.tflite` for completely offline machine learning inference. Uses Google's modern LiteRT SDK framework.
+- **Dynamic Symptoms Catalog:** Loads the symptom catalog (`symptoms.json`) and label mappings (`labels.json`) directly from assets.
+- **Symptom Search & Checklists:** Designed a searchable checkboxes list to select symptoms, dynamically tracking selection count with a "Clear All" action.
+- **Ranked Predictions Screen:** Renders the primary suspected condition in an accented card, details secondary conditions descending by probability, maps selected symptoms as Chips, and incorporates a prominent medical disclaimer card for safety.
+
 ---
 
 ## 🛠️ Setup Instructions
@@ -52,4 +58,5 @@ This script will:
 - **Dependency Injection:** Hilt
 - **Local DB:** Room
 - **Cloud Database:** Supabase PostgreSQL
+- **On-Device Inference:** TensorFlow Lite / Google LiteRT
 - **Layouts:** View Binding (XML)

@@ -101,7 +101,7 @@ class DashboardFragment : Fragment() {
 
     private fun setupDiseasePredictionButton() {
         binding.btnDiseasePrediction.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboardFragment_to_predictionFragment)
+            findNavController().navigate(R.id.action_dashboardFragment_to_diseasePredictionFragment)
         }
     }
 
