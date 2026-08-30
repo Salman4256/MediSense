@@ -1,2 +1,4 @@
 *
 !.gitignore
+!SupabaseModule.kt
+!DatabaseModule.kt

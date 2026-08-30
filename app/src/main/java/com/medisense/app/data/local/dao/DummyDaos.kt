@@ -9,9 +9,6 @@ interface ChatMessageDao
 interface ExplanationDao
 
 @Dao
-interface HealthProfileDao
-
-@Dao
 interface MedicationDao
 
 @Dao
