@@ -56,7 +56,10 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_dashboardFragment_to_aiAssistantFragment"
-            app:destination="@id/aiAssistantFragment" />
+            app:destination="@id/healthAssistantFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_medicationListFragment"
+            app:destination="@id/medicationListFragment" />
     </fragment>
 
     <fragment
@@ -70,7 +73,16 @@
         android:name="com.medisense.app.ui.prediction.ui.PredictionFragment"
         android:label="Disease Prediction"
         tools:layout="@layout/fragment_prediction">
+        <action
+            android:id="@+id/action_predictionFragment_to_predictionDetailsFragment"
+            app:destination="@id/predictionDetailsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/predictionDetailsFragment"
+        android:name="com.medisense.app.ui.prediction.ui.PredictionDetailsFragment"
+        android:label="Prediction Details"
+        tools:layout="@layout/fragment_prediction_details" />
 
     <fragment
         android:id="@+id/profileFragment"
@@ -84,11 +96,49 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/healthAssistantFragment"
+        android:name="com.medisense.app.ui.assistant.ui.HealthAssistantFragment"
+        android:label="AI Health Assistant"
+        tools:layout="@layout/fragment_health_assistant">
+        <action
+            android:id="@+id/action_healthAssistantFragment_to_chatHistoryFragment"
+            app:destination="@id/chatHistoryFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/aiAssistantFragment"
-        android:name="com.medisense.app.ui.assistant.ui.AiAssistantFragment"
-        android:label="AI Health Assistant"
-        tools:layout="@layout/fragment_ai_assistant" />
+        android:id="@+id/chatHistoryFragment"
+        android:name="com.medisense.app.ui.assistant.ui.ChatHistoryFragment"
+        android:label="Chat History"
+        tools:layout="@layout/fragment_chat_history">
+        <action
+            android:id="@+id/action_chatHistoryFragment_to_healthAssistantFragment"
+            app:destination="@id/healthAssistantFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/medicationListFragment"
+        android:name="com.medisense.app.ui.medication.ui.MedicationListFragment"
+        android:label="Medication Reminders"
+        tools:layout="@layout/fragment_medication_list">
+        <action
+            android:id="@+id/action_medicationListFragment_to_addEditMedicationFragment"
+            app:destination="@id/addEditMedicationFragment" />
+        <action
+            android:id="@+id/action_medicationListFragment_to_medicationHistoryFragment"
+            app:destination="@id/medicationHistoryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditMedicationFragment"
+        android:name="com.medisense.app.ui.medication.ui.AddEditMedicationFragment"
+        android:label="Add / Edit Medication"
+        tools:layout="@layout/fragment_add_edit_medication" />
+
+    <fragment
+        android:id="@+id/medicationHistoryFragment"
+        android:name="com.medisense.app.ui.medication.ui.MedicationHistoryFragment"
+        android:label="Medication History"
+        tools:layout="@layout/fragment_medication_history" />
 
 </navigation>

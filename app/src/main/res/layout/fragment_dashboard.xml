@@ -61,9 +61,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="AI Health Assistant"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_medication_reminders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_disease_prediction" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_medication_reminders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/medication_reminder_title"
+        app:icon="@drawable/ic_pill"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ai_assistant" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

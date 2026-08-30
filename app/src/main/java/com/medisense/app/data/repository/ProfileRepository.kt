@@ -13,7 +13,7 @@ class ProfileRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
 
-    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUser()?.uid ?: "local-user"
+    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUserId() ?: "local-user"
 
     suspend fun getUserProfile(): Map<String, Any>? {
         val uid = getCurrentUserId()

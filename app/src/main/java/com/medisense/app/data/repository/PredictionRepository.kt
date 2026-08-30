@@ -51,10 +51,9 @@ class PredictionRepository @Inject constructor(
 
         if (results.isNotEmpty()) {
             val topDisease = results.first()
-            explanationResult = explanationEngine.generateExplanation(
-                diseaseName = topDisease.diseaseName,
+            explanationResult = explanationEngine.explainPrediction(
                 selectedSymptoms = selectedSymptoms,
-                confidence = topDisease.confidence
+                predictedDisease = topDisease.diseaseName
             )
 
             val entity = PredictionEntity(
@@ -62,9 +61,7 @@ class PredictionRepository @Inject constructor(
                 selectedSymptoms = selectedSymptoms.joinToString(","),
                 topDisease = topDisease.diseaseName,
                 confidence = topDisease.confidence,
-                pendingSync = true,
-                explanation = explanationResult.explanationText,
-                contributingSymptoms = explanationResult.contributingSymptoms.joinToString(",")
+                pendingSync = true
             )
             predictionId = predictionDao.insertPrediction(entity)
         }
@@ -99,7 +96,7 @@ class PredictionRepository @Inject constructor(
     /**
      * Returns the actual user ID from the Firebase auth session.
      */
-    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUser()?.uid ?: "local-user"
+    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUserId() ?: "local-user"
 
 
     companion object {

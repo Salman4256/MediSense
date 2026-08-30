@@ -1,0 +1,29 @@
+package com.medisense.app.data.local
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.medisense.app.data.local.dao.*
+import com.medisense.app.data.local.entity.*
+
+@Database(
+    entities = [
+        HealthProfileEntity::class,
+        PredictionEntity::class,
+        ExplanationEntity::class,
+        ChatMessageEntity::class,
+        MedicationEntity::class,
+        MedicationHistoryEntity::class
+    ],
+    version = 1,
+    exportSchema = false
+)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun healthProfileDao(): HealthProfileDao
+    abstract fun predictionDao(): PredictionDao
+    abstract fun explanationDao(): ExplanationDao
+    abstract fun chatMessageDao(): ChatMessageDao
+    abstract fun medicationDao(): MedicationDao
+    abstract fun medicationHistoryDao(): MedicationHistoryDao
+}

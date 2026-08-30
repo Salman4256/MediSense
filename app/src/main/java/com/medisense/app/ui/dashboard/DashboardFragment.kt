@@ -31,6 +31,7 @@ class DashboardFragment : Fragment() {
         setupHealthRecordsButton()
         setupDiseasePredictionButton()
         setupAiAssistantButton()
+        setupMedicationRemindersButton()
         setupProfileNavigation()
     }
 
@@ -72,6 +73,12 @@ class DashboardFragment : Fragment() {
     private fun setupAiAssistantButton() {
         binding.btnAiAssistant.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_aiAssistantFragment)
+        }
+    }
+
+    private fun setupMedicationRemindersButton() {
+        binding.btnMedicationReminders.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_medicationListFragment)
         }
     }
 
