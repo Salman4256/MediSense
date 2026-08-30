@@ -1,46 +1,27 @@
 package com.medisense.app.data.repository
 
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
-import com.medisense.app.data.remote.firebase.FirebaseAuthService
-import kotlinx.coroutines.tasks.await
+import com.medisense.app.data.remote.supabase.AuthService
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ProfileRepository @Inject constructor(
-    private val firebaseAuthService: FirebaseAuthService,
-    private val firestore: FirebaseFirestore
+    private val firebaseAuthService: AuthService
 ) {
 
-    private fun getCurrentUserId(): String = firebaseAuthService.getCurrentUserId() ?: "local-user"
+    fun getCurrentUserId(): String = firebaseAuthService.getCurrentUserId() ?: "local-user"
 
-    suspend fun getUserProfile(): Map<String, Any>? {
-        val uid = getCurrentUserId()
-        
-        return try {
-            // Try to fetch from server or cache
-            val document = firestore.collection("profiles")
-                .document(uid)
-                .get()
-                .await()
-                
-            document.data
-        } catch (e: Exception) {
-            // Fallback to cache if offline and default get() fails
-            try {
-                val cachedDocument = firestore.collection("profiles")
-                    .document(uid)
-                    .get(Source.CACHE)
-                    .await()
-                cachedDocument.data
-            } catch (cacheException: Exception) {
-                null
-            }
-        }
+    fun isUserLoggedIn(): Boolean = firebaseAuthService.isUserLoggedIn()
+
+    suspend fun getProfile(): Result<Any> {
+        return Result.failure(Exception("Not implemented"))
+    }
+
+    suspend fun updateProfile(profile: Any): Result<Unit> {
+        return Result.failure(Exception("Not implemented"))
     }
 
     fun logout() {
-        firebaseAuthService.logout()
+        // stubbed
     }
 }

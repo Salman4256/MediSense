@@ -1,47 +1,57 @@
 package com.medisense.app.data.repository
 
-import com.google.firebase.firestore.FirebaseFirestore
-import com.medisense.app.data.remote.firebase.FirebaseAuthService
-import kotlinx.coroutines.tasks.await
+import com.medisense.app.data.remote.supabase.AuthService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class AuthRepository @Inject constructor(
-    private val firebaseAuthService: FirebaseAuthService,
-    private val firestore: FirebaseFirestore
+    private val authService: AuthService
 ) {
-
-    fun isUserLoggedIn(): Boolean = firebaseAuthService.isUserLoggedIn()
-
-    suspend fun login(email: String, password: String): Boolean {
-        return firebaseAuthService.login(email, password)
+    suspend fun login(email: String, password: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            authService.login(email, password)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    suspend fun register(email: String, password: String, fullName: String): Boolean {
-        val uid = firebaseAuthService.register(email, password)
-        
-        // Create user profile in Firestore
-        val userMap = hashMapOf(
-            "uid" to uid,
-            "fullName" to fullName,
-            "email" to email,
-            "createdAt" to System.currentTimeMillis()
-        )
-        
-        firestore.collection("profiles")
-            .document(uid)
-            .set(userMap)
-            .await()
-            
-        return true
+    suspend fun register(email: String, password: String, fullName: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            authService.register(email, password, fullName)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    suspend fun resetPassword(email: String): Boolean {
-        return firebaseAuthService.resetPassword(email)
+    suspend fun resetPassword(email: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            authService.resetPassword(email)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    fun logout() {
-        firebaseAuthService.logout()
+    suspend fun logout(): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            authService.logout()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            // Even if an unexpected error occurs, treat logout as successful locally
+            Result.success(Unit)
+        }
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        return authService.isUserLoggedIn()
+    }
+
+    fun getCurrentUserEmail(): String? {
+        return authService.getCurrentUserEmail()
     }
 }

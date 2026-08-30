@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.google.services)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 import java.util.Properties
@@ -30,6 +30,8 @@ android {
         
         buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY") ?: ""}\"")
         buildConfigField("String", "GROQ_API_KEY", "\"${localProperties.getProperty("GROQ_API_KEY") ?: ""}\"")
+        buildConfigField("String", "SUPABASE_URL", "\"${localProperties.getProperty("SUPABASE_URL") ?: ""}\"")
+        buildConfigField("String", "SUPABASE_ANON_KEY", "\"${localProperties.getProperty("SUPABASE_ANON_KEY") ?: ""}\"")
     }
 
     buildTypes {
@@ -89,11 +91,10 @@ dependencies {
     implementation(libs.com.google.dagger.hilt.android)
     ksp(libs.com.google.dagger.hilt.android.compiler)
 
-    // Firebase
-    implementation(platform(libs.com.google.firebase.firebase.bom))
-    implementation(libs.com.google.firebase.firebase.auth)
-    implementation(libs.com.google.firebase.firebase.firestore)
-    implementation(libs.com.google.firebase.firebase.storage)
+    // Supabase Auth & Ktor
+    implementation(platform(libs.supabase.bom))
+    implementation(libs.supabase.gotrue)
+    implementation(libs.ktor.client.android)
 
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
