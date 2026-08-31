@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,8 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -20,97 +20,100 @@
             app:menu="@menu/menu_dashboard" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/tv_welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_dashboard"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_health_records"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_chainStyle="packed" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_health_records"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:text="Personal Health Records"
-        android:textSize="16sp"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/ic_history"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
-        app:iconPadding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_disease_prediction"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="20dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_disease_prediction"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:text="Disease Prediction"
-        android:textSize="16sp"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/ic_add"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
-        app:iconPadding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_ai_assistant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_health_records" />
+            <TextView
+                android:id="@+id/tv_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="@string/welcome_dashboard"
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_ai_assistant"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:text="AI Health Assistant"
-        android:textSize="16sp"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/ic_medication"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
-        app:iconPadding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_medication_reminders"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_disease_prediction" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_health_records"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginBottom="14dp"
+                android:text="Personal Health Records"
+                android:textSize="15sp"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_history"
+                app:iconGravity="textStart"
+                app:iconPadding="14dp"
+                app:iconSize="22dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_medication_reminders"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/medication_reminder_title"
-        android:textSize="16sp"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/ic_pill"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
-        app:iconPadding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_ai_assistant" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_disease_prediction"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginBottom="14dp"
+                android:text="Disease Prediction"
+                android:textSize="15sp"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_add"
+                app:iconGravity="textStart"
+                app:iconPadding="14dp"
+                app:iconSize="22dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_ai_assistant"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginBottom="14dp"
+                android:text="AI Health Assistant"
+                android:textSize="15sp"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_ai"
+                app:iconGravity="textStart"
+                app:iconPadding="14dp"
+                app:iconSize="22dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_medication_reminders"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginBottom="14dp"
+                android:text="@string/medication_reminder_title"
+                android:textSize="15sp"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_pill"
+                app:iconGravity="textStart"
+                app:iconPadding="14dp"
+                app:iconSize="22dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_appointments"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginBottom="24dp"
+                android:text="Doctor Appointments"
+                android:textSize="15sp"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_calendar"
+                app:iconGravity="textStart"
+                app:iconPadding="14dp"
+                app:iconSize="22dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

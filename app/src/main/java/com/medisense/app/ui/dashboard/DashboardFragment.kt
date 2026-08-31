@@ -42,10 +42,10 @@ class DashboardFragment : Fragment() {
         setupDiseasePredictionButton()
         setupAiAssistantButton()
         setupMedicationRemindersButton()
+        setupAppointmentsButton()
         setupProfileNavigation()
         observeAuthState()
         
-        // Setup Placeholder Email
         binding.tvWelcome.text = "Welcome to MediSense"
         authViewModel.checkSession()
     }
@@ -114,6 +114,12 @@ class DashboardFragment : Fragment() {
     private fun setupMedicationRemindersButton() {
         binding.btnMedicationReminders.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_medicationListFragment)
+        }
+    }
+
+    private fun setupAppointmentsButton() {
+        binding.btnAppointments.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_appointmentFragment)
         }
     }
 

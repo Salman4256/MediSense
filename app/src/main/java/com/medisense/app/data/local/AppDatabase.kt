@@ -14,9 +14,10 @@ import com.medisense.app.data.local.entity.*
         ConversationEntity::class,
         ChatMessageEntity::class,
         MedicationEntity::class,
-        MedicationHistoryEntity::class
+        MedicationHistoryEntity::class,
+        AppointmentEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -28,4 +29,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun chatMessageDao(): ChatMessageDao
     abstract fun medicationDao(): MedicationDao
     abstract fun medicationHistoryDao(): MedicationHistoryDao
+    abstract fun appointmentDao(): AppointmentDao
 }

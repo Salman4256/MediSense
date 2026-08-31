@@ -3,11 +3,7 @@ package com.medisense.app.di
 import android.content.Context
 import androidx.room.Room
 import com.medisense.app.data.local.AppDatabase
-import com.medisense.app.data.local.dao.ChatMessageDao
-import com.medisense.app.data.local.dao.ConversationDao
-import com.medisense.app.data.local.dao.HealthProfileDao
-import com.medisense.app.data.local.dao.MedicationDao
-import com.medisense.app.data.local.dao.MedicationHistoryDao
+import com.medisense.app.data.local.dao.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,5 +50,10 @@ object DatabaseModule {
     @Provides
     fun provideMedicationHistoryDao(database: AppDatabase): MedicationHistoryDao {
         return database.medicationHistoryDao()
+    }
+
+    @Provides
+    fun provideAppointmentDao(database: AppDatabase): AppointmentDao {
+        return database.appointmentDao()
     }
 }

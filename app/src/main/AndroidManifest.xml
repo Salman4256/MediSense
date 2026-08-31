@@ -73,6 +73,11 @@
             </intent-filter>
         </receiver>
 
+        <!-- Module 7: Appointment Alarm Receiver -->
+        <receiver
+            android:name=".notification.AppointmentAlarmReceiver"
+            android:exported="false" />
+
         <!-- FileProvider for secure camera captures -->
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_medicationListFragment"
             app:destination="@id/medicationListFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment" />
     </fragment>
 
     <fragment
@@ -157,5 +160,22 @@
         android:name="com.medisense.app.ui.medication.ui.MedicationHistoryFragment"
         android:label="Medication History"
         tools:layout="@layout/fragment_medication_history" />
+
+    <!-- Module 7: Appointments -->
+    <fragment
+        android:id="@+id/appointmentFragment"
+        android:name="com.medisense.app.ui.appointment.ui.AppointmentFragment"
+        android:label="Appointments"
+        tools:layout="@layout/fragment_appointment">
+        <action
+            android:id="@+id/action_appointmentFragment_to_addAppointmentFragment"
+            app:destination="@id/addAppointmentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addAppointmentFragment"
+        android:name="com.medisense.app.ui.appointment.ui.AddAppointmentFragment"
+        android:label="Schedule Appointment"
+        tools:layout="@layout/fragment_add_appointment" />
 
 </navigation>
