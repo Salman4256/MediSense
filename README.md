@@ -28,6 +28,13 @@ MediSense is an AI-powered personal healthcare assistant designed for explainabl
 - **Symptom Search & Checklists:** Designed a searchable checkboxes list to select symptoms, dynamically tracking selection count with a "Clear All" action.
 - **Ranked Predictions Screen:** Renders the primary suspected condition in an accented card, details secondary conditions descending by probability, maps selected symptoms as Chips, and incorporates a prominent medical disclaimer card for safety.
 
+### Module 4: Explainable AI (XAI) (Completed)
+- **On-Device Clinical Reasoning:** Evaluates learned feature importances (`feature_importance.json`) and clinical rules (`disease_rules.json`) 100% offline to explain *why* the model produced its prediction.
+- **Ranked Feature Contributions:** Visualizes contributing symptoms with Material Design 3 linear progress indicators and support badges (e.g., "Key Indicator", "Supports").
+- **Extensible SHAP Schema:** Supports future model versioning and external SHAP metadata ingestion via `xai_feature_metadata.json`.
+- **Honest Fallback Handling:** Gracefully displays informational notices without fabricating weights when condition-specific metadata is not present.
+- **Clinical Safety:** Features prominent medical disclaimers framing all outputs as educational AI associations rather than confirmed medical diagnoses.
+
 ---
 
 ## 🛠️ Setup Instructions

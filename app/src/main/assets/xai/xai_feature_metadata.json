@@ -1,0 +1,27 @@
+{
+  "model_version": "1.0",
+  "description": "Sample/extensible feature metadata schema for XAI explainability engine",
+  "features": [
+    { "feature": "itching", "displayName": "Itching" },
+    { "feature": "skin_rash", "displayName": "Skin Rash" },
+    { "feature": "nodal_skin_eruptions", "displayName": "Nodal Skin Eruptions" },
+    { "feature": "continuous_sneezing", "displayName": "Continuous Sneezing" },
+    { "feature": "shivering", "displayName": "Shivering" },
+    { "feature": "chills", "displayName": "Chills" },
+    { "feature": "joint_pain", "displayName": "Joint Pain" },
+    { "feature": "stomach_pain", "displayName": "Stomach Pain" },
+    { "feature": "acidity", "displayName": "Acidity" },
+    { "feature": "vomiting", "displayName": "Vomiting" },
+    { "feature": "fatigue", "displayName": "Fatigue" },
+    { "feature": "weight_loss", "displayName": "Weight Loss" },
+    { "feature": "cough", "displayName": "Cough" },
+    { "feature": "high_fever", "displayName": "High Fever" },
+    { "feature": "breathlessness", "displayName": "Breathlessness" },
+    { "feature": "sweating", "displayName": "Sweating" },
+    { "feature": "headache", "displayName": "Headache" },
+    { "feature": "yellowish_skin", "displayName": "Yellowish Skin" },
+    { "feature": "dark_urine", "displayName": "Dark Urine" },
+    { "feature": "nausea", "displayName": "Nausea" },
+    { "feature": "chest_pain", "displayName": "Chest Pain" }
+  ]
+}

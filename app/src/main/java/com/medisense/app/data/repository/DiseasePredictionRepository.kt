@@ -1,8 +1,10 @@
 package com.medisense.app.data.repository
 
 import com.medisense.app.data.model.DiseasePrediction
+import com.medisense.app.data.model.PredictionExplanation
 import com.medisense.app.data.model.Symptom
 import com.medisense.app.ml.DiseasePredictionEngine
+import com.medisense.app.ml.xai.XaiExplanationEngine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -10,7 +12,8 @@ import javax.inject.Singleton
 
 @Singleton
 class DiseasePredictionRepository @Inject constructor(
-    private val predictionEngine: DiseasePredictionEngine
+    private val predictionEngine: DiseasePredictionEngine,
+    private val xaiExplanationEngine: XaiExplanationEngine
 ) {
     fun getSymptoms(): List<Symptom> {
         return predictionEngine.getSymptoms().mapIndexed { index, name ->
@@ -48,5 +51,16 @@ class DiseasePredictionRepository @Inject constructor(
         .mapIndexed { rank, prediction ->
             prediction.copy(rank = rank + 1)
         }
+    }
+
+    suspend fun generateExplanation(
+        prediction: DiseasePrediction,
+        selectedSymptoms: List<Symptom>
+    ): PredictionExplanation = withContext(Dispatchers.Default) {
+        xaiExplanationEngine.generateExplanation(
+            diseaseName = prediction.diseaseName,
+            probability = prediction.probability,
+            selectedSymptoms = selectedSymptoms
+        )
     }
 }
