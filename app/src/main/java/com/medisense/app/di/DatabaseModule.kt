@@ -31,4 +31,14 @@ object DatabaseModule {
     fun provideHealthProfileDao(database: AppDatabase): HealthProfileDao {
         return database.healthProfileDao()
     }
+
+    @Provides
+    fun provideMedicationDao(database: AppDatabase): com.medisense.app.data.local.dao.MedicationDao {
+        return database.medicationDao()
+    }
+
+    @Provides
+    fun provideMedicationHistoryDao(database: AppDatabase): com.medisense.app.data.local.dao.MedicationHistoryDao {
+        return database.medicationHistoryDao()
+    }
 }

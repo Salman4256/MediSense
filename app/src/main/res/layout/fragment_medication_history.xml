@@ -58,6 +58,7 @@
                         android:layout_marginTop="12dp"
                         android:orientation="horizontal">
 
+                        <!-- Taken -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -81,6 +82,7 @@
                                 android:textAppearance="?attr/textAppearanceBodySmall" />
                         </LinearLayout>
 
+                        <!-- Skipped -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -104,6 +106,7 @@
                                 android:textAppearance="?attr/textAppearanceBodySmall" />
                         </LinearLayout>
 
+                        <!-- Missed -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -112,29 +115,74 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_history_total_count"
+                                android:id="@+id/tv_history_missed_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?attr/textAppearanceHeadlineSmall"
-                                android:textColor="?attr/colorPrimary"
+                                android:textColor="#FFE53935"
                                 android:textStyle="bold"
-                                tools:text="16" />
+                                tools:text="1" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Total"
+                                android:text="Missed"
                                 android:textAppearance="?attr/textAppearanceBodySmall" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Filter Chips -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cg_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_all"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="All" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_taken"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taken" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_skipped"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Skipped" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_missed"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Missed" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="6dp"
                 android:text="Activity Timeline"
                 android:textAppearance="?attr/textAppearanceTitleMedium"

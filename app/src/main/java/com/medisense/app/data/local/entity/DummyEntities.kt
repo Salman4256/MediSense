@@ -12,8 +12,3 @@ data class ExplanationEntity(@PrimaryKey val id: Int = 0)
 @Entity(tableName = "chat_messages")
 data class ChatMessageEntity(@PrimaryKey val id: Int = 0)
 
-@Entity(tableName = "medications")
-data class MedicationEntity(@PrimaryKey val id: Int = 0)
-
-@Entity(tableName = "medication_history")
-data class MedicationHistoryEntity(@PrimaryKey val id: Int = 0)

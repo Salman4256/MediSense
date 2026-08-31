@@ -135,9 +135,9 @@
 
     <fragment
         android:id="@+id/medicationListFragment"
-        android:name="com.medisense.app.ui.medication.ui.MedicationListFragment"
+        android:name="com.medisense.app.ui.medication.ui.MedicationFragment"
         android:label="Medication Reminders"
-        tools:layout="@layout/fragment_medication_list">
+        tools:layout="@layout/fragment_medication">
         <action
             android:id="@+id/action_medicationListFragment_to_addEditMedicationFragment"
             app:destination="@id/addEditMedicationFragment" />
@@ -148,9 +148,9 @@
 
     <fragment
         android:id="@+id/addEditMedicationFragment"
-        android:name="com.medisense.app.ui.medication.ui.AddEditMedicationFragment"
+        android:name="com.medisense.app.ui.medication.ui.AddMedicationFragment"
         android:label="Add / Edit Medication"
-        tools:layout="@layout/fragment_add_edit_medication" />
+        tools:layout="@layout/fragment_add_medication" />
 
     <fragment
         android:id="@+id/medicationHistoryFragment"

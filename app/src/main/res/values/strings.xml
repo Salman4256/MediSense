@@ -101,5 +101,16 @@
     <string name="exact_alarm_permission_title">Exact Alarm Permission Required</string>
     <string name="exact_alarm_permission_message">MediSense needs exact alarm permission to deliver precise medication reminders on time. Please enable it in Settings.</string>
     <string name="enable_in_settings">Open Settings</string>
+
+    <string name="medication_name_hint">Medicine Name *</string>
+    <string name="dosage_hint">Dosage (e.g. 500mg, 1 tablet) *</string>
+    <string name="food_relation">Food Timing</string>
+    <string name="before_food">Before Food</string>
+    <string name="after_food">After Food</string>
+    <string name="add_reminder_time">+ Add Reminder Time</string>
+    <string name="instructions_optional">Instructions / Special Notes (Optional)</string>
+    <string name="view_logs">View Logs</string>
+    <string name="no_medications_empty">No medications added yet</string>
+    <string name="add_medication_fab">Add Medication</string>
 </resources>
 

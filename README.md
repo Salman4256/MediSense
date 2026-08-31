@@ -35,6 +35,13 @@ MediSense is an AI-powered personal healthcare assistant designed for explainabl
 - **Honest Fallback Handling:** Gracefully displays informational notices without fabricating weights when condition-specific metadata is not present.
 - **Clinical Safety:** Features prominent medical disclaimers framing all outputs as educational AI associations rather than confirmed medical diagnoses.
 
+### Module 6: Medication Reminders & Adherence Tracking (Completed)
+- **Offline-First Room Persistence:** Stores medications and scheduled doses locally with Supabase user UUID isolation (`MedicationEntity`, `MedicationHistoryEntity`).
+- **Exact AlarmManager Reminders:** Schedules exact local alarms (`MedicationScheduler`) with precision, auto-rescheduled on device restart (`BootReceiver`).
+- **Interactive Action Notifications:** Direct "TAKEN" and "SKIP" actions straight from the notification banner via `MedicationActionReceiver` without opening the app.
+- **Full-Screen Ringing Alarm:** Implemented `AlarmActivity` with wake-lock, ringtone, vibration, Taken, Snooze (+10m), and Skip options.
+- **Adherence Metrics & Timeline:** Computes adherence percentages and provides filtered log views (All, Taken, Skipped, Missed).
+
 ---
 
 ## 🛠️ Setup Instructions
