@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorSurfaceVariant"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:text="MediSense provides AI-generated health information for educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment."
+            android:paddingVertical="10dp"
+            android:text="MediSense provides AI-generated health information for educational purposes only. It is not a substitute for professional medical diagnosis or treatment."
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="?attr/colorOnSurfaceVariant"
             android:textAlignment="center" />
@@ -49,8 +49,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clipToPadding="false"
-            android:paddingVertical="16dp"
-            tools:listitem="@layout/item_chat_ai" />
+            android:paddingVertical="8dp"
+            tools:listitem="@layout/item_assistant_message" />
 
         <!-- Suggested Questions (Horizontal Scroll) -->
         <HorizontalScrollView
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp"
+            android:paddingVertical="4dp"
             android:scrollbars="none">
 
             <com.google.android.material.chip.ChipGroup
@@ -68,6 +68,85 @@
                 android:layout_height="wrap_content"
                 app:singleLine="true" />
         </HorizontalScrollView>
+
+        <!-- Voice Recognition Status Banner -->
+        <LinearLayout
+            android:id="@+id/ll_voice_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimaryContainer"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:indeterminate="true"
+                app:indicatorSize="18dp"
+                app:trackThickness="2dp" />
+
+            <TextView
+                android:id="@+id/tv_voice_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:text="Listening... speak your question now"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnPrimaryContainer" />
+
+            <ImageButton
+                android:id="@+id/btn_cancel_voice"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_close"
+                app:tint="?attr/colorOnPrimaryContainer" />
+        </LinearLayout>
+
+        <!-- Image Attachment Preview Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_image_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeWidth="1dp"
+            tools:visibility="visible">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_preview"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+                <ImageButton
+                    android:id="@+id/btn_remove_image"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="4dp"
+                    android:background="#80000000"
+                    android:contentDescription="Remove image"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_close"
+                    app:tint="@android:color/white" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <View
             android:layout_width="match_parent"
@@ -80,15 +159,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorSurface"
-            android:gravity="bottom"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="6dp">
+
+            <ImageButton
+                android:id="@+id/btn_camera"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Camera capture"
+                android:padding="8dp"
+                android:src="@drawable/ic_camera"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+            <ImageButton
+                android:id="@+id/btn_gallery"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Gallery photo"
+                android:padding="8dp"
+                android:src="@drawable/ic_image"
+                app:tint="?attr/colorOnSurfaceVariant" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
                 android:layout_weight="1"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="24dp"
@@ -101,21 +200,30 @@
                     android:id="@+id/et_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ask a health question..."
+                    android:hint="Ask or describe an image..."
                     android:inputType="textMultiLine|textCapSentences"
-                    android:maxLines="5"
-                    android:paddingVertical="12dp" />
+                    android:maxLines="4"
+                    android:paddingVertical="10dp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btn_mic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Voice input"
+                android:padding="8dp"
+                android:src="@drawable/ic_mic"
+                app:tint="?attr/colorOnSurfaceVariant" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginStart="4dp"
                 app:elevation="0dp"
-                app:fabCustomSize="48dp"
-                app:srcCompat="@android:drawable/ic_menu_send" />
+                app:fabCustomSize="44dp"
+                app:srcCompat="@drawable/ic_send" />
         </LinearLayout>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
