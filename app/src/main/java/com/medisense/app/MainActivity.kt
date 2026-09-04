@@ -3,28 +3,32 @@ package com.medisense.app
 import android.Manifest
 import android.app.AlarmManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.lifecycle.lifecycleScope
+import com.medisense.app.data.repository.MedicationRepository
 import com.medisense.app.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    @Inject
+    lateinit var medicationRepository: MedicationRepository
+
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
-        if (!isGranted) {
-            // Permission denied
+        if (isGranted) {
+            triggerMissedDoseCheck()
         }
     }
 
@@ -43,6 +47,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         checkAndRequestNotificationPermissions()
+        triggerMissedDoseCheck()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        triggerMissedDoseCheck()
+    }
+
+    private fun triggerMissedDoseCheck() {
+        lifecycleScope.launch {
+            try {
+                medicationRepository.checkAndHandleMissedDoses(applicationContext)
+            } catch (ignored: Exception) {}
+        }
     }
 
     private fun checkAndRequestNotificationPermissions() {
@@ -61,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as? AlarmManager
             if (alarmManager?.canScheduleExactAlarms() == false) {
-                // Inform user / open settings if desired
+                // Settings check
             }
         }
     }

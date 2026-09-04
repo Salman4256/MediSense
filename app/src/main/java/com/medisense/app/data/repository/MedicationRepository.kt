@@ -5,6 +5,7 @@ import com.medisense.app.data.local.dao.MedicationHistoryDao
 import com.medisense.app.data.local.entity.MedicationEntity
 import com.medisense.app.data.local.entity.MedicationHistoryEntity
 import com.medisense.app.data.remote.supabase.AuthService
+import com.medisense.app.notification.MedicationNotificationManager
 import com.medisense.app.notification.MedicationScheduler
 import com.medisense.app.utils.AdherenceStats
 import com.medisense.app.utils.MedicationDateTimeUtils
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -344,4 +346,59 @@ class MedicationRepository @Inject constructor(
         medicationId: Long,
         scheduledTime: String
     ): Result<Unit> = recordMissed(medicationId, MedicationDateTimeUtils.getStartOfDay(), scheduledTime)
+
+    /**
+     * Scans for past scheduled medication dose slots (e.g. while the phone was switched off or out of charge),
+     * fires missed reminder notifications, logs MISSED history entries, and reschedules future alarms.
+     */
+    suspend fun checkAndHandleMissedDoses(context: android.content.Context) = withContext(Dispatchers.IO) {
+        try {
+            val now = System.currentTimeMillis()
+            val today = MedicationDateTimeUtils.getStartOfDay(now)
+            val yesterday = today - (24 * 60 * 60 * 1000L)
+
+            val activeMeds = medicationDao.getAllActiveMedicationsSync()
+            for (med in activeMeds) {
+                val checkDates = listOf(yesterday, today)
+                for (dateMillis in checkDates) {
+                    val slots = MedicationDateTimeUtils.getScheduledSlotsForDate(med, dateMillis)
+                    for (slotMillis in slots) {
+                        if (slotMillis < now && (now - slotMillis) <= (24 * 60 * 60 * 1000L)) {
+                            val timeStr = MedicationDateTimeUtils.formatTime12H(Date(slotMillis))
+                            val existing = historyDao.getOccurrenceHistory(med.id, dateMillis, timeStr, med.userId)
+                                ?: historyDao.findExistingRecord(med.id, dateMillis, timeStr)
+
+                            if (existing == null) {
+                                MedicationNotificationManager.showMissedDoseReminderNotification(
+                                    context = context,
+                                    medicationId = med.id,
+                                    userId = med.userId,
+                                    medicineName = med.medicineName,
+                                    dosage = "${med.dosage} ${med.dosageUnit}",
+                                    instructions = med.instructions,
+                                    scheduledDate = dateMillis,
+                                    scheduledTime = timeStr
+                                )
+
+                                val missedRecord = MedicationHistoryEntity(
+                                    medicationId = med.id,
+                                    userId = med.userId,
+                                    medicineName = med.medicineName,
+                                    dosage = "${med.dosage} ${med.dosageUnit}",
+                                    scheduledDate = dateMillis,
+                                    scheduledTime = timeStr,
+                                    actionTime = now,
+                                    status = "MISSED"
+                                )
+                                historyDao.insertHistory(missedRecord)
+                            }
+                        }
+                    }
+                }
+                scheduler.scheduleNextReminder(med)
+            }
+        } catch (e: Exception) {
+            // Safe fallback
+        }
+    }
 }

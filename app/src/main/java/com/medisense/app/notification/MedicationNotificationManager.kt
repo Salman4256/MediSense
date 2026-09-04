@@ -252,6 +252,98 @@ object MedicationNotificationManager {
         } catch (e: SecurityException) {}
     }
 
+    fun showMissedDoseReminderNotification(
+        context: Context,
+        medicationId: Long,
+        userId: String,
+        medicineName: String,
+        dosage: String,
+        instructions: String? = null,
+        scheduledDate: Long,
+        scheduledTime: String
+    ) {
+        createNotificationChannels(context)
+
+        val notificationId = (medicationId + 90000).toInt()
+
+        // Content intent: Opens MainActivity when tapped
+        val mainIntent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            putExtra(EXTRA_MEDICATION_ID, medicationId)
+            putExtra(EXTRA_USER_ID, userId)
+        }
+        val mainPendingIntent = PendingIntent.getActivity(
+            context,
+            notificationId,
+            mainIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Action: Taken
+        val takenIntent = Intent(context, MedicationActionReceiver::class.java).apply {
+            action = ACTION_TAKEN
+            putExtra(EXTRA_MEDICATION_ID, medicationId)
+            putExtra(EXTRA_USER_ID, userId)
+            putExtra(EXTRA_SCHEDULED_DATE, scheduledDate)
+            putExtra(EXTRA_SCHEDULED_TIME, scheduledTime)
+            putExtra(EXTRA_NOTIFICATION_ID, notificationId)
+        }
+        val takenPendingIntent = PendingIntent.getBroadcast(
+            context,
+            notificationId * 10 + 1,
+            takenIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Action: Skip
+        val skipIntent = Intent(context, MedicationActionReceiver::class.java).apply {
+            action = ACTION_SKIP
+            putExtra(EXTRA_MEDICATION_ID, medicationId)
+            putExtra(EXTRA_USER_ID, userId)
+            putExtra(EXTRA_SCHEDULED_DATE, scheduledDate)
+            putExtra(EXTRA_SCHEDULED_TIME, scheduledTime)
+            putExtra(EXTRA_NOTIFICATION_ID, notificationId)
+        }
+        val skipPendingIntent = PendingIntent.getBroadcast(
+            context,
+            notificationId * 10 + 3,
+            skipIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val dosageText = if (dosage.isNotBlank()) " ($dosage)" else ""
+        val subtitle = "Missed scheduled dose at $scheduledTime$dosageText. Tap to mark."
+        val bigText = buildString {
+            append("⚠️ You missed your scheduled medication dose:\n")
+            append("• Medicine: $medicineName$dosageText\n")
+            append("• Scheduled Time: $scheduledTime\n")
+            if (!instructions.isNullOrBlank()) {
+                append("• Instructions: $instructions\n")
+            }
+            append("Please take your dose now or mark it as taken/skipped.")
+        }
+
+        val builder = NotificationCompat.Builder(context, CHANNEL_MEDICATION_ALARM)
+            .setSmallIcon(R.drawable.ic_pill)
+            .setContentTitle("⚠️ Missed Dose: $medicineName")
+            .setContentText(subtitle)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(bigText))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setContentIntent(mainPendingIntent)
+            .setAutoCancel(true)
+            .setOngoing(false)
+            .addAction(R.drawable.ic_check_circle, "TAKEN", takenPendingIntent)
+            .addAction(R.drawable.ic_skip, "SKIP", skipPendingIntent)
+
+        try {
+            NotificationManagerCompat.from(context).notify(notificationId, builder.build())
+        } catch (e: SecurityException) {
+            // Handled when notification permission is denied
+        }
+    }
+
     fun dismissNotification(context: Context, notificationId: Int) {
         try {
             NotificationManagerCompat.from(context).cancel(notificationId)
