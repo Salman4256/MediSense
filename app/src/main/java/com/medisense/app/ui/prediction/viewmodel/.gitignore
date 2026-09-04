@@ -1,3 +1,4 @@
 *
 !.gitignore
-!DiseasePredictionViewModel.kt
+!*.kt
+!*.java

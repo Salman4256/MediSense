@@ -3,6 +3,7 @@ package com.medisense.app
 import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import com.medisense.app.notification.MedicationNotificationManager
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,6 +18,9 @@ class MediSenseApp : Application(), Configuration.Provider {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        // Initialize high-priority notification channels for alarms and reminders
+        MedicationNotificationManager.createNotificationChannels(this)
     }
 
     override val workManagerConfiguration: Configuration

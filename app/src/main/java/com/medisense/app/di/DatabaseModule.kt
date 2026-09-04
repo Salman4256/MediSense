@@ -56,4 +56,9 @@ object DatabaseModule {
     fun provideAppointmentDao(database: AppDatabase): AppointmentDao {
         return database.appointmentDao()
     }
+
+    @Provides
+    fun providePredictionHistoryDao(database: AppDatabase): PredictionHistoryDao {
+        return database.predictionHistoryDao()
+    }
 }

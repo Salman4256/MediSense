@@ -6,7 +6,6 @@ import com.medisense.app.data.remote.supabase.AuthService
 import com.medisense.app.notification.AppointmentScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,8 +17,8 @@ class AppointmentRepository @Inject constructor(
     private val appointmentScheduler: AppointmentScheduler
 ) {
 
-    private fun getCurrentUserId(): String {
-        return authService.getCurrentUserId() ?: "offline_user"
+    fun getCurrentUserId(): String {
+        return authService.getCurrentUserId() ?: "offline-user"
     }
 
     fun observeAppointments(): Flow<List<AppointmentEntity>> {
@@ -30,6 +29,16 @@ class AppointmentRepository @Inject constructor(
     fun observeUpcomingAppointments(): Flow<List<AppointmentEntity>> {
         val userId = getCurrentUserId()
         return appointmentDao.observeUpcomingAppointments(userId, System.currentTimeMillis())
+    }
+
+    fun observeCompletedAppointments(): Flow<List<AppointmentEntity>> {
+        val userId = getCurrentUserId()
+        return appointmentDao.observeCompletedAppointments(userId)
+    }
+
+    fun observeCancelledAppointments(): Flow<List<AppointmentEntity>> {
+        val userId = getCurrentUserId()
+        return appointmentDao.observeCancelledAppointments(userId)
     }
 
     suspend fun getAppointment(id: Long): AppointmentEntity? = withContext(Dispatchers.IO) {
@@ -46,67 +55,105 @@ class AppointmentRepository @Inject constructor(
         appointmentTimestamp: Long,
         reminderMinutesBefore: Int,
         notes: String?
-    ): Long = withContext(Dispatchers.IO) {
-        val userId = getCurrentUserId()
-        val appointment = AppointmentEntity(
-            userId = userId,
-            doctorName = doctorName.trim(),
-            clinicName = clinicName.trim(),
-            appointmentType = appointmentType,
-            appointmentDate = appointmentDate,
-            appointmentTime = appointmentTime,
-            appointmentTimestamp = appointmentTimestamp,
-            reminderMinutesBefore = reminderMinutesBefore,
-            notes = notes?.trim()?.ifBlank { null },
-            status = "SCHEDULED",
-            createdAt = System.currentTimeMillis(),
-            updatedAt = System.currentTimeMillis(),
-            pendingSync = true
-        )
+    ): Result<Long> = withContext(Dispatchers.IO) {
+        try {
+            val userId = getCurrentUserId()
+            val appointment = AppointmentEntity(
+                userId = userId,
+                doctorName = doctorName.trim(),
+                clinicName = clinicName.trim(),
+                appointmentType = appointmentType,
+                appointmentDate = appointmentDate,
+                appointmentTime = appointmentTime,
+                appointmentTimestamp = appointmentTimestamp,
+                reminderMinutesBefore = reminderMinutesBefore,
+                notes = notes?.trim()?.ifBlank { null },
+                status = "SCHEDULED",
+                createdAt = System.currentTimeMillis(),
+                updatedAt = System.currentTimeMillis(),
+                pendingSync = true
+            )
 
-        val id = appointmentDao.insertAppointment(appointment)
-        val createdAppointment = appointment.copy(id = id)
+            val id = appointmentDao.insertAppointment(appointment)
+            val createdAppointment = appointment.copy(id = id)
 
-        // Schedule local exact reminder
-        appointmentScheduler.scheduleReminder(createdAppointment)
-        id
-    }
-
-    suspend fun updateAppointment(appointment: AppointmentEntity) = withContext(Dispatchers.IO) {
-        val updated = appointment.copy(
-            updatedAt = System.currentTimeMillis(),
-            pendingSync = true
-        )
-        appointmentDao.updateAppointment(updated)
-
-        if (updated.status == "SCHEDULED") {
-            appointmentScheduler.cancelReminder(updated)
-            appointmentScheduler.scheduleReminder(updated)
-        } else {
-            appointmentScheduler.cancelReminder(updated)
+            // Schedule local exact reminder
+            appointmentScheduler.scheduleReminder(createdAppointment)
+            Result.success(id)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
-    suspend fun deleteAppointment(appointment: AppointmentEntity) = withContext(Dispatchers.IO) {
-        appointmentScheduler.cancelReminder(appointment)
-        appointmentDao.deleteAppointment(appointment)
-    }
+    suspend fun updateAppointment(appointment: AppointmentEntity): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val updated = appointment.copy(
+                updatedAt = System.currentTimeMillis(),
+                pendingSync = true
+            )
+            appointmentDao.updateAppointment(updated)
 
-    suspend fun markAppointmentCompleted(id: Long) = withContext(Dispatchers.IO) {
-        val userId = getCurrentUserId()
-        val appointment = appointmentDao.getAppointment(id, userId)
-        if (appointment != null) {
-            appointmentScheduler.cancelReminder(appointment)
-            appointmentDao.updateAppointmentStatus(id, userId, "COMPLETED")
+            if (updated.status == "SCHEDULED") {
+                appointmentScheduler.cancelReminder(updated)
+                appointmentScheduler.scheduleReminder(updated)
+            } else {
+                appointmentScheduler.cancelReminder(updated)
+            }
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
-    suspend fun cancelAppointment(id: Long) = withContext(Dispatchers.IO) {
-        val userId = getCurrentUserId()
-        val appointment = appointmentDao.getAppointment(id, userId)
-        if (appointment != null) {
+    suspend fun deleteAppointment(appointment: AppointmentEntity): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
             appointmentScheduler.cancelReminder(appointment)
-            appointmentDao.updateAppointmentStatus(id, userId, "CANCELLED")
+            appointmentDao.deleteAppointment(appointment)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun deleteAppointmentById(id: Long): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val userId = getCurrentUserId()
+            val appt = appointmentDao.getAppointment(id, userId)
+            if (appt != null) {
+                appointmentScheduler.cancelReminder(appt)
+            }
+            appointmentDao.deleteAppointmentById(id, userId)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun markAppointmentCompleted(id: Long): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val userId = getCurrentUserId()
+            val appointment = appointmentDao.getAppointment(id, userId)
+            if (appointment != null) {
+                appointmentScheduler.cancelReminder(appointment)
+                appointmentDao.updateAppointmentStatus(id, userId, "COMPLETED")
+            }
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun cancelAppointment(id: Long): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val userId = getCurrentUserId()
+            val appointment = appointmentDao.getAppointment(id, userId)
+            if (appointment != null) {
+                appointmentScheduler.cancelReminder(appointment)
+                appointmentDao.updateAppointmentStatus(id, userId, "CANCELLED")
+            }
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 }

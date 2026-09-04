@@ -1,6 +1,4 @@
 *
 !.gitignore
-!DiseasePredictionFragment.kt
-!PredictionResultFragment.kt
-!SymptomAdapter.kt
-!PredictionResultAdapter.kt
+!*.kt
+!*.java

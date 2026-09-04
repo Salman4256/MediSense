@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_appointmentFragment"
             app:destination="@id/appointmentFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_predictionHistoryFragment"
+            app:destination="@id/predictionHistoryFragment" />
     </fragment>
 
     <fragment
@@ -102,7 +105,28 @@
         android:id="@+id/predictionResultFragment"
         android:name="com.medisense.app.ui.prediction.ui.PredictionResultFragment"
         android:label="Prediction Results"
-        tools:layout="@layout/fragment_prediction_result" />
+        tools:layout="@layout/fragment_prediction_result">
+        <action
+            android:id="@+id/action_predictionResultFragment_to_predictionHistoryFragment"
+            app:destination="@id/predictionHistoryFragment" />
+    </fragment>
+
+    <!-- Module 8: Prediction History -->
+    <fragment
+        android:id="@+id/predictionHistoryFragment"
+        android:name="com.medisense.app.ui.predictionhistory.ui.PredictionHistoryFragment"
+        android:label="Prediction History"
+        tools:layout="@layout/fragment_prediction_history">
+        <action
+            android:id="@+id/action_predictionHistoryFragment_to_predictionHistoryDetailFragment"
+            app:destination="@id/predictionHistoryDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/predictionHistoryDetailFragment"
+        android:name="com.medisense.app.ui.predictionhistory.ui.PredictionHistoryDetailFragment"
+        android:label="Prediction Detail"
+        tools:layout="@layout/fragment_prediction_history_detail" />
 
     <fragment
         android:id="@+id/profileFragment"

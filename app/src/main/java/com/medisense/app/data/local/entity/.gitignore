@@ -1,4 +1,4 @@
 *
 !.gitignore
-!DummyEntities.kt
-!HealthProfileEntity.kt
+!*.kt
+!*.java

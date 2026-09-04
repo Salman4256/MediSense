@@ -1,4 +1,4 @@
 *
 !.gitignore
-!DummyDaos.kt
-!HealthProfileDao.kt
+!*.kt
+!*.java

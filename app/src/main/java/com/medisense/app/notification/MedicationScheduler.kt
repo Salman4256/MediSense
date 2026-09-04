@@ -9,9 +9,7 @@ import com.medisense.app.MainActivity
 import com.medisense.app.data.local.entity.MedicationEntity
 import com.medisense.app.utils.MedicationDateTimeUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -50,11 +48,14 @@ class MedicationScheduler @Inject constructor(
         }
 
         val scheduledDate = MedicationDateTimeUtils.getStartOfDay(nextTime)
-        val scheduledTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(nextTime))
+        val scheduledTime = MedicationDateTimeUtils.formatTime12H(Date(nextTime))
 
         val intent = Intent(context, MedicationAlarmReceiver::class.java).apply {
             putExtra(MedicationNotificationManager.EXTRA_MEDICATION_ID, medication.id)
             putExtra(MedicationNotificationManager.EXTRA_USER_ID, medication.userId)
+            putExtra(MedicationNotificationManager.EXTRA_MEDICATION_NAME, medication.medicineName)
+            putExtra(MedicationNotificationManager.EXTRA_DOSAGE, "${medication.dosage} ${medication.dosageUnit}")
+            putExtra(MedicationNotificationManager.EXTRA_INSTRUCTIONS, medication.instructions)
             putExtra(MedicationNotificationManager.EXTRA_SCHEDULED_DATE, scheduledDate)
             putExtra(MedicationNotificationManager.EXTRA_SCHEDULED_TIME, scheduledTime)
         }
@@ -119,6 +120,61 @@ class MedicationScheduler @Inject constructor(
                     nextTime,
                     pendingIntent
                 )
+            } catch (ignored: Exception) {}
+        }
+    }
+
+    /**
+     * Schedules a temporary snooze reminder (default: 10 minutes from now).
+     */
+    fun scheduleSnooze(medicationId: Long, snoozeDurationMillis: Long = 10 * 60 * 1000L) {
+        val triggerTime = System.currentTimeMillis() + snoozeDurationMillis
+        val scheduledDate = MedicationDateTimeUtils.getStartOfDay(triggerTime)
+        val scheduledTime = MedicationDateTimeUtils.formatTime12H(Date(triggerTime))
+
+        val intent = Intent(context, MedicationAlarmReceiver::class.java).apply {
+            putExtra(MedicationNotificationManager.EXTRA_MEDICATION_ID, medicationId)
+            putExtra(MedicationNotificationManager.EXTRA_SCHEDULED_DATE, scheduledDate)
+            putExtra(MedicationNotificationManager.EXTRA_SCHEDULED_TIME, scheduledTime)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            medicationId.toInt(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val showIntent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val showPendingIntent = PendingIntent.getActivity(
+            context,
+            medicationId.toInt() + 50000,
+            showIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val alarmClockInfo = AlarmManager.AlarmClockInfo(triggerTime, showPendingIntent)
+                alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerTime,
+                    pendingIntent
+                )
+            } else {
+                alarmManager.setExact(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerTime,
+                    pendingIntent
+                )
+            }
+        } catch (e: Exception) {
+            try {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
             } catch (ignored: Exception) {}
         }
     }

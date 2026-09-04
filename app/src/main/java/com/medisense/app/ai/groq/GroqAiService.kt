@@ -25,7 +25,7 @@ class GroqAiService @Inject constructor() {
 
     private val groqEndpoint = "https://api.groq.com/openai/v1/chat/completions"
 
-    // Text-only candidate models in order of priority
+    // Text candidate models supported on the Groq endpoint
     private val textModels = listOf(
         "openai/gpt-oss-120b",
         "openai/gpt-oss-20b",
@@ -34,14 +34,14 @@ class GroqAiService @Inject constructor() {
         "groq/compound-mini"
     )
 
-    // Vision-capable multimodal models (input modalities: ["text", "image"])
+    // Vision-capable multimodal models
     private val visionModels = listOf(
         "qwen/qwen3.8-27b",
         "qwen/qwen3.6-27b",
         "groq/compound"
     )
 
-    // Secondary Gemini models
+    // Secondary Gemini models for fallback
     private val geminiModels = listOf(
         "gemini-1.5-flash",
         "gemini-2.0-flash",
@@ -94,15 +94,9 @@ class GroqAiService @Inject constructor() {
 
                     val extractedMsg = extractErrorMessage(responseBody)
 
-                    // If model decommissioned (400) or not found (404) or rate limit (429), try next model
-                    if (responseCode == 404 || responseCode == 429 || (responseCode == 400 && (extractedMsg.contains("decommissioned", ignoreCase = true) || extractedMsg.contains("model", ignoreCase = true)))) {
-                        lastError = IOException("Groq model $modelName unavailable: $extractedMsg")
-                        continue
-                    }
-
-                    // Otherwise record error and break to try Gemini fallback
-                    lastError = IOException("Groq API error ($responseCode): $extractedMsg")
-                    break
+                    // If model error, try next candidate model
+                    lastError = IOException("Groq ($modelName, $responseCode): $extractedMsg")
+                    continue
                 } catch (e: Exception) {
                     lastError = e
                 }

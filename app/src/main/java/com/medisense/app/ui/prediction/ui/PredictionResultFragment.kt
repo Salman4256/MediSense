@@ -143,6 +143,10 @@ class PredictionResultFragment : Fragment() {
     }
 
     private fun setupListeners() {
+        binding.btnViewHistory.setOnClickListener {
+            findNavController().navigate(R.id.action_predictionResultFragment_to_predictionHistoryFragment)
+        }
+
         binding.btnDone.setOnClickListener {
             // Pop back to the Dashboard
             findNavController().popBackStack(R.id.dashboardFragment, false)
