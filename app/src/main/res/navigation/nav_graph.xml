@@ -112,6 +112,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_rchrFragment"
             app:destination="@id/rchrFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_contextualRiskFragment"
+            app:destination="@id/contextualRiskFragment" />
     </fragment>
 
     <!-- Module 9B: Longitudinal Health Trends & Temporal Patterns -->
@@ -127,6 +130,13 @@
         android:name="com.medisense.app.ui.rchr.ui.RchrFragment"
         android:label="Composite Health Representation (RCHR)"
         tools:layout="@layout/fragment_rchr" />
+
+    <!-- Module 11: Context-Aware Health Risk Engine -->
+    <fragment
+        android:id="@+id/contextualRiskFragment"
+        android:name="com.medisense.app.ui.risk.ui.ContextualRiskFragment"
+        android:label="Health Context &amp; Risk Priority"
+        tools:layout="@layout/fragment_contextual_risk" />
 
     <fragment
         android:id="@+id/healthRecordFragment"

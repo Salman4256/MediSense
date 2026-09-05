@@ -289,6 +289,20 @@
                 app:iconSize="22dp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_contextual_risk"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginBottom="14dp"
+                android:text="Health Context &amp; Risk Priority"
+                android:textSize="15sp"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_check_circle"
+                app:iconGravity="textStart"
+                app:iconPadding="14dp"
+                app:iconSize="22dp" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_ai_assistant"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
