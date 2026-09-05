@@ -1,14 +1,7 @@
 package com.medisense.app
 
-import android.Manifest
-import android.app.AlarmManager
-import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.medisense.app.data.repository.MedicationRepository
 import com.medisense.app.databinding.ActivityMainBinding
@@ -24,14 +17,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var medicationRepository: MedicationRepository
 
-    private val notificationPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            triggerMissedDoseCheck()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         androidx.core.view.WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -46,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             windowInsets
         }
 
-        checkAndRequestNotificationPermissions()
         triggerMissedDoseCheck()
     }
 
@@ -60,27 +44,6 @@ class MainActivity : AppCompatActivity() {
             try {
                 medicationRepository.checkAndHandleMissedDoses(applicationContext)
             } catch (ignored: Exception) {}
-        }
-    }
-
-    private fun checkAndRequestNotificationPermissions() {
-        // 1. Android 13+ (API 33+) POST_NOTIFICATIONS Runtime Permission
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        }
-
-        // 2. Android 12+ (API 31+) SCHEDULE_EXACT_ALARM check
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val alarmManager = getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-            if (alarmManager?.canScheduleExactAlarms() == false) {
-                // Settings check
-            }
         }
     }
 }

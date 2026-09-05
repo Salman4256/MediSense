@@ -11,12 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.medisense.app.R
+import com.medisense.app.data.local.session.SharedPreferencesSessionManager
 import com.medisense.app.databinding.FragmentSplashBinding
 import com.medisense.app.ui.auth.viewmodel.AuthState
 import com.medisense.app.ui.auth.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -25,6 +27,9 @@ class SplashFragment : Fragment() {
     private val binding get() = _binding!!
     
     private val authViewModel: AuthViewModel by viewModels()
+
+    @Inject
+    lateinit var sessionManager: SharedPreferencesSessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +63,11 @@ class SplashFragment : Fragment() {
         // Give it a small delay for branding
         viewLifecycleOwner.lifecycleScope.launch {
             delay(1000)
-            authViewModel.checkSession()
+            if (!sessionManager.hasCompletedOnboarding()) {
+                findNavController().navigate(R.id.action_splashFragment_to_firstLaunchFragment)
+            } else {
+                authViewModel.checkSession()
+            }
         }
     }
 

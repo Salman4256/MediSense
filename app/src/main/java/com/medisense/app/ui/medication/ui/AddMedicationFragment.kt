@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -19,6 +20,7 @@ import com.google.android.material.timepicker.TimeFormat
 import com.medisense.app.R
 import com.medisense.app.databinding.FragmentAddMedicationBinding
 import com.medisense.app.ui.medication.viewmodel.MedicationViewModel
+import com.medisense.app.utils.PermissionHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -33,6 +35,18 @@ class AddMedicationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MedicationViewModel by viewModels()
+
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (!isGranted) {
+            Toast.makeText(
+                requireContext(),
+                "Reminder saved, but notifications are disabled in settings.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
 
     private val scheduledTimesList = mutableListOf<String>()
     private var startDateTimestamp: Long = System.currentTimeMillis()
@@ -212,6 +226,11 @@ class AddMedicationFragment : Fragment() {
             }
 
             val times = if (scheduledTimesList.isNotEmpty()) scheduledTimesList else listOf("08:00 AM")
+
+            // Check notification permission just-in-time on Android 13+
+            if (!PermissionHelper.hasNotificationPermission(requireContext())) {
+                notificationPermissionLauncher.launch(PermissionHelper.PERMISSION_POST_NOTIFICATIONS)
+            }
 
             viewModel.addMedication(
                 name = name,

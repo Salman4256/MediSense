@@ -72,11 +72,20 @@ class SharedPreferencesSessionManager @Inject constructor(
         return prefs.getString(KEY_USER_EMAIL, null)
     }
 
+    fun hasCompletedOnboarding(): Boolean {
+        return prefs.getBoolean(KEY_COMPLETED_ONBOARDING, false)
+    }
+
+    fun setCompletedOnboarding(completed: Boolean) {
+        prefs.edit().putBoolean(KEY_COMPLETED_ONBOARDING, completed).apply()
+    }
+
     companion object {
         private const val PREFS_NAME = "medisense_auth_session_prefs"
         private const val KEY_SESSION_JSON = "supabase_user_session_json"
         private const val KEY_USER_ID = "saved_user_id"
         private const val KEY_USER_EMAIL = "saved_user_email"
         private const val KEY_IS_LOGGED_IN = "saved_is_logged_in"
+        private const val KEY_COMPLETED_ONBOARDING = "has_completed_permission_onboarding"
     }
 }

@@ -29,6 +29,7 @@ import com.medisense.app.databinding.FragmentHealthAssistantBinding
 import com.medisense.app.ui.assistant.adapter.ChatMessageAdapter
 import com.medisense.app.ui.assistant.viewmodel.ChatUiState
 import com.medisense.app.ui.assistant.viewmodel.HealthAssistantViewModel
+import com.medisense.app.utils.PermissionHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
@@ -66,6 +67,34 @@ class HealthAssistantFragment : Fragment() {
             }
         }
         binding.llVoiceStatus.visibility = View.GONE
+    }
+
+    private val cameraPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            launchCameraIntent()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Camera access denied. You can continue with text chat or photo selection.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private val micPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            startVoiceInput()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Microphone access denied. You can continue typing your questions.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onCreateView(
@@ -149,16 +178,11 @@ class HealthAssistantFragment : Fragment() {
         }
 
         binding.btnCamera.setOnClickListener {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            try {
-                cameraLauncher.launch(takePictureIntent)
-            } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Camera is not available", Toast.LENGTH_SHORT).show()
-            }
+            handleCameraClick()
         }
 
         binding.btnMic.setOnClickListener {
-            startVoiceInput()
+            handleMicClick()
         }
 
         binding.btnCancelVoice.setOnClickListener {
@@ -167,6 +191,49 @@ class HealthAssistantFragment : Fragment() {
 
         binding.btnRemoveImage.setOnClickListener {
             clearSelectedImage()
+        }
+    }
+
+    private fun handleCameraClick() {
+        if (PermissionHelper.hasCameraPermission(requireContext())) {
+            launchCameraIntent()
+        } else if (shouldShowRequestPermissionRationale(PermissionHelper.PERMISSION_CAMERA)) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Camera Access")
+                .setMessage("Camera access is needed when you choose to capture an image for the AI assistant.")
+                .setPositiveButton("Grant Permission") { _, _ ->
+                    cameraPermissionLauncher.launch(PermissionHelper.PERMISSION_CAMERA)
+                }
+                .setNegativeButton("Not Now", null)
+                .show()
+        } else {
+            cameraPermissionLauncher.launch(PermissionHelper.PERMISSION_CAMERA)
+        }
+    }
+
+    private fun launchCameraIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            cameraLauncher.launch(takePictureIntent)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Camera is not available on this device", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleMicClick() {
+        if (PermissionHelper.hasRecordAudioPermission(requireContext())) {
+            startVoiceInput()
+        } else if (shouldShowRequestPermissionRationale(PermissionHelper.PERMISSION_RECORD_AUDIO)) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Microphone Access")
+                .setMessage("Microphone access is needed when you choose to use voice input.")
+                .setPositiveButton("Grant Permission") { _, _ ->
+                    micPermissionLauncher.launch(PermissionHelper.PERMISSION_RECORD_AUDIO)
+                }
+                .setNegativeButton("Not Now", null)
+                .show()
+        } else {
+            micPermissionLauncher.launch(PermissionHelper.PERMISSION_RECORD_AUDIO)
         }
     }
 

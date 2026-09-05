@@ -12,11 +12,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.medisense.app.databinding.FragmentAddAppointmentBinding
 import com.medisense.app.ui.appointment.viewmodel.AppointmentViewModel
+import com.medisense.app.utils.PermissionHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -32,6 +34,18 @@ class AddAppointmentFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AppointmentViewModel by viewModels()
+
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (!isGranted) {
+            Toast.makeText(
+                requireContext(),
+                "Appointment saved, but reminder notifications are disabled in settings.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
 
     private var selectedYear: Int = 0
     private var selectedMonth: Int = 0
@@ -206,6 +220,10 @@ class AddAppointmentFragment : Fragment() {
             val exactTimestamp = compositeCal.timeInMillis
             val dateString = dateFormat.format(compositeCal.time)
             val timeString = timeFormat.format(compositeCal.time)
+
+            if (reminderMinutes > 0 && !PermissionHelper.hasNotificationPermission(requireContext())) {
+                notificationPermissionLauncher.launch(PermissionHelper.PERMISSION_POST_NOTIFICATIONS)
+            }
 
             viewModel.addAppointment(
                 doctorName = doctor,
