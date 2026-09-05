@@ -38,10 +38,185 @@
                 android:id="@+id/tv_welcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="18dp"
                 android:text="@string/welcome_dashboard"
                 android:textSize="26sp"
                 android:textStyle="bold" />
+
+            <!-- Module 9A: Personalized Health Context Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_personal_context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="1dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Header with Title and Profile Completeness Chip -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Personalized Health Context"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_profile_completeness_badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_badge_supports"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="4dp"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorPrimary"
+                            tools:text="Profile 80%" />
+                    </LinearLayout>
+
+                    <!-- Dynamic Factual Summary -->
+                    <TextView
+                        android:id="@+id/tv_context_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="13sp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        tools:text="Your recent activity includes recurring respiratory symptoms, 2 recent predictions, and 1 upcoming appointment." />
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="?attr/colorOutlineVariant" />
+
+                    <!-- Dynamic Subsections -->
+                    <LinearLayout
+                        android:id="@+id/layout_context_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Frequently Observed Symptoms & Recent Predictions -->
+                        <LinearLayout
+                            android:id="@+id/layout_symptoms_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_history"
+                                app:tint="?attr/colorPrimary"
+                                android:contentDescription="Symptoms" />
+
+                            <TextView
+                                android:id="@+id/tv_context_symptoms"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:textSize="13sp"
+                                android:textColor="?attr/colorOnSurface"
+                                tools:text="Frequent: Fever • Cough • Fatigue (2 predictions)" />
+                        </LinearLayout>
+
+                        <!-- Medication Adherence Summary -->
+                        <LinearLayout
+                            android:id="@+id/layout_medication_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_pill"
+                                app:tint="?attr/colorPrimary"
+                                android:contentDescription="Medications" />
+
+                            <TextView
+                                android:id="@+id/tv_context_medications"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:textSize="13sp"
+                                android:textColor="?attr/colorOnSurface"
+                                tools:text="Medications: 85% adherence this week (2 active meds)" />
+                        </LinearLayout>
+
+                        <!-- Upcoming Appointments Summary -->
+                        <LinearLayout
+                            android:id="@+id/layout_appointment_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="?attr/colorPrimary"
+                                android:contentDescription="Appointments" />
+
+                            <TextView
+                                android:id="@+id/tv_context_appointments"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:textSize="13sp"
+                                android:textColor="?attr/colorOnSurface"
+                                tools:text="Upcoming: Dr. Smith on Aug 15 • 10:00 AM" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Why this is personalized footer -->
+                    <TextView
+                        android:id="@+id/tv_why_personalized"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textSize="11sp"
+                        android:textStyle="italic"
+                        android:textColor="?attr/colorOutline"
+                        android:text="Why personalized: Based on your recent health records, prediction history, medication adherence, and scheduled appointments." />
+
+                    <!-- Medical Disclaimer note -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="10sp"
+                        android:textColor="?attr/colorOutline"
+                        android:text="⚠️ MediSense provides informational decision support and does not replace professional medical advice." />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_health_records"
