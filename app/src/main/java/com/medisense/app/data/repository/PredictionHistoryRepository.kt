@@ -16,7 +16,7 @@ class PredictionHistoryRepository @Inject constructor(
 ) {
 
     fun getCurrentUserId(): String {
-        return authService.getCurrentUserId() ?: "offline_user"
+        return authService.getCurrentUserId() ?: "offline-user"
     }
 
     /**
