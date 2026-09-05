@@ -6,8 +6,9 @@
    See https://developer.android.com/about/versions/12/backup-restore
 -->
 <full-backup-content>
-    <!--
-   <include domain="sharedpref" path="."/>
-   <exclude domain="sharedpref" path="device.xml"/>
--->
+    <!-- Exclude sensitive local healthcare database and auth session prefs from cloud backup -->
+    <exclude domain="database" path="medisense_db" />
+    <exclude domain="database" path="medisense_db-wal" />
+    <exclude domain="database" path="medisense_db-shm" />
+    <exclude domain="sharedpref" path="medisense_auth_session_prefs.xml" />
 </full-backup-content>

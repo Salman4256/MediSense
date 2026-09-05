@@ -189,6 +189,13 @@ object MedicationNotificationManager {
         val dosageText = if (dosage.isNotBlank()) "Dosage: $dosage" else "Scheduled dose"
         val subtitle = if (!instructions.isNullOrBlank()) "$dosageText • $instructions" else "$dosageText • Time: $scheduledTime"
 
+        val publicVersion = NotificationCompat.Builder(context, CHANNEL_MEDICATION_ALARM)
+            .setSmallIcon(R.drawable.ic_pill)
+            .setContentTitle("💊 Medication Reminder")
+            .setContentText("You have a scheduled medication.")
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .build()
+
         val builder = NotificationCompat.Builder(context, CHANNEL_MEDICATION_ALARM)
             .setSmallIcon(R.drawable.ic_pill)
             .setContentTitle("💊 Time to take $medicineName")
@@ -196,7 +203,8 @@ object MedicationNotificationManager {
             .setStyle(NotificationCompat.BigTextStyle().bigText("Time to take your medication:\n$medicineName ($dosageText)\nScheduled Time: $scheduledTime${if (!instructions.isNullOrBlank()) "\nInstructions: $instructions" else ""}"))
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+            .setPublicVersion(publicVersion)
             .setContentIntent(fullScreenPendingIntent)
             .setFullScreenIntent(fullScreenPendingIntent, true)
             .setSound(alarmSound)
@@ -236,6 +244,13 @@ object MedicationNotificationManager {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        val publicApptVersion = NotificationCompat.Builder(context, CHANNEL_APPOINTMENT)
+            .setSmallIcon(R.drawable.ic_appointment)
+            .setContentTitle("📅 Appointment Reminder")
+            .setContentText("You have an upcoming appointment.")
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .build()
+
         val builder = NotificationCompat.Builder(context, CHANNEL_APPOINTMENT)
             .setSmallIcon(R.drawable.ic_appointment)
             .setContentTitle("📅 Upcoming Doctor Appointment")
@@ -243,7 +258,8 @@ object MedicationNotificationManager {
             .setStyle(NotificationCompat.BigTextStyle().bigText("You have an upcoming appointment:\nDoctor: Dr. $doctorName\nClinic: $clinicName\nDate: $appointmentDate at $appointmentTime"))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+            .setPublicVersion(publicApptVersion)
             .setContentIntent(mainPendingIntent)
             .setAutoCancel(true)
 
@@ -323,6 +339,13 @@ object MedicationNotificationManager {
             append("Please take your dose now or mark it as taken/skipped.")
         }
 
+        val publicMissedVersion = NotificationCompat.Builder(context, CHANNEL_MEDICATION_ALARM)
+            .setSmallIcon(R.drawable.ic_pill)
+            .setContentTitle("⚠️ Medication Reminder")
+            .setContentText("You have a pending medication reminder.")
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .build()
+
         val builder = NotificationCompat.Builder(context, CHANNEL_MEDICATION_ALARM)
             .setSmallIcon(R.drawable.ic_pill)
             .setContentTitle("⚠️ Missed Dose: $medicineName")
@@ -330,7 +353,8 @@ object MedicationNotificationManager {
             .setStyle(NotificationCompat.BigTextStyle().bigText(bigText))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+            .setPublicVersion(publicMissedVersion)
             .setContentIntent(mainPendingIntent)
             .setAutoCancel(true)
             .setOngoing(false)

@@ -22,6 +22,9 @@ interface HealthProfileDao {
     @Delete
     suspend fun deleteHealthProfile(profile: HealthProfileEntity)
 
+    @Query("DELETE FROM health_profiles WHERE userId = :userId")
+    suspend fun deleteHealthProfileByUserId(userId: String)
+
     @Query("SELECT * FROM health_profiles WHERE pendingSync = 1")
     suspend fun getPendingSyncProfiles(): List<HealthProfileEntity>
 }

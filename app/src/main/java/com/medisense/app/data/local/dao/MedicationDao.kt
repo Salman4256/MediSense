@@ -37,4 +37,7 @@ interface MedicationDao {
 
     @Query("DELETE FROM medications WHERE id = :id AND userId = :userId")
     suspend fun deleteMedicationById(id: Long, userId: String)
+
+    @Query("DELETE FROM medications WHERE userId = :userId")
+    suspend fun deleteAllMedicationsForUser(userId: String)
 }

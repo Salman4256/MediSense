@@ -42,6 +42,9 @@ interface AppointmentDao {
     @Query("DELETE FROM appointments WHERE id = :id AND userId = :userId")
     suspend fun deleteAppointmentById(id: Long, userId: String)
 
+    @Query("DELETE FROM appointments WHERE userId = :userId")
+    suspend fun deleteAllAppointmentsForUser(userId: String)
+
     @Query("UPDATE appointments SET status = :status, updatedAt = :updatedAt, pendingSync = 1 WHERE id = :id AND userId = :userId")
     suspend fun updateAppointmentStatus(id: Long, userId: String, status: String, updatedAt: Long = System.currentTimeMillis())
 }

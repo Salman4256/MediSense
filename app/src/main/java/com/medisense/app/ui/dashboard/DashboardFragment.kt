@@ -195,6 +195,10 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_profileFragment)
                     true
                 }
+                R.id.action_privacy_security -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_privacySecurityFragment)
+                    true
+                }
                 R.id.action_logout -> {
                     authViewModel.logout()
                     true

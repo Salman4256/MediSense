@@ -118,6 +118,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_personalizedGuidanceFragment"
             app:destination="@id/personalizedGuidanceFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_privacySecurityFragment"
+            app:destination="@id/privacySecurityFragment" />
     </fragment>
 
     <!-- Module 12: Adaptive Personalized Guidance & Recommendation Engine -->
@@ -220,6 +223,22 @@
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_privacySecurityFragment"
+            app:destination="@id/privacySecurityFragment" />
+    </fragment>
+
+    <!-- Module 14: Privacy, Security, Auditability & Data Governance -->
+    <fragment
+        android:id="@+id/privacySecurityFragment"
+        android:name="com.medisense.app.ui.privacy.ui.PrivacySecurityFragment"
+        android:label="Privacy &amp; Security"
+        tools:layout="@layout/fragment_privacy_security">
+        <action
+            android:id="@+id/action_privacySecurityFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />

@@ -5,15 +5,13 @@
 -->
 <data-extraction-rules>
     <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+        <!-- Exclude local healthcare database and auth session prefs from cloud backup -->
+        <exclude domain="database" path="medisense_db" />
+        <exclude domain="database" path="medisense_db-wal" />
+        <exclude domain="database" path="medisense_db-shm" />
+        <exclude domain="sharedpref" path="medisense_auth_session_prefs.xml" />
     </cloud-backup>
-    <!--
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <exclude domain="sharedpref" path="medisense_auth_session_prefs.xml" />
     </device-transfer>
-    -->
 </data-extraction-rules>

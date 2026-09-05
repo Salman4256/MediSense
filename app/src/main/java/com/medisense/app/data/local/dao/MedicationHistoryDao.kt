@@ -34,4 +34,7 @@ interface MedicationHistoryDao {
 
     @Update
     suspend fun updateHistory(history: MedicationHistoryEntity)
+
+    @Query("DELETE FROM medication_history WHERE userId = :userId")
+    suspend fun deleteAllMedicationHistoryForUser(userId: String)
 }

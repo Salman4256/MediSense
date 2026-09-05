@@ -61,4 +61,9 @@ object DatabaseModule {
     fun providePredictionHistoryDao(database: AppDatabase): PredictionHistoryDao {
         return database.predictionHistoryDao()
     }
+
+    @Provides
+    fun provideSecurityAuditEventDao(database: AppDatabase): SecurityAuditEventDao {
+        return database.securityAuditEventDao()
+    }
 }
