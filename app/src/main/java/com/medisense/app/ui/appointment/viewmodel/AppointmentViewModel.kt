@@ -93,6 +93,53 @@ class AppointmentViewModel @Inject constructor(
         }
     }
 
+    fun getAppointmentById(id: Long, onResult: (AppointmentEntity?) -> Unit) {
+        viewModelScope.launch {
+            val appt = repository.getAppointment(id)
+            onResult(appt)
+        }
+    }
+
+    fun updateAppointment(
+        id: Long,
+        doctorName: String,
+        clinicName: String,
+        appointmentType: String,
+        appointmentDate: String,
+        appointmentTime: String,
+        appointmentTimestamp: Long,
+        reminderMinutesBefore: Int,
+        notes: String?,
+        status: String = "SCHEDULED",
+        onSuccess: () -> Unit
+    ) {
+        viewModelScope.launch {
+            val existing = repository.getAppointment(id)
+            if (existing == null) {
+                _userMessage.emit("Appointment not found")
+                return@launch
+            }
+            val updated = existing.copy(
+                doctorName = doctorName.trim(),
+                clinicName = clinicName.trim(),
+                appointmentType = appointmentType,
+                appointmentDate = appointmentDate,
+                appointmentTime = appointmentTime,
+                appointmentTimestamp = appointmentTimestamp,
+                reminderMinutesBefore = reminderMinutesBefore,
+                notes = notes?.trim()?.ifBlank { null },
+                status = status
+            )
+            val result = repository.updateAppointment(updated)
+            if (result.isSuccess) {
+                _userMessage.emit("Appointment updated successfully")
+                onSuccess()
+            } else {
+                _userMessage.emit(result.exceptionOrNull()?.message ?: "Failed to update appointment")
+            }
+        }
+    }
+
     fun addAppointment(
         doctorName: String,
         clinicName: String,

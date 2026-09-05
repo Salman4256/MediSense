@@ -55,6 +55,34 @@ class HealthRecordFragment : Fragment() {
         }
     }
 
+    private val countryCodes = arrayOf(
+        "+91 (IN)",
+        "+1 (US/CA)",
+        "+44 (UK)",
+        "+61 (AU)",
+        "+971 (AE)",
+        "+65 (SG)",
+        "+60 (MY)",
+        "+49 (DE)",
+        "+33 (FR)",
+        "+81 (JP)",
+        "+86 (CN)",
+        "+966 (SA)",
+        "+92 (PK)",
+        "+880 (BD)",
+        "+94 (LK)",
+        "+977 (NP)",
+        "+234 (NG)",
+        "+27 (ZA)",
+        "+55 (BR)",
+        "+62 (ID)",
+        "+63 (PH)",
+        "+7 (RU)",
+        "+39 (IT)",
+        "+34 (ES)",
+        "+82 (KR)"
+    )
+
     private fun setupDropdowns() {
         val genders = arrayOf("Male", "Female", "Other", "Prefer not to say")
         val genderAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, genders)
@@ -63,6 +91,10 @@ class HealthRecordFragment : Fragment() {
         val bloodGroups = arrayOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
         val bloodGroupAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, bloodGroups)
         binding.actvBloodGroup.setAdapter(bloodGroupAdapter)
+
+        val countryCodeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, countryCodes)
+        binding.actvCountryCode.setAdapter(countryCodeAdapter)
+        binding.actvCountryCode.setText("+91 (IN)", false)
     }
 
     private fun setupDatePicker() {
@@ -96,7 +128,12 @@ class HealthRecordFragment : Fragment() {
             val medications = binding.etMedications.text.toString().trim()
             val familyHistory = binding.etFamilyHistory.text.toString().trim()
             val emergencyName = binding.etEmergencyName.text.toString().trim()
-            val emergencyPhone = binding.etEmergencyPhone.text.toString().trim()
+            val rawPhone = binding.etEmergencyPhone.text.toString().trim()
+            val selectedCodeText = binding.actvCountryCode.text.toString().trim()
+            val codePrefix = selectedCodeText.substringBefore(" ").trim()
+            val emergencyPhone = if (rawPhone.isNotBlank()) {
+                if (rawPhone.startsWith("+")) rawPhone else "$codePrefix $rawPhone"
+            } else ""
             val notes = binding.etNotes.text.toString().trim()
 
             viewModel.saveOrUpdateProfile(
@@ -153,7 +190,24 @@ class HealthRecordFragment : Fragment() {
                             binding.etMedications.setText(profile.currentMedications)
                             binding.etFamilyHistory.setText(profile.familyHistory)
                             binding.etEmergencyName.setText(profile.emergencyContactName)
-                            binding.etEmergencyPhone.setText(profile.emergencyContactNumber)
+                            
+                            val rawSavedPhone = profile.emergencyContactNumber ?: ""
+                            if (rawSavedPhone.isNotBlank()) {
+                                val matchedCode = countryCodes.firstOrNull { rawSavedPhone.startsWith(it.substringBefore(" ")) }
+                                if (matchedCode != null) {
+                                    val prefix = matchedCode.substringBefore(" ")
+                                    val remainingPhone = rawSavedPhone.removePrefix(prefix).trim()
+                                    binding.actvCountryCode.setText(matchedCode, false)
+                                    binding.etEmergencyPhone.setText(remainingPhone)
+                                } else {
+                                    binding.actvCountryCode.setText("+91 (IN)", false)
+                                    binding.etEmergencyPhone.setText(rawSavedPhone)
+                                }
+                            } else {
+                                binding.actvCountryCode.setText("+91 (IN)", false)
+                                binding.etEmergencyPhone.setText("")
+                            }
+                            
                             binding.etNotes.setText(profile.notes)
                             binding.btnSave.text = "Update Health Record"
                         }

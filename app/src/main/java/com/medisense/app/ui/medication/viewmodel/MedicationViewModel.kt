@@ -123,6 +123,53 @@ class MedicationViewModel @Inject constructor(
         }
     }
 
+    fun getMedicationById(id: Long, onResult: (MedicationEntity?) -> Unit) {
+        viewModelScope.launch {
+            val med = repository.getMedicationById(id)
+            onResult(med)
+        }
+    }
+
+    fun updateMedication(
+        id: Long,
+        name: String,
+        dosage: String,
+        unit: String,
+        frequency: String,
+        scheduledTimes: List<String>,
+        startDate: Long,
+        endDate: Long?,
+        instructions: String,
+        active: Boolean = true,
+        onComplete: () -> Unit
+    ) {
+        viewModelScope.launch {
+            val existing = repository.getMedicationById(id)
+            if (existing == null) {
+                _userMessage.emit("Medication not found")
+                return@launch
+            }
+            val updated = existing.copy(
+                medicineName = name,
+                dosage = dosage,
+                dosageUnit = unit,
+                frequency = frequency,
+                scheduledTimes = scheduledTimes,
+                startDate = startDate,
+                endDate = endDate,
+                instructions = instructions,
+                active = active
+            )
+            val result = repository.updateMedication(updated)
+            if (result.isSuccess) {
+                _userMessage.emit("Medication updated successfully")
+                onComplete()
+            } else {
+                _userMessage.emit(result.exceptionOrNull()?.message ?: "Failed to update medication")
+            }
+        }
+    }
+
     fun addMedication(
         name: String,
         dosage: String,

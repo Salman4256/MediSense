@@ -65,6 +65,12 @@ class MedicationFragment : Fragment() {
             onMarkSkipped = { med ->
                 viewModel.markSkipped(med)
             },
+            onEdit = { med ->
+                findNavController().navigate(
+                    R.id.action_medicationListFragment_to_addEditMedicationFragment,
+                    androidx.core.os.bundleOf("medication_id" to med.id)
+                )
+            },
             onDelete = { med ->
                 showDeleteConfirmationDialog(med.id, med.medicineName)
             }

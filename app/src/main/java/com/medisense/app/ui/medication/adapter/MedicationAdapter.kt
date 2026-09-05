@@ -12,6 +12,7 @@ class MedicationAdapter(
     private val onToggleActive: (MedicationEntity, Boolean) -> Unit,
     private val onMarkTaken: (MedicationEntity) -> Unit,
     private val onMarkSkipped: (MedicationEntity) -> Unit,
+    private val onEdit: (MedicationEntity) -> Unit,
     private val onDelete: (MedicationEntity) -> Unit
 ) : ListAdapter<MedicationEntity, MedicationAdapter.ViewHolder>(DiffCallback()) {
 
@@ -58,6 +59,10 @@ class MedicationAdapter(
 
             binding.btnMarkSkipped.setOnClickListener {
                 onMarkSkipped(item)
+            }
+
+            binding.btnEdit.setOnClickListener {
+                onEdit(item)
             }
 
             binding.btnDelete.setOnClickListener {

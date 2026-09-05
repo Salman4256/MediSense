@@ -3,6 +3,7 @@ package com.medisense.app.ui.personalization
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.medisense.app.data.remote.supabase.AuthService
+import com.medisense.app.data.repository.HealthProfileRepository
 import com.medisense.app.data.repository.PersonalHealthContextRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PersonalHealthContextViewModel @Inject constructor(
     private val repository: PersonalHealthContextRepository,
+    private val healthProfileRepository: HealthProfileRepository,
     private val authService: AuthService
 ) : ViewModel() {
 
@@ -29,6 +31,14 @@ class PersonalHealthContextViewModel @Inject constructor(
         if (!authService.isUserLoggedIn()) {
             _uiState.value = PersonalHealthContextUiState.Empty("Please sign in to view your personalized health context.")
             return
+        }
+
+        // Proactively fetch remote profile on fresh login/launch to populate Room immediately
+        viewModelScope.launch {
+            val userId = authService.getCurrentUserId()
+            if (userId != null) {
+                healthProfileRepository.loadProfile(userId)
+            }
         }
 
         _uiState.value = PersonalHealthContextUiState.Loading
@@ -47,3 +57,4 @@ class PersonalHealthContextViewModel @Inject constructor(
         }
     }
 }
+

@@ -47,6 +47,9 @@ class AddAppointmentFragment : Fragment() {
         }
     }
 
+    private var appointmentId: Long = -1L
+    private var appointmentStatus: String = "SCHEDULED"
+
     private var selectedYear: Int = 0
     private var selectedMonth: Int = 0
     private var selectedDay: Int = 0
@@ -67,12 +70,58 @@ class AddAppointmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        appointmentId = arguments?.getLong("appointment_id", -1L) ?: -1L
+
         initDefaultDateTime()
         setupToolbar()
         setupDropdowns()
         setupDateTimePickers()
         setupSaveButton()
         observeViewModel()
+
+        if (appointmentId != -1L) {
+            loadExistingAppointment(appointmentId)
+        }
+    }
+
+    private fun loadExistingAppointment(id: Long) {
+        viewModel.getAppointmentById(id) { appt ->
+            if (appt == null || _binding == null) return@getAppointmentById
+            appointmentStatus = appt.status
+            binding.toolbar.title = "Edit Appointment"
+            binding.btnSaveAppointment.text = "Update Appointment"
+
+            binding.etDoctorName.setText(appt.doctorName)
+            binding.etClinicName.setText(appt.clinicName)
+            binding.actvAppointmentType.setText(appt.appointmentType, false)
+
+            val reminderStr = when (appt.reminderMinutesBefore) {
+                15 -> "15 minutes before"
+                30 -> "30 minutes before"
+                60 -> "1 hour before"
+                120 -> "2 hours before"
+                1440 -> "1 day before"
+                else -> "None"
+            }
+            binding.actvReminder.setText(reminderStr, false)
+
+            if (!appt.notes.isNullOrBlank()) {
+                binding.etNotes.setText(appt.notes)
+            }
+
+            if (appt.appointmentTimestamp > 0) {
+                val cal = Calendar.getInstance().apply {
+                    timeInMillis = appt.appointmentTimestamp
+                }
+                selectedYear = cal.get(Calendar.YEAR)
+                selectedMonth = cal.get(Calendar.MONTH)
+                selectedDay = cal.get(Calendar.DAY_OF_MONTH)
+                selectedHour = cal.get(Calendar.HOUR_OF_DAY)
+                selectedMinute = cal.get(Calendar.MINUTE)
+                updateDateDisplay()
+                updateTimeDisplay()
+            }
+        }
     }
 
     private fun initDefaultDateTime() {
@@ -225,17 +274,34 @@ class AddAppointmentFragment : Fragment() {
                 notificationPermissionLauncher.launch(PermissionHelper.PERMISSION_POST_NOTIFICATIONS)
             }
 
-            viewModel.addAppointment(
-                doctorName = doctor,
-                clinicName = clinic,
-                appointmentType = type,
-                appointmentDate = dateString,
-                appointmentTime = timeString,
-                appointmentTimestamp = exactTimestamp,
-                reminderMinutesBefore = reminderMinutes,
-                notes = if (notes.isNotBlank()) notes else null
-            ) {
-                findNavController().navigateUp()
+            if (appointmentId != -1L) {
+                viewModel.updateAppointment(
+                    id = appointmentId,
+                    doctorName = doctor,
+                    clinicName = clinic,
+                    appointmentType = type,
+                    appointmentDate = dateString,
+                    appointmentTime = timeString,
+                    appointmentTimestamp = exactTimestamp,
+                    reminderMinutesBefore = reminderMinutes,
+                    notes = if (notes.isNotBlank()) notes else null,
+                    status = appointmentStatus
+                ) {
+                    findNavController().navigateUp()
+                }
+            } else {
+                viewModel.addAppointment(
+                    doctorName = doctor,
+                    clinicName = clinic,
+                    appointmentType = type,
+                    appointmentDate = dateString,
+                    appointmentTime = timeString,
+                    appointmentTimestamp = exactTimestamp,
+                    reminderMinutesBefore = reminderMinutes,
+                    notes = if (notes.isNotBlank()) notes else null
+                ) {
+                    findNavController().navigateUp()
+                }
             }
         }
     }

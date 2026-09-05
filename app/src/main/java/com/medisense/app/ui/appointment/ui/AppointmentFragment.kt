@@ -60,6 +60,12 @@ class AppointmentFragment : Fragment() {
             onCompleteClick = { appt ->
                 viewModel.markCompleted(appt.id)
             },
+            onEditClick = { appt ->
+                findNavController().navigate(
+                    R.id.action_appointmentFragment_to_addAppointmentFragment,
+                    androidx.core.os.bundleOf("appointment_id" to appt.id)
+                )
+            },
             onCancelClick = { appt ->
                 showCancelConfirmationDialog(appt.id, appt.doctorName)
             },

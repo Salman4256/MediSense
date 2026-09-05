@@ -48,6 +48,9 @@ class AddMedicationFragment : Fragment() {
         }
     }
 
+    private var medicationId: Long = -1L
+    private var medicationActive: Boolean = true
+
     private val scheduledTimesList = mutableListOf<String>()
     private var startDateTimestamp: Long = System.currentTimeMillis()
     private var endDateTimestamp: Long? = null
@@ -65,12 +68,54 @@ class AddMedicationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        medicationId = arguments?.getLong("medication_id", -1L) ?: -1L
+
         setupToolbar()
         setupDropdowns()
         setupTimePickers()
         setupDatePickers()
         setupSaveButton()
         observeViewModel()
+
+        if (medicationId != -1L) {
+            loadExistingMedication(medicationId)
+        }
+    }
+
+    private fun loadExistingMedication(id: Long) {
+        viewModel.getMedicationById(id) { med ->
+            if (med == null || _binding == null) return@getMedicationById
+            medicationActive = med.active
+            binding.toolbar.title = "Edit Medication"
+            binding.btnSaveMedication.text = "Update Medication"
+
+            binding.etName.setText(med.medicineName)
+            binding.etDosage.setText(med.dosage)
+            binding.actvDosageUnit.setText(med.dosageUnit, false)
+
+            val freqDisplay = when (med.frequency) {
+                "ONCE_DAILY" -> "Once Daily"
+                "TWICE_DAILY" -> "Twice Daily"
+                "THREE_TIMES_DAILY" -> "Three Times Daily"
+                "FOUR_TIMES_DAILY" -> "Four Times Daily"
+                else -> "As Needed"
+            }
+            binding.actvFrequency.setText(freqDisplay, false)
+
+            scheduledTimesList.clear()
+            scheduledTimesList.addAll(med.scheduledTimes)
+            renderTimeChips()
+
+            startDateTimestamp = med.startDate
+            binding.btnStartDate.text = "Start: ${dateFormat.format(Date(startDateTimestamp))}"
+
+            endDateTimestamp = med.endDate
+            if (med.endDate != null) {
+                binding.btnEndDate.text = "End: ${dateFormat.format(Date(med.endDate))}"
+            }
+
+            binding.etInstructions.setText(med.instructions)
+        }
     }
 
     private fun setupToolbar() {
@@ -104,7 +149,9 @@ class AddMedicationFragment : Fragment() {
             }
         }
 
-        setPresetTimes(listOf("08:00 AM"))
+        if (medicationId == -1L) {
+            setPresetTimes(listOf("08:00 AM"))
+        }
     }
 
     private fun setPresetTimes(times: List<String>) {
@@ -232,17 +279,34 @@ class AddMedicationFragment : Fragment() {
                 notificationPermissionLauncher.launch(PermissionHelper.PERMISSION_POST_NOTIFICATIONS)
             }
 
-            viewModel.addMedication(
-                name = name,
-                dosage = dosage,
-                unit = unit,
-                frequency = frequencyKey,
-                scheduledTimes = times,
-                startDate = startDateTimestamp,
-                endDate = endDateTimestamp,
-                instructions = instructions
-            ) {
-                findNavController().navigateUp()
+            if (medicationId != -1L) {
+                viewModel.updateMedication(
+                    id = medicationId,
+                    name = name,
+                    dosage = dosage,
+                    unit = unit,
+                    frequency = frequencyKey,
+                    scheduledTimes = times,
+                    startDate = startDateTimestamp,
+                    endDate = endDateTimestamp,
+                    instructions = instructions,
+                    active = medicationActive
+                ) {
+                    findNavController().navigateUp()
+                }
+            } else {
+                viewModel.addMedication(
+                    name = name,
+                    dosage = dosage,
+                    unit = unit,
+                    frequency = frequencyKey,
+                    scheduledTimes = times,
+                    startDate = startDateTimestamp,
+                    endDate = endDateTimestamp,
+                    instructions = instructions
+                ) {
+                    findNavController().navigateUp()
+                }
             }
         }
     }

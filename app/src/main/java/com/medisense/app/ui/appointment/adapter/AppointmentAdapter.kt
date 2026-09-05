@@ -17,6 +17,7 @@ import java.util.Locale
 
 class AppointmentAdapter(
     private val onCompleteClick: (AppointmentEntity) -> Unit,
+    private val onEditClick: (AppointmentEntity) -> Unit,
     private val onCancelClick: (AppointmentEntity) -> Unit,
     private val onDeleteClick: (AppointmentEntity) -> Unit
 ) : ListAdapter<AppointmentEntity, AppointmentAdapter.ViewHolder>(DiffCallback()) {
@@ -79,6 +80,10 @@ class AppointmentAdapter(
                     when (menuItem.itemId) {
                         R.id.action_complete -> {
                             onCompleteClick(item)
+                            true
+                        }
+                        R.id.action_edit -> {
+                            onEditClick(item)
                             true
                         }
                         R.id.action_cancel_appointment -> {
