@@ -109,6 +109,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_longitudinalHealthFragment"
             app:destination="@id/longitudinalHealthFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_rchrFragment"
+            app:destination="@id/rchrFragment" />
     </fragment>
 
     <!-- Module 9B: Longitudinal Health Trends & Temporal Patterns -->
@@ -117,6 +120,13 @@
         android:name="com.medisense.app.ui.analytics.ui.LongitudinalHealthFragment"
         android:label="Health Trends &amp; Analytics"
         tools:layout="@layout/fragment_longitudinal_health" />
+
+    <!-- Module 10: Reversible Composite Health Representation (RCHR) -->
+    <fragment
+        android:id="@+id/rchrFragment"
+        android:name="com.medisense.app.ui.rchr.ui.RchrFragment"
+        android:label="Composite Health Representation (RCHR)"
+        tools:layout="@layout/fragment_rchr" />
 
     <fragment
         android:id="@+id/healthRecordFragment"

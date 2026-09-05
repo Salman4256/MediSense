@@ -46,6 +46,7 @@ class DashboardFragment : Fragment() {
         setupDiseasePredictionButton()
         setupPredictionHistoryButton()
         setupHealthTrendsButton()
+        setupRchrButton()
         setupAiAssistantButton()
         setupMedicationRemindersButton()
         setupAppointmentsButton()
@@ -164,6 +165,12 @@ class DashboardFragment : Fragment() {
     private fun setupHealthTrendsButton() {
         binding.btnHealthTrends.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_longitudinalHealthFragment)
+        }
+    }
+
+    private fun setupRchrButton() {
+        binding.btnRchr.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_rchrFragment)
         }
     }
 
