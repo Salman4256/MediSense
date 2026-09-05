@@ -45,6 +45,7 @@ class DashboardFragment : Fragment() {
         setupHealthRecordsButton()
         setupDiseasePredictionButton()
         setupPredictionHistoryButton()
+        setupHealthTrendsButton()
         setupAiAssistantButton()
         setupMedicationRemindersButton()
         setupAppointmentsButton()
@@ -156,7 +157,13 @@ class DashboardFragment : Fragment() {
 
     private fun setupContextCardNavigation() {
         binding.cardPersonalContext.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboardFragment_to_healthRecordFragment)
+            findNavController().navigate(R.id.action_dashboardFragment_to_longitudinalHealthFragment)
+        }
+    }
+
+    private fun setupHealthTrendsButton() {
+        binding.btnHealthTrends.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_longitudinalHealthFragment)
         }
     }
 

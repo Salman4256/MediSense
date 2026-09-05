@@ -106,7 +106,17 @@
         <action
             android:id="@+id/action_dashboardFragment_to_predictionHistoryFragment"
             app:destination="@id/predictionHistoryFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_longitudinalHealthFragment"
+            app:destination="@id/longitudinalHealthFragment" />
     </fragment>
+
+    <!-- Module 9B: Longitudinal Health Trends & Temporal Patterns -->
+    <fragment
+        android:id="@+id/longitudinalHealthFragment"
+        android:name="com.medisense.app.ui.analytics.ui.LongitudinalHealthFragment"
+        android:label="Health Trends &amp; Analytics"
+        tools:layout="@layout/fragment_longitudinal_health" />
 
     <fragment
         android:id="@+id/healthRecordFragment"
