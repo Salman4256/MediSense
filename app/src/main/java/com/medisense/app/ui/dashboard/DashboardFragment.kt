@@ -48,6 +48,7 @@ class DashboardFragment : Fragment() {
         setupHealthTrendsButton()
         setupRchrButton()
         setupContextualRiskButton()
+        setupPersonalizedGuidanceButton()
         setupAiAssistantButton()
         setupMedicationRemindersButton()
         setupAppointmentsButton()
@@ -178,6 +179,12 @@ class DashboardFragment : Fragment() {
     private fun setupContextualRiskButton() {
         binding.btnContextualRisk.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_contextualRiskFragment)
+        }
+    }
+
+    private fun setupPersonalizedGuidanceButton() {
+        binding.btnPersonalizedGuidance.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_personalizedGuidanceFragment)
         }
     }
 

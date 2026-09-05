@@ -115,6 +115,38 @@
         <action
             android:id="@+id/action_dashboardFragment_to_contextualRiskFragment"
             app:destination="@id/contextualRiskFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_personalizedGuidanceFragment"
+            app:destination="@id/personalizedGuidanceFragment" />
+    </fragment>
+
+    <!-- Module 12: Adaptive Personalized Guidance & Recommendation Engine -->
+    <fragment
+        android:id="@+id/personalizedGuidanceFragment"
+        android:name="com.medisense.app.ui.guidance.ui.PersonalizedGuidanceFragment"
+        android:label="Personalized Guidance"
+        tools:layout="@layout/fragment_personalized_guidance">
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_medicationListFragment"
+            app:destination="@id/medicationListFragment" />
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment" />
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_predictionHistoryFragment"
+            app:destination="@id/predictionHistoryFragment" />
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_longitudinalHealthFragment"
+            app:destination="@id/longitudinalHealthFragment" />
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_rchrFragment"
+            app:destination="@id/rchrFragment" />
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_contextualRiskFragment"
+            app:destination="@id/contextualRiskFragment" />
     </fragment>
 
     <!-- Module 9B: Longitudinal Health Trends & Temporal Patterns -->
