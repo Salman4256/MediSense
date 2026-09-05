@@ -90,6 +90,71 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Module 13: Prediction Confidence & Uncertainty Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Model Confidence Assessment"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_confidence_level"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            app:chipMinHeight="28dp"
+                            app:chipStrokeWidth="0dp"
+                            tools:text="High Confidence" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_confidence_interpretation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:lineSpacingMultiplier="1.2"
+                        tools:text="The model shows a stronger relative preference for this condition based on your reported symptoms." />
+
+                    <TextView
+                        android:id="@+id/tv_confidence_disclaimer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="11sp"
+                        android:textStyle="italic"
+                        android:textColor="?attr/colorOutline"
+                        android:text="Model confidence reflects how strongly the algorithm prioritizes this output. It is not medical certainty and is not a clinical diagnosis." />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- XAI Section: Why This Prediction? -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -184,6 +249,92 @@
                         tools:text="Fungal Infection is characterized by skin itching, rashes, and nodular eruptions. The model identified Itching, Skin Rash as key contributing indicators supporting the prediction of Fungal Infection." />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- Module 13: What-If Counterfactual Analysis Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="What-If Analysis (Counterfactuals)"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sensitivity_level"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        app:chipMinHeight="28dp"
+                        app:chipStrokeWidth="0dp"
+                        tools:text="Stable Output" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Simulates how the model responds if key symptoms are removed:"
+                    android:textSize="13sp"
+                    android:textColor="?attr/colorOutline" />
+
+                <TextView
+                    android:id="@+id/tv_sensitivity_explanation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="12sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="The top predicted condition remained unchanged across tested symptom removals." />
+
+                <!-- Counterfactual Cards RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_counterfactuals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_counterfactual_card" />
+
+                <!-- Fallback card when < 2 symptoms -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_counterfactual_unavailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <TextView
+                        android:id="@+id/tv_counterfactual_unavailable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="14dp"
+                        android:text="At least 2 symptoms are needed to perform what-if counterfactual analysis."
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:lineSpacingMultiplier="1.2" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
             <!-- Selected Symptoms Summary -->
             <TextView

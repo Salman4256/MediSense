@@ -11,12 +11,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DiseasePredictionRepository @Inject constructor(
-    private val predictionEngine: DiseasePredictionEngine,
-    private val xaiExplanationEngine: XaiExplanationEngine
+open class DiseasePredictionRepository @Inject constructor(
+    private val predictionEngine: DiseasePredictionEngine?,
+    private val xaiExplanationEngine: XaiExplanationEngine?
 ) {
-    fun getSymptoms(): List<Symptom> {
-        return predictionEngine.getSymptoms().mapIndexed { index, name ->
+    open fun getSymptoms(): List<Symptom> {
+        val engine = predictionEngine ?: return emptyList()
+        return engine.getSymptoms().mapIndexed { index, name ->
             Symptom(
                 id = index,
                 displayName = name.replace("_", " ").split(" ").joinToString(" ") {
@@ -27,8 +28,9 @@ class DiseasePredictionRepository @Inject constructor(
         }
     }
 
-    suspend fun predict(selectedSymptoms: List<Symptom>): List<DiseasePrediction> = withContext(Dispatchers.Default) {
-        val symptoms = predictionEngine.getSymptoms()
+    open suspend fun predict(selectedSymptoms: List<Symptom>): List<DiseasePrediction> = withContext(Dispatchers.Default) {
+        val engine = predictionEngine ?: return@withContext emptyList()
+        val symptoms = engine.getSymptoms()
         val inputVector = FloatArray(symptoms.size)
 
         for (symptom in selectedSymptoms) {
@@ -37,8 +39,8 @@ class DiseasePredictionRepository @Inject constructor(
             }
         }
 
-        val probabilities = predictionEngine.predict(inputVector)
-        val labels = predictionEngine.getLabels()
+        val probabilities = engine.predict(inputVector)
+        val labels = engine.getLabels()
 
         labels.mapIndexed { index, name ->
             DiseasePrediction(
@@ -53,11 +55,12 @@ class DiseasePredictionRepository @Inject constructor(
         }
     }
 
-    suspend fun generateExplanation(
+    open suspend fun generateExplanation(
         prediction: DiseasePrediction,
         selectedSymptoms: List<Symptom>
     ): PredictionExplanation = withContext(Dispatchers.Default) {
-        xaiExplanationEngine.generateExplanation(
+        val xai = xaiExplanationEngine ?: return@withContext PredictionExplanation(prediction.diseaseName, prediction.probability, emptyList(), "")
+        xai.generateExplanation(
             diseaseName = prediction.diseaseName,
             probability = prediction.probability,
             selectedSymptoms = selectedSymptoms

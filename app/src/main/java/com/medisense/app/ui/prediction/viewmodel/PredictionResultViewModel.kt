@@ -7,6 +7,8 @@ import com.medisense.app.data.model.PredictionExplanation
 import com.medisense.app.data.model.Symptom
 import com.medisense.app.data.repository.DiseasePredictionRepository
 import com.medisense.app.data.repository.PredictionHistoryRepository
+import com.medisense.app.domain.counterfactual.CounterfactualExplanationEngine
+import com.medisense.app.domain.model.CounterfactualAnalysisResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +23,8 @@ sealed class PredictionResultUiState {
         val primaryPrediction: DiseasePrediction,
         val secondaryPredictions: List<DiseasePrediction>,
         val selectedSymptoms: List<Symptom>,
-        val explanation: PredictionExplanation
+        val explanation: PredictionExplanation,
+        val counterfactualResult: CounterfactualAnalysisResult
     ) : PredictionResultUiState()
     data class Error(val message: String) : PredictionResultUiState()
 }
@@ -29,7 +32,8 @@ sealed class PredictionResultUiState {
 @HiltViewModel
 class PredictionResultViewModel @Inject constructor(
     private val predictionRepository: DiseasePredictionRepository,
-    private val historyRepository: PredictionHistoryRepository
+    private val historyRepository: PredictionHistoryRepository,
+    private val counterfactualEngine: CounterfactualExplanationEngine
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PredictionResultUiState>(PredictionResultUiState.Idle)
@@ -49,12 +53,14 @@ class PredictionResultViewModel @Inject constructor(
                 val primary = predictions.first()
                 val secondaries = if (predictions.size > 1) predictions.subList(1, minOf(predictions.size, 10)) else emptyList()
                 val explanation = predictionRepository.generateExplanation(primary, symptoms)
+                val counterfactualResult = counterfactualEngine.evaluateCounterfactuals(primary, symptoms, explanation)
 
                 _uiState.value = PredictionResultUiState.Success(
                     primaryPrediction = primary,
                     secondaryPredictions = secondaries,
                     selectedSymptoms = symptoms,
-                    explanation = explanation
+                    explanation = explanation,
+                    counterfactualResult = counterfactualResult
                 )
 
                 // Persist completed prediction to Prediction History (Module 8)

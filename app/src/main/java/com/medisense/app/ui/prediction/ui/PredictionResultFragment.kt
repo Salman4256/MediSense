@@ -22,6 +22,12 @@ import com.medisense.app.ui.prediction.viewmodel.PredictionResultViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import com.medisense.app.domain.model.ConfidenceLevel
+import com.medisense.app.domain.model.ModelSensitivity
+import com.medisense.app.ui.prediction.adapter.CounterfactualAdapter
+
 @AndroidEntryPoint
 class PredictionResultFragment : Fragment() {
 
@@ -31,6 +37,7 @@ class PredictionResultFragment : Fragment() {
     private val viewModel: PredictionResultViewModel by viewModels()
     private lateinit var predictionAdapter: PredictionResultAdapter
     private lateinit var contributionAdapter: FeatureContributionAdapter
+    private lateinit var counterfactualAdapter: CounterfactualAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +73,11 @@ class PredictionResultFragment : Fragment() {
         contributionAdapter = FeatureContributionAdapter()
         binding.rvContributions.layoutManager = LinearLayoutManager(requireContext())
         binding.rvContributions.adapter = contributionAdapter
+
+        // Counterfactual Adapter (What-If Analysis cards)
+        counterfactualAdapter = CounterfactualAdapter()
+        binding.rvCounterfactuals.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvCounterfactuals.adapter = counterfactualAdapter
     }
 
     @Suppress("DEPRECATION", "UNCHECKED_CAST")
@@ -106,6 +118,8 @@ class PredictionResultFragment : Fragment() {
     private fun bindSuccessState(state: PredictionResultUiState.Success) {
         val primary = state.primaryPrediction
         val explanation = state.explanation
+        val counterfactualResult = state.counterfactualResult
+        val confidenceSummary = counterfactualResult.confidenceSummary
 
         // 1. Primary Disease Card
         binding.tvTopDisease.text = primary.diseaseName.split(" ").joinToString(" ") { word ->
@@ -114,7 +128,30 @@ class PredictionResultFragment : Fragment() {
         binding.tvTopProbability.text = String.format("%.0f%% Probability", primary.probability * 100)
         binding.tvModelVersion.text = String.format(getString(R.string.xai_model_version), explanation.modelVersion)
 
-        // 2. XAI Contributing Symptoms & Visual Bars
+        // 2. Module 13: Confidence & Uncertainty Assessment
+        binding.chipConfidenceLevel.text = confidenceSummary.confidenceLevel.label
+        when (confidenceSummary.confidenceLevel) {
+            ConfidenceLevel.HIGH -> {
+                binding.chipConfidenceLevel.setTextColor(Color.parseColor("#2E7D32"))
+                binding.chipConfidenceLevel.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#222E7D32"))
+            }
+            ConfidenceLevel.MODERATE -> {
+                binding.chipConfidenceLevel.setTextColor(Color.parseColor("#1565C0"))
+                binding.chipConfidenceLevel.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#221565C0"))
+            }
+            ConfidenceLevel.LOW -> {
+                binding.chipConfidenceLevel.setTextColor(Color.parseColor("#E65100"))
+                binding.chipConfidenceLevel.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#22E65100"))
+            }
+            ConfidenceLevel.INSUFFICIENT_DATA -> {
+                binding.chipConfidenceLevel.setTextColor(Color.parseColor("#757575"))
+                binding.chipConfidenceLevel.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#22757575"))
+            }
+        }
+        binding.tvConfidenceInterpretation.text = confidenceSummary.interpretation
+        binding.tvConfidenceDisclaimer.text = confidenceSummary.disclaimer
+
+        // 3. XAI Contributing Symptoms & Visual Bars
         if (explanation.isAvailable && explanation.contributions.isNotEmpty()) {
             binding.rvContributions.visibility = View.VISIBLE
             binding.cardExplanationUnavailable.visibility = View.GONE
@@ -124,10 +161,38 @@ class PredictionResultFragment : Fragment() {
             binding.cardExplanationUnavailable.visibility = View.VISIBLE
         }
 
-        // 3. Explanation Summary
+        // 4. Explanation Summary
         binding.tvExplanationSummary.text = explanation.summary
 
-        // 4. Selected Symptoms Chips
+        // 5. Module 13: What-If Counterfactual Analysis & Sensitivity
+        binding.chipSensitivityLevel.text = counterfactualResult.sensitivity.label
+        when (counterfactualResult.sensitivity) {
+            ModelSensitivity.STABLE -> {
+                binding.chipSensitivityLevel.setTextColor(Color.parseColor("#2E7D32"))
+                binding.chipSensitivityLevel.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#222E7D32"))
+            }
+            ModelSensitivity.SENSITIVE -> {
+                binding.chipSensitivityLevel.setTextColor(Color.parseColor("#E65100"))
+                binding.chipSensitivityLevel.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#22E65100"))
+            }
+            ModelSensitivity.INSUFFICIENT_DATA -> {
+                binding.chipSensitivityLevel.setTextColor(Color.parseColor("#757575"))
+                binding.chipSensitivityLevel.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#22757575"))
+            }
+        }
+        binding.tvSensitivityExplanation.text = counterfactualResult.sensitivityExplanation
+
+        if (counterfactualResult.hasSufficientSymptoms && counterfactualResult.counterfactuals.isNotEmpty()) {
+            binding.rvCounterfactuals.visibility = View.VISIBLE
+            binding.cardCounterfactualUnavailable.visibility = View.GONE
+            counterfactualAdapter.submitList(counterfactualResult.counterfactuals)
+        } else {
+            binding.rvCounterfactuals.visibility = View.GONE
+            binding.cardCounterfactualUnavailable.visibility = View.VISIBLE
+            binding.tvCounterfactualUnavailable.text = counterfactualResult.sensitivityExplanation
+        }
+
+        // 6. Selected Symptoms Chips
         binding.chipGroupSymptoms.removeAllViews()
         for (symptom in state.selectedSymptoms) {
             val chip = Chip(requireContext()).apply {
@@ -138,7 +203,7 @@ class PredictionResultFragment : Fragment() {
             binding.chipGroupSymptoms.addView(chip)
         }
 
-        // 5. Full Model Outputs (Secondary predictions)
+        // 7. Full Model Outputs (Secondary predictions)
         predictionAdapter.submitList(state.secondaryPredictions)
     }
 
