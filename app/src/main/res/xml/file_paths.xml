@@ -7,4 +7,5 @@
     <cache-path name="consultation_summaries" path="consultations/" />
     <cache-path name="decision_traces" path="traces/" />
     <cache-path name="health_shares" path="shares/" />
+    <cache-path name="portable_exports" path="exports/" />
 </paths>

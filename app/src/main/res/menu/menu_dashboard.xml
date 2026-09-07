@@ -39,6 +39,10 @@
         android:title="Caregiver &amp; Doctor Sharing"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_health_portability"
+        android:title="Health Data Portability"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_logout"
         android:title="Logout"
         app:showAsAction="never" />

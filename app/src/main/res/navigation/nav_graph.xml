@@ -142,6 +142,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_healthSharingFragment"
             app:destination="@id/healthSharingFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthDataPortabilityFragment"
+            app:destination="@id/healthDataPortabilityFragment" />
     </fragment>
 
     <!-- Module 12: Personalized Health Guidance Engine -->
@@ -471,6 +474,23 @@
             app:destination="@id/consultationPreparationFragment" />
         <action
             android:id="@+id/action_healthSharingFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_healthSharingFragment_to_healthDataPortabilityFragment"
+            app:destination="@id/healthDataPortabilityFragment" />
+    </fragment>
+
+    <!-- Module 23: Personal Health Data Portability & Interoperability -->
+    <fragment
+        android:id="@+id/healthDataPortabilityFragment"
+        android:name="com.medisense.app.ui.portability.ui.HealthDataPortabilityFragment"
+        android:label="Health Data Portability"
+        tools:layout="@layout/fragment_health_data_portability">
+        <action
+            android:id="@+id/action_healthDataPortabilityFragment_to_healthSharingFragment"
+            app:destination="@id/healthSharingFragment" />
+        <action
+            android:id="@+id/action_healthDataPortabilityFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 

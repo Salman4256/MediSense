@@ -110,6 +110,10 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.HEALTH_DATA_SHARE_EXPORTED -> "Health data sharing package exported locally"
             SecurityAuditEventType.HEALTH_DATA_SHARE_REVOKED -> "Health data sharing consent revoked"
             SecurityAuditEventType.HEALTH_DATA_SHARE_CANCELLED -> "Health data sharing workflow cancelled"
+            SecurityAuditEventType.HEALTH_DATA_EXPORT_STARTED -> "Portable health data export started"
+            SecurityAuditEventType.HEALTH_DATA_EXPORT_COMPLETED -> "Portable health data bundle compiled and exported locally"
+            SecurityAuditEventType.HEALTH_DATA_EXPORT_SHARED -> "Portable health data bundle shared via system intent"
+            SecurityAuditEventType.HEALTH_DATA_EXPORT_CANCELLED -> "Portable health data export workflow cancelled"
         }
     }
 }
