@@ -93,6 +93,7 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.LOCAL_DATA_CLEARED -> "Local health records and caches cleared"
             SecurityAuditEventType.PRIVACY_SETTINGS_CHANGED -> "Privacy and security settings updated"
             SecurityAuditEventType.CLOUD_SYNC -> "Health data synchronized with cloud backup"
+            SecurityAuditEventType.DATA_QUALITY_CHECKED -> "Health data quality validation performed"
         }
     }
 }

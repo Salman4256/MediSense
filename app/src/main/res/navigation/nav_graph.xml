@@ -121,6 +121,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_privacySecurityFragment"
             app:destination="@id/privacySecurityFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthDataQualityFragment"
+            app:destination="@id/healthDataQualityFragment" />
     </fragment>
 
     <!-- Module 12: Adaptive Personalized Guidance & Recommendation Engine -->
@@ -228,6 +231,32 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_profileFragment_to_privacySecurityFragment"
+            app:destination="@id/privacySecurityFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_healthDataQualityFragment"
+            app:destination="@id/healthDataQualityFragment" />
+    </fragment>
+
+    <!-- Module 16: Health Data Quality, Validation & Consistency -->
+    <fragment
+        android:id="@+id/healthDataQualityFragment"
+        android:name="com.medisense.app.ui.quality.ui.HealthDataQualityFragment"
+        android:label="Health Data Quality"
+        tools:layout="@layout/fragment_health_data_quality">
+        <action
+            android:id="@+id/action_healthDataQualityFragment_to_healthRecordFragment"
+            app:destination="@id/healthRecordFragment" />
+        <action
+            android:id="@+id/action_healthDataQualityFragment_to_medicationListFragment"
+            app:destination="@id/medicationListFragment" />
+        <action
+            android:id="@+id/action_healthDataQualityFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment" />
+        <action
+            android:id="@+id/action_healthDataQualityFragment_to_predictionHistoryFragment"
+            app:destination="@id/predictionHistoryFragment" />
+        <action
+            android:id="@+id/action_healthDataQualityFragment_to_privacySecurityFragment"
             app:destination="@id/privacySecurityFragment" />
     </fragment>
 

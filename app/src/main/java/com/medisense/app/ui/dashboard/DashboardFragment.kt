@@ -195,6 +195,10 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_profileFragment)
                     true
                 }
+                R.id.action_health_data_quality -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_healthDataQualityFragment)
+                    true
+                }
                 R.id.action_privacy_security -> {
                     findNavController().navigate(R.id.action_dashboardFragment_to_privacySecurityFragment)
                     true
