@@ -133,6 +133,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_privacySecurityFragment"
             app:destination="@id/privacySecurityFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_emergencyHealthCardFragment"
+            app:destination="@id/emergencyHealthCardFragment" />
     </fragment>
 
     <!-- Module 12: Personalized Health Guidance Engine -->
@@ -411,6 +414,17 @@
         <action
             android:id="@+id/action_consultationPreparationFragment_to_healthReportFragment"
             app:destination="@id/healthReportFragment" />
+    </fragment>
+
+    <!-- Module 20: Emergency & Critical Health Access Card -->
+    <fragment
+        android:id="@+id/emergencyHealthCardFragment"
+        android:name="com.medisense.app.ui.emergency.ui.EmergencyHealthCardFragment"
+        android:label="Emergency Health Card"
+        tools:layout="@layout/fragment_emergency_health_card">
+        <action
+            android:id="@+id/action_emergencyHealthCardFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
 </navigation>

@@ -27,6 +27,10 @@
         android:title="Doctor Consultation Prep"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_emergency_card"
+        android:title="Emergency Health Card"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_logout"
         android:title="Logout"
         app:showAsAction="never" />

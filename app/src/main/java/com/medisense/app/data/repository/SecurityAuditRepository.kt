@@ -100,6 +100,9 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.CONSULTATION_SUMMARY_GENERATED -> "Doctor consultation preparation summary generated"
             SecurityAuditEventType.CONSULTATION_SUMMARY_EXPORTED -> "Consultation summary document exported locally"
             SecurityAuditEventType.CONSULTATION_SUMMARY_SHARED -> "Consultation summary shared via secure system intent"
+            SecurityAuditEventType.EMERGENCY_CARD_VIEWED -> "Emergency Health Access Card viewed"
+            SecurityAuditEventType.EMERGENCY_CARD_SHARED -> "Emergency Health Access Card exported/shared"
+            SecurityAuditEventType.EMERGENCY_CONTACT_DIAL_INITIATED -> "Emergency contact phone dialer opened"
         }
     }
 }

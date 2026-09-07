@@ -54,6 +54,7 @@ class DashboardFragment : Fragment() {
         setupMedicationRemindersButton()
         setupAppointmentsButton()
         setupConsultationPrepButton()
+        setupEmergencyCardButton()
         setupProfileNavigation()
         setupContextCardNavigation()
         observeAuthState()
@@ -217,6 +218,10 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_consultationPreparationFragment)
                     true
                 }
+                R.id.action_emergency_card -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_emergencyHealthCardFragment)
+                    true
+                }
                 R.id.action_logout -> {
                     authViewModel.logout()
                     true
@@ -277,6 +282,12 @@ class DashboardFragment : Fragment() {
     private fun setupConsultationPrepButton() {
         binding.btnConsultationPrep.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_consultationPreparationFragment)
+        }
+    }
+
+    private fun setupEmergencyCardButton() {
+        binding.btnEmergencyCard.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_emergencyHealthCardFragment)
         }
     }
 
