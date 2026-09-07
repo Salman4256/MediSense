@@ -2,4 +2,5 @@
 <paths>
     <cache-path name="camera_photos" path="camera/" />
     <cache-path name="assistant_images" path="assistant_images/" />
+    <cache-path name="health_reports" path="reports/" />
 </paths>

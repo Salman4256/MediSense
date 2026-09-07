@@ -94,6 +94,9 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.PRIVACY_SETTINGS_CHANGED -> "Privacy and security settings updated"
             SecurityAuditEventType.CLOUD_SYNC -> "Health data synchronized with cloud backup"
             SecurityAuditEventType.DATA_QUALITY_CHECKED -> "Health data quality validation performed"
+            SecurityAuditEventType.HEALTH_REPORT_GENERATED -> "Comprehensive health report generated"
+            SecurityAuditEventType.HEALTH_REPORT_EXPORTED -> "Health report PDF document exported locally"
+            SecurityAuditEventType.HEALTH_REPORT_SHARED -> "Health report PDF shared via secure system intent"
         }
     }
 }

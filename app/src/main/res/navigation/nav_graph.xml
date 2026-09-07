@@ -124,6 +124,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_healthDataQualityFragment"
             app:destination="@id/healthDataQualityFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthReportFragment"
+            app:destination="@id/healthReportFragment" />
     </fragment>
 
     <!-- Module 12: Adaptive Personalized Guidance & Recommendation Engine -->
@@ -235,6 +238,9 @@
         <action
             android:id="@+id/action_profileFragment_to_healthDataQualityFragment"
             app:destination="@id/healthDataQualityFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_healthReportFragment"
+            app:destination="@id/healthReportFragment" />
     </fragment>
 
     <!-- Module 16: Health Data Quality, Validation & Consistency -->
@@ -334,5 +340,12 @@
         android:name="com.medisense.app.ui.appointment.ui.AddAppointmentFragment"
         android:label="Schedule Appointment"
         tools:layout="@layout/fragment_add_appointment" />
+
+    <!-- Module 17: Comprehensive Personalized Health Report & Secure Export -->
+    <fragment
+        android:id="@+id/healthReportFragment"
+        android:name="com.medisense.app.ui.report.ui.HealthReportFragment"
+        android:label="Health Report"
+        tools:layout="@layout/fragment_health_report" />
 
 </navigation>
