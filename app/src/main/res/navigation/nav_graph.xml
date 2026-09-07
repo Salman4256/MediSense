@@ -139,6 +139,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_healthDecisionTraceFragment"
             app:destination="@id/healthDecisionTraceFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthSharingFragment"
+            app:destination="@id/healthSharingFragment" />
     </fragment>
 
     <!-- Module 12: Personalized Health Guidance Engine -->
@@ -448,6 +451,26 @@
         tools:layout="@layout/fragment_health_decision_trace">
         <action
             android:id="@+id/action_healthDecisionTraceFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_healthDecisionTraceFragment_to_healthSharingFragment"
+            app:destination="@id/healthSharingFragment" />
+    </fragment>
+
+    <!-- Module 22: Consent-Controlled Caregiver/Doctor Sharing & Secure Health Data Package -->
+    <fragment
+        android:id="@+id/healthSharingFragment"
+        android:name="com.medisense.app.ui.sharing.ui.HealthSharingFragment"
+        android:label="Caregiver &amp; Doctor Sharing"
+        tools:layout="@layout/fragment_health_sharing">
+        <action
+            android:id="@+id/action_healthSharingFragment_to_healthReportFragment"
+            app:destination="@id/healthReportFragment" />
+        <action
+            android:id="@+id/action_healthSharingFragment_to_consultationPreparationFragment"
+            app:destination="@id/consultationPreparationFragment" />
+        <action
+            android:id="@+id/action_healthSharingFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 

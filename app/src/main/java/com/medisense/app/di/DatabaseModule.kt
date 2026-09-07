@@ -71,4 +71,9 @@ object DatabaseModule {
     fun provideSyncMetadataDao(database: AppDatabase): SyncMetadataDao {
         return database.syncMetadataDao()
     }
+
+    @Provides
+    fun provideHealthSharingConsentDao(database: AppDatabase): HealthSharingConsentDao {
+        return database.healthSharingConsentDao()
+    }
 }

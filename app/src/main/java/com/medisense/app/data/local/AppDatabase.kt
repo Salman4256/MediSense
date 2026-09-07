@@ -18,9 +18,10 @@ import com.medisense.app.data.local.entity.*
         AppointmentEntity::class,
         PredictionHistoryEntity::class,
         SecurityAuditEventEntity::class,
-        SyncMetadataEntity::class
+        SyncMetadataEntity::class,
+        HealthSharingConsentEntity::class
     ],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -36,4 +37,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun predictionHistoryDao(): PredictionHistoryDao
     abstract fun securityAuditEventDao(): SecurityAuditEventDao
     abstract fun syncMetadataDao(): SyncMetadataDao
+    abstract fun healthSharingConsentDao(): HealthSharingConsentDao
 }

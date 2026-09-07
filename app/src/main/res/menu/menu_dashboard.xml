@@ -35,6 +35,10 @@
         android:title="Explainable Decision Traces"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_health_sharing"
+        android:title="Caregiver &amp; Doctor Sharing"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_logout"
         android:title="Logout"
         app:showAsAction="never" />

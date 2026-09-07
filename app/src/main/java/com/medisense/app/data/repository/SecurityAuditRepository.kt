@@ -105,6 +105,11 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.EMERGENCY_CONTACT_DIAL_INITIATED -> "Emergency contact phone dialer opened"
             SecurityAuditEventType.DECISION_TRACE_VIEWED -> "Explainable Health Decision Trace viewed"
             SecurityAuditEventType.DECISION_TRACE_EXPORTED -> "Health Decision Trace document exported"
+            SecurityAuditEventType.HEALTH_DATA_SHARE_PREPARED -> "Health data sharing package prepared"
+            SecurityAuditEventType.HEALTH_DATA_SHARE_CONSENTED -> "Health data sharing consent granted"
+            SecurityAuditEventType.HEALTH_DATA_SHARE_EXPORTED -> "Health data sharing package exported locally"
+            SecurityAuditEventType.HEALTH_DATA_SHARE_REVOKED -> "Health data sharing consent revoked"
+            SecurityAuditEventType.HEALTH_DATA_SHARE_CANCELLED -> "Health data sharing workflow cancelled"
         }
     }
 }

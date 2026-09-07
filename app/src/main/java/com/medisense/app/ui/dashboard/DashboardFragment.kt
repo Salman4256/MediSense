@@ -56,6 +56,7 @@ class DashboardFragment : Fragment() {
         setupConsultationPrepButton()
         setupEmergencyCardButton()
         setupDecisionTracesButton()
+        setupHealthSharingButton()
         setupProfileNavigation()
         setupContextCardNavigation()
         observeAuthState()
@@ -227,6 +228,10 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_healthDecisionTraceFragment)
                     true
                 }
+                R.id.action_health_sharing -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_healthSharingFragment)
+                    true
+                }
                 R.id.action_logout -> {
                     authViewModel.logout()
                     true
@@ -299,6 +304,12 @@ class DashboardFragment : Fragment() {
     private fun setupDecisionTracesButton() {
         binding.btnDecisionTraces.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_healthDecisionTraceFragment)
+        }
+    }
+
+    private fun setupHealthSharingButton() {
+        binding.btnHealthSharing.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_healthSharingFragment)
         }
     }
 

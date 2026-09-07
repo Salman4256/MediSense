@@ -6,4 +6,5 @@
     <cache-path name="emergency_cards" path="emergency/" />
     <cache-path name="consultation_summaries" path="consultations/" />
     <cache-path name="decision_traces" path="traces/" />
+    <cache-path name="health_shares" path="shares/" />
 </paths>
