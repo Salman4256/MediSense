@@ -136,6 +136,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_emergencyHealthCardFragment"
             app:destination="@id/emergencyHealthCardFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthDecisionTraceFragment"
+            app:destination="@id/healthDecisionTraceFragment" />
     </fragment>
 
     <!-- Module 12: Personalized Health Guidance Engine -->
@@ -212,6 +215,9 @@
         <action
             android:id="@+id/action_predictionResultFragment_to_predictionHistoryFragment"
             app:destination="@id/predictionHistoryFragment" />
+        <action
+            android:id="@+id/action_predictionResultFragment_to_healthDecisionTraceFragment"
+            app:destination="@id/healthDecisionTraceFragment" />
     </fragment>
 
     <!-- Module 8: Prediction History -->
@@ -229,7 +235,11 @@
         android:id="@+id/predictionHistoryDetailFragment"
         android:name="com.medisense.app.ui.predictionhistory.ui.PredictionHistoryDetailFragment"
         android:label="Prediction Detail"
-        tools:layout="@layout/fragment_prediction_history_detail" />
+        tools:layout="@layout/fragment_prediction_history_detail">
+        <action
+            android:id="@+id/action_predictionHistoryDetailFragment_to_healthDecisionTraceFragment"
+            app:destination="@id/healthDecisionTraceFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
@@ -400,6 +410,9 @@
         <action
             android:id="@+id/action_healthTimelineFragment_to_consultationPreparationFragment"
             app:destination="@id/consultationPreparationFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_healthDecisionTraceFragment"
+            app:destination="@id/healthDecisionTraceFragment" />
     </fragment>
 
     <!-- Module 19: Smart Consultation Preparation & Doctor Visit Summary -->
@@ -424,6 +437,17 @@
         tools:layout="@layout/fragment_emergency_health_card">
         <action
             android:id="@+id/action_emergencyHealthCardFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <!-- Module 21: Explainable Health Decision Trace & AI Audit Trail -->
+    <fragment
+        android:id="@+id/healthDecisionTraceFragment"
+        android:name="com.medisense.app.ui.trace.ui.HealthDecisionTraceFragment"
+        android:label="Explainable Decision Traces"
+        tools:layout="@layout/fragment_health_decision_trace">
+        <action
+            android:id="@+id/action_healthDecisionTraceFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 

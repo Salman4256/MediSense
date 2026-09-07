@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.medisense.app.R
 import com.medisense.app.data.local.entity.PredictionHistoryEntity
 import com.medisense.app.databinding.FragmentPredictionHistoryDetailBinding
 import com.medisense.app.ui.predictionhistory.viewmodel.PredictionDetailUiState
@@ -63,6 +64,10 @@ class PredictionHistoryDetailFragment : Fragment() {
     }
 
     private fun setupListeners() {
+        binding.btnViewDecisionTrace.setOnClickListener {
+            findNavController().navigate(R.id.action_predictionHistoryDetailFragment_to_healthDecisionTraceFragment)
+        }
+
         binding.btnDeleteRecord.setOnClickListener {
             showDeleteConfirmationDialog()
         }

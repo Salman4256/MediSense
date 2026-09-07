@@ -103,6 +103,8 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.EMERGENCY_CARD_VIEWED -> "Emergency Health Access Card viewed"
             SecurityAuditEventType.EMERGENCY_CARD_SHARED -> "Emergency Health Access Card exported/shared"
             SecurityAuditEventType.EMERGENCY_CONTACT_DIAL_INITIATED -> "Emergency contact phone dialer opened"
+            SecurityAuditEventType.DECISION_TRACE_VIEWED -> "Explainable Health Decision Trace viewed"
+            SecurityAuditEventType.DECISION_TRACE_EXPORTED -> "Health Decision Trace document exported"
         }
     }
 }
