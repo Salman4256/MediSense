@@ -27,4 +27,13 @@ interface PredictionHistoryDao {
 
     @Query("SELECT * FROM prediction_history WHERE userId = :userId AND pendingSync = 1")
     suspend fun getPendingSyncPredictionHistory(userId: String): List<PredictionHistoryEntity>
+
+    @Query("SELECT * FROM prediction_history WHERE userId = :userId")
+    suspend fun getAllPredictionHistoryForUserSync(userId: String): List<PredictionHistoryEntity>
+
+    @Query("UPDATE prediction_history SET pendingSync = 0 WHERE id = :id AND userId = :userId")
+    suspend fun markPredictionSynced(id: Long, userId: String)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertPredictionHistory(predictions: List<PredictionHistoryEntity>)
 }

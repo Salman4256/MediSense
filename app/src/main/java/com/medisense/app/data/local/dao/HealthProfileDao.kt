@@ -27,4 +27,10 @@ interface HealthProfileDao {
 
     @Query("SELECT * FROM health_profiles WHERE pendingSync = 1")
     suspend fun getPendingSyncProfiles(): List<HealthProfileEntity>
+
+    @Query("SELECT * FROM health_profiles WHERE userId = :userId AND pendingSync = 1 LIMIT 1")
+    suspend fun getPendingSyncProfileForUser(userId: String): HealthProfileEntity?
+
+    @Query("UPDATE health_profiles SET pendingSync = 0 WHERE userId = :userId")
+    suspend fun markProfileSynced(userId: String)
 }

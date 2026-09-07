@@ -92,6 +92,7 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.AI_SESSION_STARTED -> "AI Health Assistant consultation opened"
             SecurityAuditEventType.LOCAL_DATA_CLEARED -> "Local health records and caches cleared"
             SecurityAuditEventType.PRIVACY_SETTINGS_CHANGED -> "Privacy and security settings updated"
+            SecurityAuditEventType.CLOUD_SYNC -> "Health data synchronized with cloud backup"
         }
     }
 }

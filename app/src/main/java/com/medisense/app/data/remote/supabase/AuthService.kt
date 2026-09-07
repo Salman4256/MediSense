@@ -8,41 +8,49 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthService @Inject constructor(
+open class AuthService @Inject constructor(
     private val supabaseClient: SupabaseClient,
     private val sessionManager: SharedPreferencesSessionManager
 ) {
-    private val auth = supabaseClient.auth
+    private val auth by lazy {
+        try {
+            supabaseClient.auth
+        } catch (e: Exception) {
+            null
+        }
+    }
 
     suspend fun login(email: String, password: String) {
-        auth.signInWith(Email) {
+        val clientAuth = auth ?: return
+        clientAuth.signInWith(Email) {
             this.email = email
             this.password = password
         }
-        val session = auth.currentSessionOrNull()
+        val session = clientAuth.currentSessionOrNull()
         if (session != null) {
             sessionManager.saveSession(session)
         }
     }
 
     suspend fun register(email: String, password: String, fullName: String) {
-        auth.signUpWith(Email) {
+        val clientAuth = auth ?: return
+        clientAuth.signUpWith(Email) {
             this.email = email
             this.password = password
         }
-        val session = auth.currentSessionOrNull()
+        val session = clientAuth.currentSessionOrNull()
         if (session != null) {
             sessionManager.saveSession(session)
         }
     }
 
     suspend fun resetPassword(email: String) {
-        auth.resetPasswordForEmail(email)
+        auth?.resetPasswordForEmail(email)
     }
 
     suspend fun logout() {
         try {
-            auth.signOut(scope = io.github.jan.supabase.auth.SignOutScope.LOCAL)
+            auth?.signOut(scope = io.github.jan.supabase.auth.SignOutScope.LOCAL)
         } catch (e: Exception) {
             // Ignore server errors during sign out to ensure local state is cleared
         }
@@ -50,14 +58,14 @@ class AuthService @Inject constructor(
     }
 
     fun isUserLoggedIn(): Boolean {
-        return auth.currentSessionOrNull() != null || sessionManager.isUserLoggedIn()
+        return auth?.currentSessionOrNull() != null || sessionManager.isUserLoggedIn()
     }
 
-    fun getCurrentUserEmail(): String? {
-        return auth.currentUserOrNull()?.email ?: sessionManager.getSavedUserEmail()
+    open fun getCurrentUserEmail(): String? {
+        return auth?.currentUserOrNull()?.email ?: sessionManager.getSavedUserEmail()
     }
 
-    fun getCurrentUserId(): String? {
-        return auth.currentUserOrNull()?.id ?: sessionManager.getSavedUserId()
+    open fun getCurrentUserId(): String? {
+        return auth?.currentUserOrNull()?.id ?: sessionManager.getSavedUserId()
     }
 }

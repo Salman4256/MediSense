@@ -66,4 +66,9 @@ object DatabaseModule {
     fun provideSecurityAuditEventDao(database: AppDatabase): SecurityAuditEventDao {
         return database.securityAuditEventDao()
     }
+
+    @Provides
+    fun provideSyncMetadataDao(database: AppDatabase): SyncMetadataDao {
+        return database.syncMetadataDao()
+    }
 }

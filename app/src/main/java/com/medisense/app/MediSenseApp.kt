@@ -21,6 +21,9 @@ class MediSenseApp : Application(), Configuration.Provider {
 
         // Initialize high-priority notification channels for alarms and reminders
         MedicationNotificationManager.createNotificationChannels(this)
+
+        // Schedule periodic background health data synchronization
+        com.medisense.app.data.sync.worker.SyncScheduler.schedulePeriodicSync(this)
     }
 
     override val workManagerConfiguration: Configuration

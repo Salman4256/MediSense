@@ -47,4 +47,16 @@ interface AppointmentDao {
 
     @Query("UPDATE appointments SET status = :status, updatedAt = :updatedAt, pendingSync = 1 WHERE id = :id AND userId = :userId")
     suspend fun updateAppointmentStatus(id: Long, userId: String, status: String, updatedAt: Long = System.currentTimeMillis())
+
+    @Query("SELECT * FROM appointments WHERE userId = :userId AND pendingSync = 1")
+    suspend fun getPendingSyncAppointments(userId: String): List<AppointmentEntity>
+
+    @Query("SELECT * FROM appointments WHERE userId = :userId")
+    suspend fun getAllAppointmentsForUserSync(userId: String): List<AppointmentEntity>
+
+    @Query("UPDATE appointments SET pendingSync = 0 WHERE id = :id AND userId = :userId")
+    suspend fun markAppointmentSynced(id: Long, userId: String)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAppointments(appointments: List<AppointmentEntity>)
 }

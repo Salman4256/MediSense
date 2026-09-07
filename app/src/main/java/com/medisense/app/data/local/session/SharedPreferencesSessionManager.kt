@@ -12,11 +12,16 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SharedPreferencesSessionManager @Inject constructor(
-    @param:ApplicationContext private val context: Context
+open class SharedPreferencesSessionManager @Inject constructor(
+    @param:ApplicationContext private val context: Context?
 ) : SessionManager {
 
-    private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val prefs: SharedPreferences? = try {
+        context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    } catch (e: Exception) {
+        null
+    }
+
     private val json = Json {
         ignoreUnknownKeys = true
         encodeDefaults = true
@@ -26,25 +31,25 @@ class SharedPreferencesSessionManager @Inject constructor(
     override suspend fun saveSession(session: UserSession): Unit = withContext(Dispatchers.IO) {
         try {
             val jsonString = json.encodeToString(UserSession.serializer(), session)
-            prefs.edit()
-                .putString(KEY_SESSION_JSON, jsonString)
-                .putString(KEY_USER_ID, session.user?.id)
-                .putString(KEY_USER_EMAIL, session.user?.email)
-                .putBoolean(KEY_IS_LOGGED_IN, true)
-                .apply()
+            prefs?.edit()
+                ?.putString(KEY_SESSION_JSON, jsonString)
+                ?.putString(KEY_USER_ID, session.user?.id)
+                ?.putString(KEY_USER_EMAIL, session.user?.email)
+                ?.putBoolean(KEY_IS_LOGGED_IN, true)
+                ?.apply()
         } catch (e: Exception) {
             // Save basic logged in flag
-            prefs.edit()
-                .putString(KEY_USER_ID, session.user?.id)
-                .putString(KEY_USER_EMAIL, session.user?.email)
-                .putBoolean(KEY_IS_LOGGED_IN, true)
-                .apply()
+            prefs?.edit()
+                ?.putString(KEY_USER_ID, session.user?.id)
+                ?.putString(KEY_USER_EMAIL, session.user?.email)
+                ?.putBoolean(KEY_IS_LOGGED_IN, true)
+                ?.apply()
         }
     }
 
     override suspend fun loadSession(): UserSession? = withContext(Dispatchers.IO) {
         try {
-            val jsonString = prefs.getString(KEY_SESSION_JSON, null) ?: return@withContext null
+            val jsonString = prefs?.getString(KEY_SESSION_JSON, null) ?: return@withContext null
             json.decodeFromString(UserSession.serializer(), jsonString)
         } catch (e: Exception) {
             null
@@ -52,32 +57,32 @@ class SharedPreferencesSessionManager @Inject constructor(
     }
 
     override suspend fun deleteSession(): Unit = withContext(Dispatchers.IO) {
-        prefs.edit()
-            .remove(KEY_SESSION_JSON)
-            .remove(KEY_USER_ID)
-            .remove(KEY_USER_EMAIL)
-            .putBoolean(KEY_IS_LOGGED_IN, false)
-            .apply()
+        prefs?.edit()
+            ?.remove(KEY_SESSION_JSON)
+            ?.remove(KEY_USER_ID)
+            ?.remove(KEY_USER_EMAIL)
+            ?.putBoolean(KEY_IS_LOGGED_IN, false)
+            ?.apply()
     }
 
-    fun isUserLoggedIn(): Boolean {
-        return prefs.getBoolean(KEY_IS_LOGGED_IN, false) || prefs.getString(KEY_SESSION_JSON, null) != null
+    open fun isUserLoggedIn(): Boolean {
+        return prefs?.getBoolean(KEY_IS_LOGGED_IN, false) ?: false || prefs?.getString(KEY_SESSION_JSON, null) != null
     }
 
-    fun getSavedUserId(): String? {
-        return prefs.getString(KEY_USER_ID, null)
+    open fun getSavedUserId(): String? {
+        return prefs?.getString(KEY_USER_ID, null)
     }
 
-    fun getSavedUserEmail(): String? {
-        return prefs.getString(KEY_USER_EMAIL, null)
+    open fun getSavedUserEmail(): String? {
+        return prefs?.getString(KEY_USER_EMAIL, null)
     }
 
-    fun hasCompletedOnboarding(): Boolean {
-        return prefs.getBoolean(KEY_COMPLETED_ONBOARDING, false)
+    open fun hasCompletedOnboarding(): Boolean {
+        return prefs?.getBoolean(KEY_COMPLETED_ONBOARDING, false) ?: false
     }
 
-    fun setCompletedOnboarding(completed: Boolean) {
-        prefs.edit().putBoolean(KEY_COMPLETED_ONBOARDING, completed).apply()
+    open fun setCompletedOnboarding(completed: Boolean) {
+        prefs?.edit()?.putBoolean(KEY_COMPLETED_ONBOARDING, completed)?.apply()
     }
 
     companion object {

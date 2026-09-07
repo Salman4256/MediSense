@@ -15,11 +15,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.medisense.app.R
+import com.medisense.app.data.sync.model.SyncStatus
 import com.medisense.app.databinding.FragmentPrivacySecurityBinding
 import com.medisense.app.ui.privacy.adapter.SecurityAuditAdapter
 import com.medisense.app.ui.privacy.viewmodel.PrivacySecurityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class PrivacySecurityFragment : Fragment() {
@@ -63,6 +67,10 @@ class PrivacySecurityFragment : Fragment() {
     }
 
     private fun setupActionListeners() {
+        binding.btnSyncNow.setOnClickListener {
+            viewModel.triggerSync()
+        }
+
         binding.btnSignOut.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Sign Out")
@@ -107,19 +115,34 @@ class PrivacySecurityFragment : Fragment() {
                     binding.tvSignedInEmail.text = state.userEmail
                     binding.tvUserUuid.text = "Canonical Auth UUID: ${state.userId}"
 
-                    // 2. Storage & AI transmission
+                    // 2. Cloud Synchronization Details (Module 15)
+                    binding.progressSync.isVisible = state.isSyncing
+                    binding.btnSyncNow.isEnabled = !state.isSyncing
+                    binding.tvSyncStatusBadge.text = state.syncStatus.name
+
+                    state.syncMetadata?.let { meta ->
+                        binding.tvLastSyncedTime.text = formatTimestamp(meta.lastSyncTimestamp)
+                        binding.tvPendingSyncCount.text = "${meta.pendingUploadCount} items"
+                        binding.tvLastSyncMessage.text = meta.lastSyncMessage
+                    } ?: run {
+                        binding.tvLastSyncedTime.text = "Never"
+                        binding.tvPendingSyncCount.text = "0 items"
+                        binding.tvLastSyncMessage.text = "Ready to sync"
+                    }
+
+                    // 3. Storage & AI transmission
                     binding.tvLocalStorageInfo.text = state.governanceInfo.LOCAL_STORAGE_EXPLANATION
                     binding.tvCloudStorageInfo.text = state.governanceInfo.CLOUD_STORAGE_EXPLANATION
                     binding.tvAiStorageInfo.text = state.governanceInfo.AI_DATA_EXPLANATION
                     binding.tvLocalClearInfo.text = state.governanceInfo.LOCAL_DATA_CLEARING_NOTICE
                     binding.tvDisclaimer.text = state.governanceInfo.HEALTHCARE_DISCLAIMER
 
-                    // 3. Audit events
+                    // 4. Audit events
                     auditAdapter.submitList(state.auditEvents)
                     binding.tvEmptyAudit.isVisible = state.auditEvents.isEmpty()
                     binding.rvAuditEvents.isVisible = state.auditEvents.isNotEmpty()
 
-                    // 4. Loading & Action messages
+                    // 5. Loading & Action messages
                     binding.btnClearLocalData.isEnabled = !state.isClearingData
                     state.actionSuccessMessage?.let { msg ->
                         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
@@ -132,6 +155,12 @@ class PrivacySecurityFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun formatTimestamp(timestamp: Long): String {
+        if (timestamp <= 0L) return "Never"
+        val sdf = SimpleDateFormat("MMM dd, yyyy 'at' hh:mm a", Locale.getDefault())
+        return sdf.format(Date(timestamp))
     }
 
     override fun onDestroyView() {

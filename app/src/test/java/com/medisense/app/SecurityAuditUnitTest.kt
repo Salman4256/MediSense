@@ -59,6 +59,8 @@ class SecurityAuditUnitTest {
         override suspend fun deleteHealthProfile(profile: HealthProfileEntity) { profiles.remove(profile) }
         override suspend fun deleteHealthProfileByUserId(userId: String) { profiles.removeAll { it.userId == userId } }
         override suspend fun getPendingSyncProfiles(): List<HealthProfileEntity> = emptyList()
+        override suspend fun getPendingSyncProfileForUser(userId: String): HealthProfileEntity? = null
+        override suspend fun markProfileSynced(userId: String) {}
     }
 
     private class FakeMedicationDao : MedicationDao {
@@ -73,6 +75,10 @@ class SecurityAuditUnitTest {
         override suspend fun updateMedication(medication: MedicationEntity) {}
         override suspend fun deleteMedicationById(id: Long, userId: String) { medications.removeAll { it.id == id && it.userId == userId } }
         override suspend fun deleteAllMedicationsForUser(userId: String) { medications.removeAll { it.userId == userId } }
+        override suspend fun getPendingSyncMedications(userId: String): List<MedicationEntity> = emptyList()
+        override suspend fun getAllMedicationsForUserSync(userId: String): List<MedicationEntity> = medications.filter { it.userId == userId }
+        override suspend fun markMedicationSynced(id: Long, userId: String) {}
+        override suspend fun upsertMedications(medications: List<MedicationEntity>) {}
     }
 
     private class FakeMedicationHistoryDao : MedicationHistoryDao {
@@ -86,6 +92,8 @@ class SecurityAuditUnitTest {
         override suspend fun insertHistory(history: MedicationHistoryEntity): Long { this.history.add(history); return history.id }
         override suspend fun updateHistory(history: MedicationHistoryEntity) {}
         override suspend fun deleteAllMedicationHistoryForUser(userId: String) { history.removeAll { it.userId == userId } }
+        override suspend fun getAllHistoryForUserSync(userId: String): List<MedicationHistoryEntity> = history.filter { it.userId == userId }
+        override suspend fun upsertHistory(historyList: List<MedicationHistoryEntity>) {}
     }
 
     private class FakeAppointmentDao : AppointmentDao {
@@ -102,6 +110,10 @@ class SecurityAuditUnitTest {
         override suspend fun deleteAppointmentById(id: Long, userId: String) { appointments.removeAll { it.id == id && it.userId == userId } }
         override suspend fun deleteAllAppointmentsForUser(userId: String) { appointments.removeAll { it.userId == userId } }
         override suspend fun updateAppointmentStatus(id: Long, userId: String, status: String, updatedAt: Long) {}
+        override suspend fun getPendingSyncAppointments(userId: String): List<AppointmentEntity> = emptyList()
+        override suspend fun getAllAppointmentsForUserSync(userId: String): List<AppointmentEntity> = appointments.filter { it.userId == userId }
+        override suspend fun markAppointmentSynced(id: Long, userId: String) {}
+        override suspend fun upsertAppointments(appointments: List<AppointmentEntity>) {}
     }
 
     private class FakePredictionHistoryDao : PredictionHistoryDao {
@@ -112,6 +124,9 @@ class SecurityAuditUnitTest {
         override suspend fun deletePredictionHistory(id: Long, userId: String) { list.removeAll { it.id == id && it.userId == userId } }
         override suspend fun deleteAllPredictionHistory(userId: String) { list.removeAll { it.userId == userId } }
         override suspend fun getPendingSyncPredictionHistory(userId: String): List<PredictionHistoryEntity> = emptyList()
+        override suspend fun getAllPredictionHistoryForUserSync(userId: String): List<PredictionHistoryEntity> = list.filter { it.userId == userId }
+        override suspend fun markPredictionSynced(id: Long, userId: String) {}
+        override suspend fun upsertPredictionHistory(predictions: List<PredictionHistoryEntity>) {}
     }
 
     private class FakeConversationDao : ConversationDao {

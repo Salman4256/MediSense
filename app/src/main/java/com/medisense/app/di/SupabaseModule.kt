@@ -33,4 +33,10 @@ object SupabaseModule {
             install(Postgrest)
         }
     }
+
+    @Provides
+    @Singleton
+    fun provideSupabaseSyncDataSource(
+        impl: com.medisense.app.data.sync.remote.SupabaseSyncDataSource
+    ): com.medisense.app.data.sync.remote.ISupabaseSyncDataSource = impl
 }

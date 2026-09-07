@@ -37,4 +37,10 @@ interface MedicationHistoryDao {
 
     @Query("DELETE FROM medication_history WHERE userId = :userId")
     suspend fun deleteAllMedicationHistoryForUser(userId: String)
+
+    @Query("SELECT * FROM medication_history WHERE userId = :userId")
+    suspend fun getAllHistoryForUserSync(userId: String): List<MedicationHistoryEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertHistory(historyList: List<MedicationHistoryEntity>)
 }

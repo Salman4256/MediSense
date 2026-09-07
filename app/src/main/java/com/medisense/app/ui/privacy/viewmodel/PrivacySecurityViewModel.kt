@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.medisense.app.data.remote.supabase.AuthService
 import com.medisense.app.data.repository.SecurityAuditRepository
+import com.medisense.app.data.sync.SyncRepository
+import com.medisense.app.data.sync.model.SyncStatus
 import com.medisense.app.domain.model.SecurityAuditEventType
 import com.medisense.app.domain.security.PrivacyDataManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +22,8 @@ import javax.inject.Inject
 class PrivacySecurityViewModel @Inject constructor(
     private val authService: AuthService,
     private val securityAuditRepository: SecurityAuditRepository,
-    private val privacyDataManager: PrivacyDataManager
+    private val privacyDataManager: PrivacyDataManager,
+    private val syncRepository: SyncRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PrivacySecurityUiState())
@@ -29,6 +32,7 @@ class PrivacySecurityViewModel @Inject constructor(
     init {
         loadSessionDetails()
         observeAuditTelemetry()
+        observeSyncData()
     }
 
     private fun loadSessionDetails() {
@@ -53,6 +57,44 @@ class PrivacySecurityViewModel @Inject constructor(
                 _uiState.update { it.copy(auditEvents = events) }
             }
             .launchIn(viewModelScope)
+    }
+
+    private fun observeSyncData() {
+        syncRepository.observeSyncMetadata()
+            .onEach { meta ->
+                _uiState.update { it.copy(syncMetadata = meta) }
+            }
+            .launchIn(viewModelScope)
+
+        syncRepository.syncStatus
+            .onEach { status ->
+                _uiState.update {
+                    it.copy(
+                        syncStatus = status,
+                        isSyncing = status == SyncStatus.SYNCING
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    fun triggerSync() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isSyncing = true, actionSuccessMessage = null, actionErrorMessage = null) }
+            val result = syncRepository.triggerSync()
+            _uiState.update {
+                it.copy(
+                    isSyncing = false,
+                    syncStatus = result.status,
+                    actionSuccessMessage = if (result.status == SyncStatus.SUCCESS || result.status == SyncStatus.PARTIAL_SUCCESS) {
+                        result.message
+                    } else null,
+                    actionErrorMessage = if (result.status == SyncStatus.FAILED || result.status == SyncStatus.AUTH_REQUIRED || result.status == SyncStatus.OFFLINE) {
+                        result.message
+                    } else null
+                )
+            }
+        }
     }
 
     fun clearLocalHealthData() {

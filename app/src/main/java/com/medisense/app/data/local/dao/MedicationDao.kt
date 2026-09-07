@@ -40,4 +40,16 @@ interface MedicationDao {
 
     @Query("DELETE FROM medications WHERE userId = :userId")
     suspend fun deleteAllMedicationsForUser(userId: String)
+
+    @Query("SELECT * FROM medications WHERE userId = :userId AND pendingSync = 1")
+    suspend fun getPendingSyncMedications(userId: String): List<MedicationEntity>
+
+    @Query("SELECT * FROM medications WHERE userId = :userId")
+    suspend fun getAllMedicationsForUserSync(userId: String): List<MedicationEntity>
+
+    @Query("UPDATE medications SET pendingSync = 0 WHERE id = :id AND userId = :userId")
+    suspend fun markMedicationSynced(id: Long, userId: String)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertMedications(medications: List<MedicationEntity>)
 }
