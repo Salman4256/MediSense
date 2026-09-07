@@ -121,6 +121,16 @@ class HealthDataPortabilityFragment : Fragment() {
         binding.btnDismissResult.setOnClickListener {
             viewModel.dismissExportResult()
         }
+
+        binding.btnNavigateToImport.setOnClickListener {
+            try {
+                findNavController().navigate(
+                    com.medisense.app.R.id.action_healthDataPortabilityFragment_to_healthDataImportFragment
+                )
+            } catch (e: Exception) {
+                SecureLogger.e(TAG, "Navigation to healthDataImportFragment failed", e)
+            }
+        }
     }
 
     private fun observeUiState() {

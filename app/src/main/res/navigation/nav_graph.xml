@@ -492,6 +492,23 @@
         <action
             android:id="@+id/action_healthDataPortabilityFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_healthDataPortabilityFragment_to_healthDataImportFragment"
+            app:destination="@id/healthDataImportFragment" />
+    </fragment>
+
+    <!-- Module 24: Portable Health Data Import, Validation & Safe Preview -->
+    <fragment
+        android:id="@+id/healthDataImportFragment"
+        android:name="com.medisense.app.ui.portability.ui.HealthDataImportFragment"
+        android:label="Import Health Data"
+        tools:layout="@layout/fragment_health_data_import">
+        <action
+            android:id="@+id/action_healthDataImportFragment_to_healthDataPortabilityFragment"
+            app:destination="@id/healthDataPortabilityFragment" />
+        <action
+            android:id="@+id/action_healthDataImportFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
 </navigation>

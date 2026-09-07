@@ -114,6 +114,11 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.HEALTH_DATA_EXPORT_COMPLETED -> "Portable health data bundle compiled and exported locally"
             SecurityAuditEventType.HEALTH_DATA_EXPORT_SHARED -> "Portable health data bundle shared via system intent"
             SecurityAuditEventType.HEALTH_DATA_EXPORT_CANCELLED -> "Portable health data export workflow cancelled"
+            SecurityAuditEventType.PORTABLE_IMPORT_STARTED -> "Portable health data import and inspection started"
+            SecurityAuditEventType.PORTABLE_IMPORT_VALIDATED -> "Portable health data file parsed and validated locally"
+            SecurityAuditEventType.PORTABLE_IMPORT_PREVIEWED -> "Portable health data package previewed by user"
+            SecurityAuditEventType.PORTABLE_IMPORT_CANCELLED -> "Portable health data import workflow cancelled"
+            SecurityAuditEventType.PORTABLE_IMPORT_PREPARED -> "Validated portable health data package prepared in memory"
         }
     }
 }
