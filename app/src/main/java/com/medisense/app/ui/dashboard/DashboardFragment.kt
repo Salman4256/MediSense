@@ -58,6 +58,7 @@ class DashboardFragment : Fragment() {
         setupDecisionTracesButton()
         setupHealthSharingButton()
         setupHealthPortabilityButton()
+        setupAdaptiveInsightsButton()
         setupProfileNavigation()
         setupContextCardNavigation()
         observeAuthState()
@@ -321,6 +322,12 @@ class DashboardFragment : Fragment() {
     private fun setupHealthPortabilityButton() {
         binding.btnHealthPortability.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_healthDataPortabilityFragment)
+        }
+    }
+
+    private fun setupAdaptiveInsightsButton() {
+        binding.btnAdaptiveInsights.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_adaptiveHealthInsightsFragment)
         }
     }
 

@@ -76,4 +76,9 @@ object DatabaseModule {
     fun provideHealthSharingConsentDao(database: AppDatabase): HealthSharingConsentDao {
         return database.healthSharingConsentDao()
     }
+
+    @Provides
+    fun provideInterventionResponseDao(database: AppDatabase): InterventionResponseDao {
+        return database.interventionResponseDao()
+    }
 }

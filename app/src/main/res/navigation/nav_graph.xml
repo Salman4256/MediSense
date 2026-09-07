@@ -145,6 +145,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_healthDataPortabilityFragment"
             app:destination="@id/healthDataPortabilityFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_adaptiveHealthInsightsFragment"
+            app:destination="@id/adaptiveHealthInsightsFragment" />
     </fragment>
 
     <!-- Module 12: Personalized Health Guidance Engine -->
@@ -174,6 +177,9 @@
         <action
             android:id="@+id/action_personalizedGuidanceFragment_to_contextualRiskFragment"
             app:destination="@id/contextualRiskFragment" />
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_adaptiveHealthInsightsFragment"
+            app:destination="@id/adaptiveHealthInsightsFragment" />
     </fragment>
 
     <!-- Module 9B: Longitudinal Health Trends & Temporal Patterns -->
@@ -224,6 +230,9 @@
         <action
             android:id="@+id/action_predictionResultFragment_to_healthDecisionTraceFragment"
             app:destination="@id/healthDecisionTraceFragment" />
+        <action
+            android:id="@+id/action_predictionResultFragment_to_adaptiveHealthInsightsFragment"
+            app:destination="@id/adaptiveHealthInsightsFragment" />
     </fragment>
 
     <!-- Module 8: Prediction History -->
@@ -266,6 +275,9 @@
         <action
             android:id="@+id/action_profileFragment_to_healthReportFragment"
             app:destination="@id/healthReportFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_adaptiveHealthInsightsFragment"
+            app:destination="@id/adaptiveHealthInsightsFragment" />
     </fragment>
 
     <!-- Module 16: Health Data Quality, Validation & Consistency -->
@@ -506,8 +518,16 @@
         <action
             android:id="@+id/action_healthDataImportFragment_to_healthDataPortabilityFragment"
             app:destination="@id/healthDataPortabilityFragment" />
+    </fragment>
+
+    <!-- Module 25: Adaptive Counterfactual Intervention & Prediction–Observation Feedback Loop -->
+    <fragment
+        android:id="@+id/adaptiveHealthInsightsFragment"
+        android:name="com.medisense.app.ui.adaptive.ui.AdaptiveHealthInsightsFragment"
+        android:label="Adaptive Health Insights"
+        tools:layout="@layout/fragment_adaptive_health_insights">
         <action
-            android:id="@+id/action_healthDataImportFragment_to_profileFragment"
+            android:id="@+id/action_adaptiveHealthInsightsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 

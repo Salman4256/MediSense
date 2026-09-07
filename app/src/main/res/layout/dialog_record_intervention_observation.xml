@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Title and Subtitle -->
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Record Observation"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDialogSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Select what you observed after following this scenario."
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?android:attr/textColorSecondary" />
+
+    <!-- Scenario Summary Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tvDialogScenarioName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hydration &amp; Electrolyte Scenario"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDialogExpectedOutcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Expected Outcome: Symptom reduction &amp; fatigue improvement"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorPrimary" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Observed Response Selection RadioGroup -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="What did you observe?"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgObservedResponse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/rbImproved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Improved (Felt better / Symptoms decreased)" />
+
+        <RadioButton
+            android:id="@+id/rbPartiallyImproved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partially Improved (Mild positive change)" />
+
+        <RadioButton
+            android:id="@+id/rbUnchanged"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unchanged (No noticeable difference)" />
+
+        <RadioButton
+            android:id="@+id/rbWorsened"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Worsened (Symptoms increased / Discomfort)" />
+
+        <RadioButton
+            android:id="@+id/rbUnclear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unclear / Mixed Response" />
+
+    </RadioGroup>
+
+    <!-- Optional Notes Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilUserNotes"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Personal notes (Optional, stored offline only)">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUserNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:maxLines="3" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelDialog"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveObservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Save Observation" />
+
+    </LinearLayout>
+
+</LinearLayout>

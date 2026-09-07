@@ -119,6 +119,10 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.PORTABLE_IMPORT_PREVIEWED -> "Portable health data package previewed by user"
             SecurityAuditEventType.PORTABLE_IMPORT_CANCELLED -> "Portable health data import workflow cancelled"
             SecurityAuditEventType.PORTABLE_IMPORT_PREPARED -> "Validated portable health data package prepared in memory"
+            SecurityAuditEventType.INTERVENTION_OBSERVATION_RECORDED -> "User-recorded observation added for prediction feedback"
+            SecurityAuditEventType.INTERVENTION_OBSERVATION_UPDATED -> "User observation record updated"
+            SecurityAuditEventType.INTERVENTION_OBSERVATION_DELETED -> "User observation record deleted"
+            SecurityAuditEventType.ADAPTIVE_FEEDBACK_EVALUATED -> "Adaptive counterfactual re-ranking evaluated"
         }
     }
 }
