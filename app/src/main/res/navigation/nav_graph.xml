@@ -112,7 +112,37 @@
         <action
             android:id="@+id/action_dashboardFragment_to_rchrFragment"
             app:destination="@id/rchrFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_contextualRiskFragment"
+            app:destination="@id/contextualRiskFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_personalizedGuidanceFragment"
+            app:destination="@id/personalizedGuidanceFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthTimelineFragment"
+            app:destination="@id/healthTimelineFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_consultationPreparationFragment"
+            app:destination="@id/consultationPreparationFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthReportFragment"
+            app:destination="@id/healthReportFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_healthDataQualityFragment"
+            app:destination="@id/healthDataQualityFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_privacySecurityFragment"
+            app:destination="@id/privacySecurityFragment" />
+    </fragment>
 
+    <!-- Module 12: Personalized Health Guidance Engine -->
+    <fragment
+        android:id="@+id/personalizedGuidanceFragment"
+        android:name="com.medisense.app.ui.guidance.ui.PersonalizedGuidanceFragment"
+        android:label="Personalized Health Guidance"
+        tools:layout="@layout/fragment_personalized_guidance">
+        <action
+            android:id="@+id/action_personalizedGuidanceFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_personalizedGuidanceFragment_to_medicationListFragment"
@@ -309,6 +339,9 @@
         <action
             android:id="@+id/action_appointmentFragment_to_addAppointmentFragment"
             app:destination="@id/addAppointmentFragment" />
+        <action
+            android:id="@+id/action_appointmentFragment_to_consultationPreparationFragment"
+            app:destination="@id/consultationPreparationFragment" />
     </fragment>
 
     <fragment
@@ -322,7 +355,11 @@
         android:id="@+id/healthReportFragment"
         android:name="com.medisense.app.ui.report.ui.HealthReportFragment"
         android:label="Health Report"
-        tools:layout="@layout/fragment_health_report" />
+        tools:layout="@layout/fragment_health_report">
+        <action
+            android:id="@+id/action_healthReportFragment_to_consultationPreparationFragment"
+            app:destination="@id/consultationPreparationFragment" />
+    </fragment>
 
     <!-- Module 18: Unified Explainable Health Timeline & Health Journey -->
     <fragment
@@ -357,6 +394,23 @@
         <action
             android:id="@+id/action_healthTimelineFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_consultationPreparationFragment"
+            app:destination="@id/consultationPreparationFragment" />
+    </fragment>
+
+    <!-- Module 19: Smart Consultation Preparation & Doctor Visit Summary -->
+    <fragment
+        android:id="@+id/consultationPreparationFragment"
+        android:name="com.medisense.app.ui.consultation.ui.ConsultationPreparationFragment"
+        android:label="Consultation Preparation"
+        tools:layout="@layout/fragment_consultation_preparation">
+        <action
+            android:id="@+id/action_consultationPreparationFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment" />
+        <action
+            android:id="@+id/action_consultationPreparationFragment_to_healthReportFragment"
+            app:destination="@id/healthReportFragment" />
     </fragment>
 
 </navigation>

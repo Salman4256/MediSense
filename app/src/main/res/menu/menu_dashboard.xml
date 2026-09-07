@@ -23,6 +23,10 @@
         android:title="Privacy &amp; Security"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_consultation_preparation"
+        android:title="Doctor Consultation Prep"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_logout"
         android:title="Logout"
         app:showAsAction="never" />

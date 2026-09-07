@@ -97,6 +97,9 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.HEALTH_REPORT_GENERATED -> "Comprehensive health report generated"
             SecurityAuditEventType.HEALTH_REPORT_EXPORTED -> "Health report PDF document exported locally"
             SecurityAuditEventType.HEALTH_REPORT_SHARED -> "Health report PDF shared via secure system intent"
+            SecurityAuditEventType.CONSULTATION_SUMMARY_GENERATED -> "Doctor consultation preparation summary generated"
+            SecurityAuditEventType.CONSULTATION_SUMMARY_EXPORTED -> "Consultation summary document exported locally"
+            SecurityAuditEventType.CONSULTATION_SUMMARY_SHARED -> "Consultation summary shared via secure system intent"
         }
     }
 }

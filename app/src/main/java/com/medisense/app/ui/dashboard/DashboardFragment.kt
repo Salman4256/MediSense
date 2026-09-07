@@ -53,6 +53,7 @@ class DashboardFragment : Fragment() {
         setupAiAssistantButton()
         setupMedicationRemindersButton()
         setupAppointmentsButton()
+        setupConsultationPrepButton()
         setupProfileNavigation()
         setupContextCardNavigation()
         observeAuthState()
@@ -212,6 +213,10 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_privacySecurityFragment)
                     true
                 }
+                R.id.action_consultation_preparation -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_consultationPreparationFragment)
+                    true
+                }
                 R.id.action_logout -> {
                     authViewModel.logout()
                     true
@@ -266,6 +271,12 @@ class DashboardFragment : Fragment() {
     private fun setupAppointmentsButton() {
         binding.btnAppointments.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_appointmentFragment)
+        }
+    }
+
+    private fun setupConsultationPrepButton() {
+        binding.btnConsultationPrep.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_consultationPreparationFragment)
         }
     }
 

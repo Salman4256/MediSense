@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Consultation Preparation"
+            app:subtitle="Doctor visit organizer"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Loading View -->
+        <LinearLayout
+            android:id="@+id/layout_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:indicatorSize="48dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Compiling doctor consultation summary..."
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+        </LinearLayout>
+
+        <!-- Error View -->
+        <LinearLayout
+            android:id="@+id/layout_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_info"
+                app:tint="?attr/colorError"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Failed to prepare consultation summary"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorError" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Retry" />
+        </LinearLayout>
+
+        <!-- Main Consultation Content -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view_consultation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="50dp">
+
+                <!-- Period Filter Chips -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Health Summary Period:"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOutline" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:scrollbars="none">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group_periods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_period_7d"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Last 7 Days" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_period_30d"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Last 30 Days" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_period_90d"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Last 90 Days" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_period_all"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="All History" />
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+
+                <!-- Visit Overview Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/tv_overview_title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Visit Preparation Overview"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnSurface" />
+
+                            <TextView
+                                android:id="@+id/tv_completeness_badge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_badge_supports"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:text="Complete Data"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorPrimary" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_overview_period"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:textColor="?attr/colorPrimary"
+                            tools:text="Period: 2026-08-08 to 2026-09-07 (Last 30 Days)" />
+
+                        <TextView
+                            android:id="@+id/tv_overview_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.15"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="Comprehensive consultation summary compiled from your recorded health history." />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 1: Health Profile -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="1. Baseline Health Profile"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_profile_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="• Name: Jane Doe\n• DOB: 1990-01-01\n• Gender: Female | Blood Group: A+\n• Allergies: None recorded\n• Existing Conditions: Hypertension" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 2: Recent Symptoms -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2. Recent Symptoms &amp; Observations"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_symptoms_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="• Frequent Symptoms: headache (3x), dizziness (2x)\n• Recent Observations: headache (2026-09-05), dizziness (2026-09-02)" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 3: Model Prediction History -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="3. Model Prediction History"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_predictions_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="• 2026-09-05: Hypertension (88% model confidence, 2 symptoms)\n*Note: AI model outputs are educational decision support and not medical diagnoses." />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 4: Current Medications & Adherence -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="4. Medications &amp; Adherence"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_medications_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="• Amlodipine (5 mg) - ONCE_DAILY [Take with water]\n• Adherence: 28 of 30 logged doses taken (93% adherence, 2 missed/skipped)." />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 5: Doctor Appointments -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="5. Doctor Appointments"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_appointments_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="• Upcoming Visit: Dr. Smith on 2026-09-15 at 10:00 (Cardiology Consultation)\n• Location: Central Clinic" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 6: Health Trends & Patterns -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="6. Longitudinal Trends &amp; Patterns"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_trends_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="• Top recorded symptoms: headache (3x), dizziness (2x).\n• Medication adherence is at 93% over the selected period." />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 7: Questions to Discuss With Your Doctor -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="1dp"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="?attr/colorPrimary"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="💡 Questions to Discuss with Your Doctor"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Smart, explainable questions generated from your health records. Tap to include/exclude from sharing."
+                            android:textSize="11sp"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        <!-- Container for dynamically generated suggested questions -->
+                        <LinearLayout
+                            android:id="@+id/layout_suggested_questions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="10dp" />
+
+                        <!-- Container for custom questions -->
+                        <LinearLayout
+                            android:id="@+id/layout_custom_questions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="4dp" />
+
+                        <!-- Add Custom Question Button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_custom_question"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="12dp"
+                            android:text="+ Add Your Own Question"
+                            android:textSize="13sp"
+                            app:cornerRadius="12dp"
+                            app:icon="@drawable/ic_add"
+                            app:iconGravity="textStart" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section 8: Data Quality Notices -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_data_quality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLowest">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ℹ️ Data Quality &amp; Completeness Status"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:id="@+id/tv_quality_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textSize="11sp"
+                            android:lineSpacingMultiplier="1.15"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            tools:text="All major health categories are populated. High data completeness." />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Action Buttons: Share & Export Document -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_share_summary"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:text="Share Consultation Summary"
+                        android:textSize="14sp"
+                        app:cornerRadius="14dp"
+                        app:icon="@drawable/ic_share"
+                        app:iconGravity="textStart" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_export_document"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Export Consultation Document"
+                        android:textSize="14sp"
+                        app:cornerRadius="14dp"
+                        app:icon="@drawable/ic_copy"
+                        app:iconGravity="textStart" />
+                </LinearLayout>
+
+                <!-- Medical Disclaimer Footer -->
+                <TextView
+                    android:id="@+id/tv_disclaimer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="12dp"
+                    android:background="@drawable/bg_badge_supports"
+                    android:textSize="11sp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textColor="?attr/colorOutline"
+                    android:text="Medical Safety Notice: Consultation preparation is based on information recorded in MediSense and is intended to help organize health information for discussion with a healthcare professional. It does not provide a medical diagnosis, clinical treatment plan, or medication instructions." />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

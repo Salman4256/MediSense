@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_question_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:cardBackgroundColor="?attr/colorSurfaceContainerLowest">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_question_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_question_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                tools:text="1. How should I manage recurring headaches observed recently?" />
+
+            <TextView
+                android:id="@+id/tv_question_rationale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="11sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="Based on 3 symptom logs recorded in the last 30 days" />
+
+            <TextView
+                android:id="@+id/tv_question_source_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_badge_info"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                tools:text="SYMPTOM OBSERVATION" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_delete_question"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_delete"
+            app:tint="?attr/colorError"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:contentDescription="Delete custom question" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
