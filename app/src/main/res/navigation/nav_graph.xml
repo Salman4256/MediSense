@@ -112,31 +112,7 @@
         <action
             android:id="@+id/action_dashboardFragment_to_rchrFragment"
             app:destination="@id/rchrFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_contextualRiskFragment"
-            app:destination="@id/contextualRiskFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_personalizedGuidanceFragment"
-            app:destination="@id/personalizedGuidanceFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_privacySecurityFragment"
-            app:destination="@id/privacySecurityFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_healthDataQualityFragment"
-            app:destination="@id/healthDataQualityFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_healthReportFragment"
-            app:destination="@id/healthReportFragment" />
-    </fragment>
 
-    <!-- Module 12: Adaptive Personalized Guidance & Recommendation Engine -->
-    <fragment
-        android:id="@+id/personalizedGuidanceFragment"
-        android:name="com.medisense.app.ui.guidance.ui.PersonalizedGuidanceFragment"
-        android:label="Personalized Guidance"
-        tools:layout="@layout/fragment_personalized_guidance">
-        <action
-            android:id="@+id/action_personalizedGuidanceFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_personalizedGuidanceFragment_to_medicationListFragment"
@@ -347,5 +323,40 @@
         android:name="com.medisense.app.ui.report.ui.HealthReportFragment"
         android:label="Health Report"
         tools:layout="@layout/fragment_health_report" />
+
+    <!-- Module 18: Unified Explainable Health Timeline & Health Journey -->
+    <fragment
+        android:id="@+id/healthTimelineFragment"
+        android:name="com.medisense.app.ui.timeline.ui.HealthTimelineFragment"
+        android:label="Health Timeline"
+        tools:layout="@layout/fragment_health_timeline">
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_predictionHistoryFragment"
+            app:destination="@id/predictionHistoryFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_medicationListFragment"
+            app:destination="@id/medicationListFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_longitudinalHealthFragment"
+            app:destination="@id/longitudinalHealthFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_contextualRiskFragment"
+            app:destination="@id/contextualRiskFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_personalizedGuidanceFragment"
+            app:destination="@id/personalizedGuidanceFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_healthDataQualityFragment"
+            app:destination="@id/healthDataQualityFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_healthReportFragment"
+            app:destination="@id/healthReportFragment" />
+        <action
+            android:id="@+id/action_healthTimelineFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 
 </navigation>

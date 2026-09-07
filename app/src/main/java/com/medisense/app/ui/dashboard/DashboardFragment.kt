@@ -45,6 +45,7 @@ class DashboardFragment : Fragment() {
         setupHealthRecordsButton()
         setupDiseasePredictionButton()
         setupPredictionHistoryButton()
+        setupHealthTimelineButton()
         setupHealthTrendsButton()
         setupRchrButton()
         setupContextualRiskButton()
@@ -195,6 +196,10 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_profileFragment)
                     true
                 }
+                R.id.action_health_timeline -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_healthTimelineFragment)
+                    true
+                }
                 R.id.action_health_report -> {
                     findNavController().navigate(R.id.action_dashboardFragment_to_healthReportFragment)
                     true
@@ -237,6 +242,12 @@ class DashboardFragment : Fragment() {
     private fun setupPredictionHistoryButton() {
         binding.btnPredictionHistory.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_predictionHistoryFragment)
+        }
+    }
+
+    private fun setupHealthTimelineButton() {
+        binding.btnHealthTimeline.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_healthTimelineFragment)
         }
     }
 

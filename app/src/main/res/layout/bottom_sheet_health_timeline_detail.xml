@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="32dp">
+
+        <!-- Drag Handle Indicator -->
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Header Category & Priority -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/tv_detail_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_supports"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="Disease Prediction"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tv_detail_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_badge_attention"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="Important"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorError"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_detail_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="?attr/colorOutline"
+                tools:text="2026-09-07 10:30" />
+        </LinearLayout>
+
+        <!-- Event Title -->
+        <TextView
+            android:id="@+id/tv_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            tools:text="Prediction: Fungal Infection" />
+
+        <!-- Source Origin Banner -->
+        <TextView
+            android:id="@+id/tv_detail_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textColor="?attr/colorPrimary"
+            tools:text="Attributed Origin: Disease Prediction (Module 3)" />
+
+        <!-- Detailed Description Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Event Details"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/tv_detail_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="Selected symptoms: itching, skin rash, nodal skin eruptions. AI prediction estimated Fungal Infection with 88% confidence." />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Explainability Breakdown (WHAT, WHEN, WHY, WHERE) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="💡 Explainable Attribution"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/tv_explain_what"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:lineSpacingMultiplier="1.15"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="• WHAT: Disease prediction was performed using reported symptoms." />
+
+                <TextView
+                    android:id="@+id/tv_explain_when"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="12sp"
+                    android:lineSpacingMultiplier="1.15"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="• WHEN: Recorded on 2026-09-07 10:30." />
+
+                <TextView
+                    android:id="@+id/tv_explain_why"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="12sp"
+                    android:lineSpacingMultiplier="1.15"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="• WHY: Tracks historical symptoms and prediction changes across your longitudinal journey." />
+
+                <TextView
+                    android:id="@+id/tv_explain_where"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="12sp"
+                    android:lineSpacingMultiplier="1.15"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="• WHERE: Retrieved from Disease Prediction (Module 3)." />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Metadata Key-Value Container -->
+        <LinearLayout
+            android:id="@+id/layout_metadata_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Technical Record Properties"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOutline" />
+
+            <TextView
+                android:id="@+id/tv_metadata_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="11sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="• Model Version: 1.0\n• Symptoms Count: 3\n• Confidence: 88%" />
+        </LinearLayout>
+
+        <!-- Navigation Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_navigate_to_module"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="18dp"
+            android:text="View in Originating Module"
+            android:textSize="14sp"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_history"
+            app:iconGravity="textStart"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <!-- Medical Disclaimer Footnote -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:textSize="10sp"
+            android:textColor="?attr/colorOutline"
+            android:lineSpacingMultiplier="1.15"
+            android:text="⚠️ Non-diagnostic Notice: This timeline entry summarizes historical records. System outputs and predictions do not constitute a medical diagnosis." />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

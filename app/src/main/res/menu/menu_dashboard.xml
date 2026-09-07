@@ -7,6 +7,10 @@
         android:icon="@android:drawable/ic_menu_myplaces"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_health_timeline"
+        android:title="Unified Health Timeline"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_health_report"
         android:title="Comprehensive Health Report"
         app:showAsAction="never" />

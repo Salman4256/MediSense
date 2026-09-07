@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:baselineAligned="false">
+
+    <!-- Timeline Indicator Track -->
+    <LinearLayout
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Upper line segment -->
+        <View
+            android:id="@+id/timeline_line_top"
+            android:layout_width="2dp"
+            android:layout_height="12dp"
+            android:background="?attr/colorOutlineVariant" />
+
+        <!-- Node Icon Circle -->
+        <FrameLayout
+            android:id="@+id/node_container"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/bg_badge_supports">
+
+            <ImageView
+                android:id="@+id/iv_event_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_insights"
+                app:tint="?attr/colorPrimary"
+                tools:ignore="ContentDescription" />
+        </FrameLayout>
+
+        <!-- Lower line segment -->
+        <View
+            android:id="@+id/timeline_line_bottom"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="?attr/colorOutlineVariant" />
+    </LinearLayout>
+
+    <!-- Event Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_timeline_event"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0.5dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorOutlineVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <!-- Category Badge & Timestamp Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_category_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_supports"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:text="Disease Prediction"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_priority_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_badge_attention"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:text="Important"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorError"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_event_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="?attr/colorOutline"
+                    tools:text="2026-09-07 10:30" />
+            </LinearLayout>
+
+            <!-- Event Title -->
+            <TextView
+                android:id="@+id/tv_event_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                tools:text="Prediction: Fungal Infection" />
+
+            <!-- Event Short Description -->
+            <TextView
+                android:id="@+id/tv_event_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="13sp"
+                android:lineSpacingMultiplier="1.15"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="Model estimated condition with 88% confidence based on 3 reported symptoms." />
+
+            <!-- Source Attribution & Tap to inspect hint -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_source_attribution"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:textStyle="italic"
+                    android:textColor="?attr/colorOutline"
+                    tools:text="Source: Disease Prediction (Module 3)" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Details ›"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
