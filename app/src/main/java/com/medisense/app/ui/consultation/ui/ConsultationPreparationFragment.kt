@@ -445,44 +445,14 @@ class ConsultationPreparationFragment : Fragment() {
         val ctx = requireContext()
         MaterialAlertDialogBuilder(ctx)
             .setTitle("Share Consultation Summary")
-            .setMessage("This summary contains your personal health observations and questions. Share it only with your doctor or trusted healthcare providers.")
-            .setPositiveButton("Share") { _, _ ->
-                val text = viewModel.getFormattedSummaryPlainText()
-                if (text.isNotBlank()) {
-                    viewModel.recordShareCompleted()
-                    launchShareTextIntent(text)
-                } else {
-                    Toast.makeText(ctx, "No summary content to share", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
-
-    private fun launchShareTextIntent(text: String) {
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_SUBJECT, "Doctor Consultation Preparation Summary - MediSense")
-            putExtra(Intent.EXTRA_TEXT, text)
-        }
-        try {
-            startActivity(Intent.createChooser(shareIntent, "Share Consultation Summary"))
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Unable to launch share app: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun showPrivacyExportDocumentDialog() {
-        val ctx = requireContext()
-        MaterialAlertDialogBuilder(ctx)
-            .setTitle("Export Consultation Document")
-            .setMessage("This will export your consultation preparation summary as a plain-text document file to share with your healthcare team.")
-            .setPositiveButton("Export & Share") { _, _ ->
-                viewModel.exportSummaryDocument(ctx) { result ->
+            .setMessage("This will compile your consultation preparation summary into a confidential PDF document to share with your doctor or trusted healthcare provider.")
+            .setPositiveButton("Share PDF") { _, _ ->
+                viewModel.exportSummaryPdf(ctx) { result ->
                     viewLifecycleOwner.lifecycleScope.launch {
                         when (result) {
                             is HealthReportExportResult.Success -> {
-                                launchShareFileIntent(result.contentUri)
+                                viewModel.recordShareCompleted()
+                                launchSharePdfIntent(result.contentUri)
                             }
                             is HealthReportExportResult.Error -> {
                                 Toast.makeText(ctx, result.message, Toast.LENGTH_SHORT).show()
@@ -495,16 +465,60 @@ class ConsultationPreparationFragment : Fragment() {
             .show()
     }
 
-    private fun launchShareFileIntent(fileUri: Uri) {
+    private fun showPrivacyExportDocumentDialog() {
+        val ctx = requireContext()
+        val text = viewModel.getFormattedSummaryPlainText()
+        if (text.isBlank()) {
+            Toast.makeText(ctx, "No summary content to export", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        MaterialAlertDialogBuilder(ctx)
+            .setTitle("Export Consultation Text")
+            .setMessage("This will copy your consultation preparation summary text to the clipboard and open the share options.")
+            .setPositiveButton("Copy & Share Text") { _, _ ->
+                copySummaryTextToClipboard(text)
+                viewModel.recordShareCompleted()
+                launchShareTextIntent(text)
+            }
+            .setNeutralButton("Copy Only") { _, _ ->
+                copySummaryTextToClipboard(text)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun copySummaryTextToClipboard(text: String) {
+        val ctx = requireContext()
+        val clipboard = ctx.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        val clip = android.content.ClipData.newPlainText("MediSense Consultation Summary", text)
+        clipboard.setPrimaryClip(clip)
+        Snackbar.make(binding.root, "Consultation summary copied to clipboard", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun launchShareTextIntent(text: String) {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, "Doctor Consultation Preparation Summary - MediSense")
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
+        try {
+            startActivity(Intent.createChooser(shareIntent, "Share Consultation Summary Text"))
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Unable to launch share app: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun launchSharePdfIntent(fileUri: Uri) {
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "application/pdf"
             putExtra(Intent.EXTRA_STREAM, fileUri)
-            putExtra(Intent.EXTRA_SUBJECT, "Doctor Consultation Preparation Document - MediSense")
+            putExtra(Intent.EXTRA_SUBJECT, "Doctor Consultation Preparation Summary - MediSense")
             putExtra(Intent.EXTRA_TEXT, "Here is my doctor consultation preparation summary document generated with MediSense.")
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         try {
-            val chooser = Intent.createChooser(shareIntent, "Export Consultation Document")
+            val chooser = Intent.createChooser(shareIntent, "Share Consultation Summary PDF")
             chooser.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             startActivity(chooser)
         } catch (e: Exception) {

@@ -105,6 +105,39 @@ class EmergencyHealthCardViewModel @Inject constructor(
         return EmergencyHealthCard.formatAsPlainText(card)
     }
 
+    fun exportEmergencyCardPdf(context: Context, onResult: (Uri?) -> Unit) {
+        val card = currentCard
+        if (card == null) {
+            onResult(null)
+            return
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val genResult = com.medisense.app.domain.emergency.EmergencyHealthCardPdfGenerator.generatePdf(context, card)
+                if (genResult is com.medisense.app.domain.model.HealthReportExportResult.Success) {
+                    val contentUri: Uri = FileProvider.getUriForFile(
+                        context,
+                        "${context.packageName}.fileprovider",
+                        genResult.file
+                    )
+                    withContext(Dispatchers.Main) {
+                        onResult(contentUri)
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        onResult(null)
+                    }
+                }
+            } catch (e: Exception) {
+                SecureLogger.e(TAG, "Failed to export emergency card PDF", e)
+                withContext(Dispatchers.Main) {
+                    onResult(null)
+                }
+            }
+        }
+    }
+
     fun exportEmergencyCardAsText(context: Context, onResult: (Uri?) -> Unit) {
         val card = currentCard
         if (card == null) {

@@ -202,15 +202,25 @@ class EmergencyHealthCardFragment : Fragment() {
     private fun showPrivacyShareDialog() {
         val ctx = requireContext()
         MaterialAlertDialogBuilder(ctx)
-            .setTitle("Export Emergency Health Card")
-            .setMessage("This emergency card contains your personal health information. Share only with emergency responders or trusted healthcare providers.")
-            .setPositiveButton("Export & Share") { _, _ ->
+            .setTitle("Share Emergency Health Card")
+            .setMessage("This will compile your emergency medical information into a PDF document to share with emergency responders or healthcare providers.")
+            .setPositiveButton("Share PDF") { _, _ ->
+                viewModel.exportEmergencyCardPdf(ctx) { uri ->
+                    if (uri != null) {
+                        viewModel.logCardShared()
+                        launchSharePdfIntent(uri)
+                    } else {
+                        Toast.makeText(ctx, "Failed to prepare emergency card PDF export", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            .setNeutralButton("Share as Text") { _, _ ->
                 viewModel.exportEmergencyCardAsText(ctx) { uri ->
                     if (uri != null) {
                         viewModel.logCardShared()
-                        launchShareFileIntent(uri)
+                        launchShareTextIntent(uri)
                     } else {
-                        Toast.makeText(ctx, "Failed to prepare emergency card export", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, "Failed to prepare emergency card text export", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -218,7 +228,24 @@ class EmergencyHealthCardFragment : Fragment() {
             .show()
     }
 
-    private fun launchShareFileIntent(fileUri: Uri) {
+    private fun launchSharePdfIntent(fileUri: Uri) {
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "application/pdf"
+            putExtra(Intent.EXTRA_STREAM, fileUri)
+            putExtra(Intent.EXTRA_SUBJECT, "MediSense Emergency Health Access Card")
+            putExtra(Intent.EXTRA_TEXT, "Here is my MediSense Emergency Health Access Card summary.")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        try {
+            val chooser = Intent.createChooser(shareIntent, "Share Emergency Health Card PDF")
+            chooser.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            startActivity(chooser)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Unable to share file: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun launchShareTextIntent(fileUri: Uri) {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_STREAM, fileUri)
@@ -227,7 +254,7 @@ class EmergencyHealthCardFragment : Fragment() {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         try {
-            val chooser = Intent.createChooser(shareIntent, "Share Emergency Health Card")
+            val chooser = Intent.createChooser(shareIntent, "Share Emergency Health Card Text")
             chooser.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             startActivity(chooser)
         } catch (e: Exception) {

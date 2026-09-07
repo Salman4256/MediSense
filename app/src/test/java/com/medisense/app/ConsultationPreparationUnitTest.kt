@@ -820,6 +820,20 @@ class ConsultationPreparationUnitTest {
         assertNotNull(shareAudit)
     }
 
+    // 29. Audit Log: Consultation Summary Exported Recorded
+    @Test
+    fun testAuditLog_consultationSummaryExported_recorded() = runBlocking {
+        securityAuditRepository.recordEvent(
+            eventType = SecurityAuditEventType.CONSULTATION_SUMMARY_EXPORTED,
+            customDescription = "Consultation summary exported as PDF document"
+        )
+
+        val audits = fakeSecurityAuditDao.getAuditEventsForUser(testUserId)
+        val exportAudit = audits.find { it.eventType == SecurityAuditEventType.CONSULTATION_SUMMARY_EXPORTED.name }
+        assertNotNull(exportAudit)
+        assertEquals("Consultation summary exported as PDF document", exportAudit!!.description)
+    }
+
     // ==========================================
     // Test Doubles / In-memory Fakes
     // ==========================================

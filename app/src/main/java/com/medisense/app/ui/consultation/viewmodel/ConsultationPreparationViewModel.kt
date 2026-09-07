@@ -121,10 +121,18 @@ class ConsultationPreparationViewModel @Inject constructor(
         return repository.formatSummaryAsPlainText(summary)
     }
 
+    fun exportSummaryPdf(context: Context, onResult: (HealthReportExportResult) -> Unit) {
+        val summary = currentSummary ?: return
+        viewModelScope.launch {
+            val result = repository.exportSummaryPdf(context, summary)
+            onResult(result)
+        }
+    }
+
     fun exportSummaryDocument(context: Context, onResult: (HealthReportExportResult) -> Unit) {
         val summary = currentSummary ?: return
         viewModelScope.launch {
-            val result = repository.exportSummaryTextFile(context, summary)
+            val result = repository.exportSummaryPdf(context, summary)
             onResult(result)
         }
     }

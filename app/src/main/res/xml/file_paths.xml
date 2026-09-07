@@ -4,4 +4,5 @@
     <cache-path name="assistant_images" path="assistant_images/" />
     <cache-path name="health_reports" path="reports/" />
     <cache-path name="emergency_cards" path="emergency/" />
+    <cache-path name="consultation_summaries" path="consultations/" />
 </paths>

@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.core.content.FileProvider
 import com.medisense.app.data.local.dao.*
 import com.medisense.app.data.remote.supabase.AuthService
+import com.medisense.app.domain.consultation.ConsultationPdfGenerator
 import com.medisense.app.domain.consultation.ConsultationSummaryGenerator
 import com.medisense.app.domain.model.*
 import com.medisense.app.domain.security.SecureLogger
@@ -189,6 +190,38 @@ class ConsultationPreparationRepository @Inject constructor(
             appendLine("----------------------------------------")
             appendLine("DISCLAIMER: ${summary.safetyDisclaimer}")
             appendLine("========================================")
+        }
+    }
+
+    /**
+     * Exports a consultation preparation summary as a multi-page PDF with a secure FileProvider URI.
+     */
+    suspend fun exportSummaryPdf(context: Context, summary: ConsultationSummary): HealthReportExportResult = withContext(Dispatchers.IO) {
+        try {
+            val genResult = ConsultationPdfGenerator.generatePdf(context, summary)
+            if (genResult is HealthReportExportResult.Success) {
+                val contentUri: Uri = FileProvider.getUriForFile(
+                    context,
+                    "${context.packageName}.fileprovider",
+                    genResult.file
+                )
+
+                try {
+                    securityAuditRepository.recordEvent(
+                        eventType = SecurityAuditEventType.CONSULTATION_SUMMARY_EXPORTED,
+                        customDescription = "Consultation summary exported as PDF document"
+                    )
+                } catch (e: Exception) {
+                    SecureLogger.e(TAG, "Failed to record audit event for consultation export", e)
+                }
+
+                HealthReportExportResult.Success(file = genResult.file, contentUri = contentUri)
+            } else {
+                genResult
+            }
+        } catch (e: Exception) {
+            SecureLogger.e(TAG, "Failed to export consultation summary PDF", e)
+            HealthReportExportResult.Error("Failed to export consultation summary PDF: ${e.message}", e)
         }
     }
 
