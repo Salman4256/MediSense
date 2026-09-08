@@ -29,28 +29,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="20dp">
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="32dp">
 
+            <!-- Welcome Greeting -->
             <TextView
                 android:id="@+id/tv_welcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="14dp"
                 android:text="@string/welcome_dashboard"
-                android:textSize="26sp"
+                android:textAppearance="?attr/textAppearanceHeadlineMedium"
                 android:textStyle="bold" />
 
-            <!-- Module 9A: Personalized Health Context Card -->
+            <!-- Personalized Health Context Summary Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_personal_context"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="1dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
                 app:strokeWidth="1dp"
                 app:strokeColor="?attr/colorOutlineVariant"
                 app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
@@ -73,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Personalized Health Context"
-                            android:textSize="17sp"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
                             android:textStyle="bold"
                             android:textColor="?attr/colorOnSurface" />
 
@@ -87,7 +90,7 @@
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="?attr/colorPrimary"
-                            tools:text="Profile 80%" />
+                            tools:text="Profile 100%" />
                     </LinearLayout>
 
                     <!-- Dynamic Factual Summary -->
@@ -95,7 +98,7 @@
                         android:id="@+id/tv_context_summary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:textSize="13sp"
                         android:lineSpacingMultiplier="1.2"
                         android:textColor="?attr/colorOnSurfaceVariant"
@@ -105,8 +108,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="8dp"
                         android:background="?attr/colorOutlineVariant" />
 
                     <!-- Dynamic Subsections -->
@@ -116,18 +119,18 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- Frequently Observed Symptoms & Recent Predictions -->
+                        <!-- Frequently Observed Symptoms -->
                         <LinearLayout
                             android:id="@+id/layout_symptoms_item"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginBottom="6dp">
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:src="@drawable/ic_history"
                                 app:tint="?attr/colorPrimary"
                                 android:contentDescription="Symptoms" />
@@ -136,10 +139,10 @@
                                 android:id="@+id/tv_context_symptoms"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:textSize="13sp"
+                                android:layout_marginStart="8dp"
+                                android:textSize="12sp"
                                 android:textColor="?attr/colorOnSurface"
-                                tools:text="Frequent: Fever • Cough • Fatigue (2 predictions)" />
+                                tools:text="Frequent: Fever • Cough • Fatigue" />
                         </LinearLayout>
 
                         <!-- Medication Adherence Summary -->
@@ -149,11 +152,11 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginBottom="6dp">
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:src="@drawable/ic_pill"
                                 app:tint="?attr/colorPrimary"
                                 android:contentDescription="Medications" />
@@ -162,10 +165,10 @@
                                 android:id="@+id/tv_context_medications"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:textSize="13sp"
+                                android:layout_marginStart="8dp"
+                                android:textSize="12sp"
                                 android:textColor="?attr/colorOnSurface"
-                                tools:text="Medications: 85% adherence this week (2 active meds)" />
+                                tools:text="Medications: 85% adherence this week" />
                         </LinearLayout>
 
                         <!-- Upcoming Appointments Summary -->
@@ -175,11 +178,11 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginBottom="6dp">
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:src="@drawable/ic_calendar"
                                 app:tint="?attr/colorPrimary"
                                 android:contentDescription="Appointments" />
@@ -188,10 +191,10 @@
                                 android:id="@+id/tv_context_appointments"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:textSize="13sp"
+                                android:layout_marginStart="8dp"
+                                android:textSize="12sp"
                                 android:textColor="?attr/colorOnSurface"
-                                tools:text="Upcoming: Dr. Smith on Aug 15 • 10:00 AM" />
+                                tools:text="Upcoming: Dr. Smith on Aug 15" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -200,7 +203,7 @@
                         android:id="@+id/tv_why_personalized"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="4dp"
                         android:textSize="11sp"
                         android:textStyle="italic"
                         android:textColor="?attr/colorOutline"
@@ -210,7 +213,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="6dp"
                         android:textSize="10sp"
                         android:textColor="?attr/colorOutline"
                         android:text="⚠️ MediSense provides informational decision support and does not replace professional medical advice." />
@@ -218,247 +221,930 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_health_records"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <!-- ==================================================== -->
+            <!-- SECTION 1: Core Health & Diagnostics -->
+            <!-- ==================================================== -->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Personal Health Records"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_history"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:text="Core Health &amp; Diagnostics"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="10dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_disease_prediction"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <!-- Row 1: Disease Prediction (Hero) & Health Records -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Disease Prediction"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_add"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_prediction_history"
-                style="@style/Widget.Material3.Button.TonalButton"
+                <!-- Disease Prediction -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_disease_prediction"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="?attr/colorPrimary"
+                    app:cardBackgroundColor="?attr/colorPrimaryContainer">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_add"
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="Disease Prediction" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Disease Prediction"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnPrimaryContainer" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="AI Symptom Analysis"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            android:alpha="0.8" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Health Records -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_health_records"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_history"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Health Records" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Health Records"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Vitals &amp; Medical Profile"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Row 2: AI Health Assistant & Prediction History -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Prediction History"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_history"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_health_timeline"
-                style="@style/Widget.Material3.Button.TonalButton"
+                <!-- AI Health Assistant -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_ai_assistant"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_ai"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="AI Assistant" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="AI Assistant"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="24/7 Smart Health Chat"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Prediction History -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_prediction_history"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_history"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Prediction History" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Prediction History"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Past Clinical Logs"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- ==================================================== -->
+            <!-- SECTION 2: Insights & Analytics -->
+            <!-- ==================================================== -->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Unified Health Timeline"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_history"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:text="Insights &amp; Analytics"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="10dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_health_trends"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <!-- Row 1: Unified Timeline & Trends -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Health Trends &amp; Analytics"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_insights"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_rchr"
-                style="@style/Widget.Material3.Button.TonalButton"
+                <!-- Unified Health Timeline -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_health_timeline"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_history"
+                            app:tint="?attr/colorSecondary"
+                            android:contentDescription="Timeline" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Health Timeline"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Unified Event Stream"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Health Trends & Analytics -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_health_trends"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_insights"
+                            app:tint="?attr/colorSecondary"
+                            android:contentDescription="Trends" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Health Trends"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Longitudinal Analytics"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Row 2: RCHR Composite Profile & Guidance -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Composite Health Representation (RCHR)"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_ai"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_contextual_risk"
-                style="@style/Widget.Material3.Button.TonalButton"
+                <!-- Composite Profile (RCHR) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_rchr"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_ai"
+                            app:tint="?attr/colorSecondary"
+                            android:contentDescription="RCHR" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Health RCHR"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Composite Profile"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Personalized Guidance & Tips -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_personalized_guidance"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_insights"
+                            app:tint="?attr/colorSecondary"
+                            android:contentDescription="Guidance" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Guidance &amp; Tips"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Personalized Habits"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- ==================================================== -->
+            <!-- SECTION 3: Daily Care & Appointments -->
+            <!-- ==================================================== -->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Health Context &amp; Risk Priority"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_check_circle"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:text="Daily Care &amp; Appointments"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="10dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_personalized_guidance"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <!-- Row 1: Medication Reminders & Doctor Appointments -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Personalized Guidance &amp; Tips"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_insights"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_ai_assistant"
-                style="@style/Widget.Material3.Button.TonalButton"
+                <!-- Medication Reminders -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_medication_reminders"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_pill"
+                            app:tint="?attr/colorTertiary"
+                            android:contentDescription="Medications" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Medications"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Reminders &amp; Tracking"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Doctor Appointments -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_appointments"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="?attr/colorTertiary"
+                            android:contentDescription="Appointments" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Appointments"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Visits &amp; Consultations"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Row 2: Doctor Prep & Emergency Card -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="AI Health Assistant"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_ai"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_medication_reminders"
-                style="@style/Widget.Material3.Button.TonalButton"
+                <!-- Doctor Consultation Prep -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_consultation_prep"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_doctor"
+                            app:tint="?attr/colorTertiary"
+                            android:contentDescription="Consultation Prep" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Doctor Prep"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Questions &amp; Summary"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Emergency Health Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_emergency_card"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorError"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_emergency"
+                            app:tint="?attr/colorError"
+                            android:contentDescription="Emergency Card" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Emergency Card"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorError" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Instant Medical Badge"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- ==================================================== -->
+            <!-- SECTION 4: Security, Sharing & Adaptability -->
+            <!-- ==================================================== -->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/medication_reminder_title"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_pill"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:text="Security, Sharing &amp; Adaptability"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="10dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_appointments"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <!-- Row 1: Contextual Risk & AI Traces -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Doctor Appointments"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_calendar"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_consultation_prep"
-                style="@style/Widget.Material3.Button.TonalButton"
+                <!-- Health Context & Risk Priority -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_contextual_risk"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Risk Priority" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Risk Priority"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Clinical Weighting"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Explainable AI Traces -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_decision_traces"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_trace"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Explainable AI" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="AI Decision Trace"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Auditable Log Reason"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Row 2: Caregiver Sharing & Portability -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Doctor Consultation Prep"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_doctor"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_emergency_card"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Emergency Health Card"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_emergency"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                <!-- Caregiver & Doctor Sharing -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_health_sharing"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
 
-            <!-- Module 21: Explainable Health Decision Trace & AI Audit Trail -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_decision_traces"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Explainable AI Traces"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_trace"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
 
-            <!-- Module 22: Consent-Controlled Caregiver & Doctor Sharing -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_health_sharing"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Caregiver &amp; Doctor Sharing"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_share_health"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_share_health"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Caregiver Sharing" />
 
-            <!-- Module 23: Personal Health Data Portability & Interoperability -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_health_portability"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="14dp"
-                android:text="Health Data Portability"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_portability"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Caregiver Sharing"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
 
-            <!-- Module 25: Adaptive Counterfactual Intervention & Feedback Loop -->
-            <com.google.android.material.button.MaterialButton
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Consent-Based Access"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Health Data Portability -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_health_portability"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_portability"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Data Portability" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Data Portability"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="FHIR / JSON Export"
+                            android:textSize="10sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Row 3: Adaptive Insights (Single Full-width or Accent Tile) -->
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_adaptive_insights"
-                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginBottom="24dp"
-                android:text="Adaptive Health Insights"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_adaptive"
-                app:iconGravity="textStart"
-                app:iconPadding="14dp"
-                app:iconSize="22dp" />
+                android:layout_height="80dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_adaptive"
+                        app:tint="?attr/colorPrimary"
+                        android:contentDescription="Adaptive Health Insights" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Adaptive Health Insights"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Counterfactual Interventions &amp; Feedback Loop"
+                            android:textSize="11sp"
+                            android:textColor="?attr/colorOutline" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_arrow_back"
+                        android:rotation="180"
+                        app:tint="?attr/colorOutline"
+                        android:contentDescription="Navigate" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
