@@ -2,7 +2,6 @@ package com.medisense.app.domain.security
 
 import com.medisense.app.BuildConfig
 import timber.log.Timber
-import java.util.regex.Pattern
 
 /**
  * Centralized, privacy-safe logger for MediSense.
@@ -12,22 +11,20 @@ import java.util.regex.Pattern
 object SecureLogger {
 
     private val SENSITIVE_PATTERNS = listOf(
-        Pattern.compile("(?i)(password|passwd|pwd)\\s*[=:]\\s*[^\\s,;]+"),
-        Pattern.compile("(?i)(bearer\\s+[a-zA-Z0-9._~+/-]+)"),
-        Pattern.compile("(?i)(api[_-]?key|secret|token|anon[_-]?key)\\s*[=:]\\s*[^\\s,;]+"),
-        Pattern.compile("(?i)(sbp_[a-zA-Z0-9]+|eyJ[a-zA-Z0-9._-]+)")
+        Regex("(?i)(password|passwd|pwd)\\s*[=:]\\s*[^\\s,;]+"),
+        Regex("(?i)(bearer\\s+[a-zA-Z0-9._~+/-]+)"),
+        Regex("(?i)(api[_-]?key|secret|token|anon[_-]?key)\\s*[=:]\\s*[^\\s,;]+"),
+        Regex("(?i)(sbp_[a-zA-Z0-9]+|eyJ[a-zA-Z0-9._-]+)")
     )
 
     /**
      * Sanitizes a log string by redacting potential credentials or tokens.
      */
     fun sanitize(message: String?): String {
-        if (message == null) return ""
-        var sanitized = message
-        for (pattern in SENSITIVE_PATTERNS) {
-            sanitized = pattern.matcher(sanitized).replaceAll("[REDACTED_SECRET]")
+        val nonNullMsg = message?.takeIf { it.isNotBlank() } ?: return ""
+        return SENSITIVE_PATTERNS.fold(nonNullMsg) { current, regex ->
+            regex.replace(current, "[REDACTED_SECRET]")
         }
-        return sanitized
     }
 
     fun d(tag: String, message: String) {
