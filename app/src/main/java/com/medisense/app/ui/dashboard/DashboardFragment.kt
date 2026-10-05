@@ -218,6 +218,10 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_privacySecurityFragment)
                     true
                 }
+                R.id.action_support_website -> {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_privacySecurityFragment)
+                    true
+                }
                 R.id.action_consultation_preparation -> {
                     findNavController().navigate(R.id.action_dashboardFragment_to_consultationPreparationFragment)
                     true

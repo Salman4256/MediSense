@@ -130,6 +130,24 @@ class PrivacySecurityViewModel @Inject constructor(
         }
     }
 
+    fun recordSupportEmailInitiated() {
+        viewModelScope.launch {
+            securityAuditRepository.recordEvent(
+                SecurityAuditEventType.SUPPORT_EMAIL_INITIATED,
+                "Support email client initiated"
+            )
+        }
+    }
+
+    fun recordOfficialWebsiteOpened() {
+        viewModelScope.launch {
+            securityAuditRepository.recordEvent(
+                SecurityAuditEventType.OFFICIAL_WEBSITE_OPENED,
+                "Official MediSense policy website opened"
+            )
+        }
+    }
+
     fun clearMessages() {
         _uiState.update { it.copy(actionSuccessMessage = null, actionErrorMessage = null) }
     }

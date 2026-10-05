@@ -123,6 +123,8 @@ class SecurityAuditRepository @Inject constructor(
             SecurityAuditEventType.INTERVENTION_OBSERVATION_UPDATED -> "User observation record updated"
             SecurityAuditEventType.INTERVENTION_OBSERVATION_DELETED -> "User observation record deleted"
             SecurityAuditEventType.ADAPTIVE_FEEDBACK_EVALUATED -> "Adaptive counterfactual re-ranking evaluated"
+            SecurityAuditEventType.SUPPORT_EMAIL_INITIATED -> "Support email client initiated"
+            SecurityAuditEventType.OFFICIAL_WEBSITE_OPENED -> "Official MediSense policy website opened"
         }
     }
 }

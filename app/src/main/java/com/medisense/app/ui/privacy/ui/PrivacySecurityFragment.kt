@@ -105,6 +105,22 @@ class PrivacySecurityFragment : Fragment() {
                 .setNegativeButton("Cancel", null)
                 .show()
         }
+
+        // Support & Official Website integration
+        binding.tvSupportEmail.text = com.medisense.app.domain.support.MediSenseSupportConstants.MEDISENSE_SUPPORT_EMAIL
+        binding.tvOfficialWebsite.text = com.medisense.app.domain.support.MediSenseSupportConstants.MEDISENSE_WEBSITE_DOMAIN
+
+        binding.cardContactSupport.setOnClickListener {
+            com.medisense.app.utils.SupportIntentHelper.openSupportEmail(requireContext()) {
+                viewModel.recordSupportEmailInitiated()
+            }
+        }
+
+        binding.cardOfficialWebsite.setOnClickListener {
+            com.medisense.app.utils.SupportIntentHelper.openOfficialWebsite(requireContext()) {
+                viewModel.recordOfficialWebsiteOpened()
+            }
+        }
     }
 
     private fun observeUiState() {

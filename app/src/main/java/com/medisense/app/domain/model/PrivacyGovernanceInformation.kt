@@ -22,4 +22,8 @@ object PrivacyGovernanceInformation {
 
     const val ACCOUNT_DELETION_NOTICE =
         "Complete account deletion requires initiating the authenticated account-removal process. MediSense does not embed administrative master keys in the application client."
+
+    const val SUPPORT_EMAIL = com.medisense.app.domain.support.MediSenseSupportConstants.MEDISENSE_SUPPORT_EMAIL
+    const val OFFICIAL_WEBSITE_URL = com.medisense.app.domain.support.MediSenseSupportConstants.MEDISENSE_WEBSITE_URL
+    const val OFFICIAL_WEBSITE_DOMAIN = com.medisense.app.domain.support.MediSenseSupportConstants.MEDISENSE_WEBSITE_DOMAIN
 }

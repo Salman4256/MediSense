@@ -65,9 +65,32 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profileFragment_to_privacySecurityFragment)
         }
 
+        binding.btnSupportInfo.setOnClickListener {
+            showSupportOptionsDialog()
+        }
+
         binding.btnLogout.setOnClickListener {
             showLogoutConfirmationDialog()
         }
+    }
+
+    private fun showSupportOptionsDialog() {
+        val options = arrayOf(
+            "Contact Support (${com.medisense.app.domain.support.MediSenseSupportConstants.MEDISENSE_SUPPORT_EMAIL})",
+            "Official Website (${com.medisense.app.domain.support.MediSenseSupportConstants.MEDISENSE_WEBSITE_DOMAIN})",
+            "View Privacy & Security Settings"
+        )
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("MediSense Support & Information")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> com.medisense.app.utils.SupportIntentHelper.openSupportEmail(requireContext())
+                    1 -> com.medisense.app.utils.SupportIntentHelper.openOfficialWebsite(requireContext())
+                    2 -> findNavController().navigate(R.id.action_profileFragment_to_privacySecurityFragment)
+                }
+            }
+            .setNegativeButton("Close", null)
+            .show()
     }
 
     private fun showLogoutConfirmationDialog() {
