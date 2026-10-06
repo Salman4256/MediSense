@@ -85,6 +85,14 @@ open class SharedPreferencesSessionManager @Inject constructor(
         prefs?.edit()?.putBoolean(KEY_COMPLETED_ONBOARDING, completed)?.apply()
     }
 
+    open fun hasAcceptedPolicyConsent(): Boolean {
+        return prefs?.getBoolean(KEY_POLICY_CONSENT, false) ?: false
+    }
+
+    open fun setAcceptedPolicyConsent(accepted: Boolean) {
+        prefs?.edit()?.putBoolean(KEY_POLICY_CONSENT, accepted)?.apply()
+    }
+
     companion object {
         private const val PREFS_NAME = "medisense_auth_session_prefs"
         private const val KEY_SESSION_JSON = "supabase_user_session_json"
@@ -92,5 +100,6 @@ open class SharedPreferencesSessionManager @Inject constructor(
         private const val KEY_USER_EMAIL = "saved_user_email"
         private const val KEY_IS_LOGGED_IN = "saved_is_logged_in"
         private const val KEY_COMPLETED_ONBOARDING = "has_completed_permission_onboarding"
+        private const val KEY_POLICY_CONSENT = "has_accepted_policy_consent"
     }
 }

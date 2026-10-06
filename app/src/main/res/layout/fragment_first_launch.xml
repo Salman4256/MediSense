@@ -341,11 +341,43 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Consent Checkbox & Legal Links -->
+            <LinearLayout
+                android:id="@+id/layout_consent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:paddingHorizontal="4dp">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_consent"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:checked="false"
+                    android:contentDescription="I agree to the Terms and Conditions and Privacy Policy" />
+
+                <TextView
+                    android:id="@+id/tv_consent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.25"
+                    android:textColor="?attr/colorOnSurface"
+                    android:text="@string/consent_terms_and_privacy" />
+            </LinearLayout>
+
             <!-- Continue Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_get_started"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:enabled="false"
                 android:text="Get Started"
                 android:textSize="16sp"
                 app:cornerRadius="14dp" />

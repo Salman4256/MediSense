@@ -21,6 +21,20 @@
         android:name="android.hardware.microphone"
         android:required="false" />
 
+    <queries>
+        <!-- Package visibility for Android 11+ to launch browser with policy website -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+        <!-- Package visibility for Android 11+ to launch email client for support -->
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+    </queries>
+
     <application
         android:name=".MediSenseApp"
         android:allowBackup="true"

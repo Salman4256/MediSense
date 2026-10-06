@@ -16,7 +16,16 @@ class FirstLaunchViewModel @Inject constructor(
         return authService.isUserLoggedIn() || sessionManager.isUserLoggedIn()
     }
 
+    fun hasAcceptedPolicyConsent(): Boolean {
+        return sessionManager.hasAcceptedPolicyConsent()
+    }
+
+    fun setAcceptedPolicyConsent(accepted: Boolean) {
+        sessionManager.setAcceptedPolicyConsent(accepted)
+    }
+
     fun completeOnboarding() {
+        sessionManager.setAcceptedPolicyConsent(true)
         sessionManager.setCompletedOnboarding(true)
     }
 }

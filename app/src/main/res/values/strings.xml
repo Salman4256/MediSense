@@ -112,5 +112,10 @@
     <string name="view_logs">View Logs</string>
     <string name="no_medications_empty">No medications added yet</string>
     <string name="add_medication_fab">Add Medication</string>
+    
+    <!-- Welcome Consent Strings -->
+    <string name="consent_terms_and_privacy">I agree to the Terms &amp; Conditions and Privacy Policy.</string>
+    <string name="terms_and_conditions">Terms &amp; Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
 </resources>
 
