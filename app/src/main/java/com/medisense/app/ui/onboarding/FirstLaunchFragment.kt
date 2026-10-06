@@ -105,12 +105,8 @@ class FirstLaunchFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            viewModel.completeOnboarding()
-            if (viewModel.isUserLoggedIn()) {
-                findNavController().navigate(R.id.action_firstLaunchFragment_to_dashboardFragment)
-            } else {
-                findNavController().navigate(R.id.action_firstLaunchFragment_to_loginFragment)
-            }
+            viewModel.setAcceptedPolicyConsent(true)
+            findNavController().navigate(R.id.action_firstLaunchFragment_to_permissionSetupFragment)
         }
     }
 

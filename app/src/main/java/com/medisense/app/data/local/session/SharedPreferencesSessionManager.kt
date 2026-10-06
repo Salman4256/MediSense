@@ -82,7 +82,18 @@ open class SharedPreferencesSessionManager @Inject constructor(
     }
 
     open fun setCompletedOnboarding(completed: Boolean) {
-        prefs?.edit()?.putBoolean(KEY_COMPLETED_ONBOARDING, completed)?.apply()
+        prefs?.edit()
+            ?.putBoolean(KEY_COMPLETED_ONBOARDING, completed)
+            ?.putBoolean(KEY_COMPLETED_PERMISSION_SETUP, completed)
+            ?.apply()
+    }
+
+    open fun hasCompletedPermissionSetup(): Boolean {
+        return prefs?.getBoolean(KEY_COMPLETED_PERMISSION_SETUP, false) ?: false
+    }
+
+    open fun setCompletedPermissionSetup(completed: Boolean) {
+        prefs?.edit()?.putBoolean(KEY_COMPLETED_PERMISSION_SETUP, completed)?.apply()
     }
 
     open fun hasAcceptedPolicyConsent(): Boolean {
@@ -100,6 +111,7 @@ open class SharedPreferencesSessionManager @Inject constructor(
         private const val KEY_USER_EMAIL = "saved_user_email"
         private const val KEY_IS_LOGGED_IN = "saved_is_logged_in"
         private const val KEY_COMPLETED_ONBOARDING = "has_completed_permission_onboarding"
+        private const val KEY_COMPLETED_PERMISSION_SETUP = "has_completed_permission_setup"
         private const val KEY_POLICY_CONSENT = "has_accepted_policy_consent"
     }
 }

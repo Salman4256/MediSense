@@ -43,6 +43,27 @@
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_firstLaunchFragment_to_permissionSetupFragment"
+            app:destination="@id/permissionSetupFragment" />
+    </fragment>
+
+    <!-- Permission Onboarding Flow -->
+    <fragment
+        android:id="@+id/permissionSetupFragment"
+        android:name="com.medisense.app.ui.onboarding.PermissionSetupFragment"
+        android:label="Set Up MediSense"
+        tools:layout="@layout/fragment_permission_setup">
+        <action
+            android:id="@+id/action_permissionSetupFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_permissionSetupFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
