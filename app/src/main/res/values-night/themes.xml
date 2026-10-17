@@ -36,9 +36,10 @@
         <item name="colorOutline">@color/md_theme_dark_outline</item>
         <item name="colorOutlineVariant">@color/md_theme_dark_outlineVariant</item>
 
-        <!-- System Bars -->
-        <item name="android:statusBarColor">@color/md_theme_dark_background</item>
-        <item name="android:navigationBarColor">@color/md_theme_dark_background</item>
+        <!-- System Bars (Android 15+ Edge-to-Edge compatible) -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
 </resources>

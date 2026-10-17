@@ -17,7 +17,10 @@ import android.os.VibratorManager
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.medisense.app.data.local.dao.MedicationDao
 import com.medisense.app.data.repository.MedicationRepository
@@ -53,10 +56,25 @@ class AlarmActivity : AppCompatActivity() {
     private var notificationId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         showOverLockScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+            val insets = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            val basePadding = (24 * resources.displayMetrics.density).toInt()
+            view.setPadding(
+                insets.left + basePadding,
+                insets.top + basePadding,
+                insets.right + basePadding,
+                insets.bottom + basePadding
+            )
+            windowInsets
+        }
 
         extractIntentData()
         setupUI()
@@ -65,20 +83,10 @@ class AlarmActivity : AppCompatActivity() {
     }
 
     private fun showOverLockScreen() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
-            val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager
-            keyguardManager?.requestDismissKeyguard(this, null)
-        } else {
-            @Suppress("DEPRECATION")
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-            )
-        }
+        setShowWhenLocked(true)
+        setTurnScreenOn(true)
+        val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager
+        keyguardManager?.requestDismissKeyguard(this, null)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 

@@ -1,7 +1,10 @@
 package com.medisense.app
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.medisense.app.data.repository.MedicationRepository
 import com.medisense.app.databinding.ActivityMainBinding
@@ -18,16 +21,18 @@ class MainActivity : AppCompatActivity() {
     lateinit var medicationRepository: MedicationRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        androidx.core.view.WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
-            val systemBars = windowInsets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
-            val ime = windowInsets.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())
-            val bottomInset = kotlin.math.max(systemBars.bottom, ime.bottom)
-            view.setPadding(systemBars.left, systemBars.top, systemBars.right, bottomInset)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+            val insets = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            val ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+            val bottomInset = kotlin.math.max(insets.bottom, ime.bottom)
+            view.setPadding(insets.left, insets.top, insets.right, bottomInset)
             windowInsets
         }
 
