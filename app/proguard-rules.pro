@@ -28,7 +28,7 @@
 }
 
 # -----------------------------------------------------------------------------
-# Room Persistence Library
+# Room Persistence Library & Data Converters
 # -----------------------------------------------------------------------------
 -keepclassmembers class * extends androidx.room.RoomDatabase {
     public void clearAllTables();
@@ -44,17 +44,27 @@
 -keepclassmembers class * {
     @androidx.room.TypeConverter <methods>;
 }
+-keep class com.medisense.app.data.local.Converters { *; }
+-keep class com.medisense.app.data.local.entity.** { *; }
+-keep class com.medisense.app.domain.model.** { *; }
 
 # -----------------------------------------------------------------------------
 # Retrofit, OkHttp & Gson
 # -----------------------------------------------------------------------------
 -keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+-dontwarn sun.misc.**
+-dontwarn okio.**
+-dontwarn retrofit2.**
+
+# Gson core & generic TypeToken reflection rules for R8 / ProGuard
+-keep class com.google.gson.** { *; }
+-keep class * extends com.google.gson.reflect.TypeToken
+-keep class * extends com.google.gson.TypeAdapter
+
 -keepclassmembers,allowobfuscation class * {
     @com.google.gson.annotations.SerializedName <fields>;
     @com.google.gson.annotations.Expose <fields>;
 }
--dontwarn okio.**
--dontwarn retrofit2.**
 
 # -----------------------------------------------------------------------------
 # Supabase & Ktor Client

@@ -57,5 +57,39 @@ class PredictionHistoryUnitTest {
 
         val nullResult = converters.toStringList(null)
         assertTrue(nullResult.isEmpty())
+
+        val blankResult = converters.toStringList("   ")
+        assertTrue(blankResult.isEmpty())
+
+        val malformedResult = converters.toStringList("not a json")
+        assertTrue(malformedResult.isEmpty())
+    }
+
+    @Test
+    fun testConverters_intListSerialization() {
+        val values = listOf(1, 2, 3, 42)
+        val json = converters.fromIntList(values)
+        assertNotNull(json)
+
+        val deserialized = converters.toIntList(json)
+        assertEquals(4, deserialized.size)
+        assertEquals(1, deserialized[0])
+        assertEquals(42, deserialized[3])
+    }
+
+    @Test
+    fun testConverters_intListEmptyAndNullHandling() {
+        val emptyJson = converters.fromIntList(emptyList())
+        val deserializedEmpty = converters.toIntList(emptyJson)
+        assertTrue(deserializedEmpty.isEmpty())
+
+        val nullResult = converters.toIntList(null)
+        assertTrue(nullResult.isEmpty())
+
+        val blankResult = converters.toIntList("   ")
+        assertTrue(blankResult.isEmpty())
+
+        val malformedResult = converters.toIntList("malformed json")
+        assertTrue(malformedResult.isEmpty())
     }
 }

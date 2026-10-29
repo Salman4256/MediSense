@@ -2,7 +2,6 @@ package com.medisense.app.data.local
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 class Converters {
     private val gson = Gson()
@@ -14,10 +13,9 @@ class Converters {
 
     @TypeConverter
     fun toStringList(value: String?): List<String> {
-        if (value.isNullOrEmpty()) return emptyList()
-        val listType = object : TypeToken<List<String>>() {}.type
+        if (value.isNullOrBlank()) return emptyList()
         return try {
-            gson.fromJson(value, listType) ?: emptyList()
+            gson.fromJson(value, Array<String>::class.java)?.toList() ?: emptyList()
         } catch (e: Exception) {
             emptyList()
         }
@@ -30,10 +28,9 @@ class Converters {
 
     @TypeConverter
     fun toIntList(value: String?): List<Int> {
-        if (value.isNullOrEmpty()) return emptyList()
-        val listType = object : TypeToken<List<Int>>() {}.type
+        if (value.isNullOrBlank()) return emptyList()
         return try {
-            gson.fromJson(value, listType) ?: emptyList()
+            gson.fromJson(value, Array<Int>::class.java)?.toList() ?: emptyList()
         } catch (e: Exception) {
             emptyList()
         }
